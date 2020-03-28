@@ -1,24 +1,54 @@
-import React from 'react'
-import Header from './header'
+/** @jsx jsx */
+import { jsx } from "theme-ui"
+import { useStaticQuery, graphql } from "gatsby"
 
-import '../styles/layout.css'
-import styles from './layout.module.css'
+import { Header } from "./Header"
+import { Footer } from "./Footer"
 
-const Layout = ({children, onHideNav, onShowNav, showNav, siteTitle}) => (
-  <>
-    <Header siteTitle={siteTitle} onHideNav={onHideNav} onShowNav={onShowNav} showNav={showNav} />
-    <div className={styles.content}>{children}</div>
-    <footer className={styles.footer}>
-      <div className={styles.footerWrapper}>
-        <div className={styles.siteInfo}>
-          &copy; {new Date().getFullYear()}, Built with <a href='https://www.sanity.io'>Sanity</a>{' '}
-          &amp;
-          {` `}
-          <a href='https://www.gatsbyjs.org'>Gatsby</a>
+export const Layout = ({ children }) => {
+  const data = useStaticQuery(graphql`
+    query SiteTitleQuery {
+      site {
+        siteMetadata {
+          siteTitle: title
+          siteUrl: url
+        }
+      }
+    }
+  `)
+  const {
+    site: { siteMetadata },
+  } = data
+  return (
+    <div
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        minHeight: "100vh",
+        variant: "layout.root",
+      }}
+    >
+      <Header {...siteMetadata} />
+
+      <main
+        sx={{
+          width: "100%",
+          flex: "1 1 auto",
+          variant: "layout.main",
+        }}
+      >
+        <div
+          sx={{
+            maxWidth: 768,
+            mx: "auto",
+            px: 3,
+            variant: "layout.container",
+          }}
+        >
+          {children}
         </div>
-      </div>
-    </footer>
-  </>
-)
-
-export default Layout
+      </main>
+      <Footer {...siteMetadata} />
+    </div>
+  )
+}

@@ -1,0 +1,6 @@
+{
+  "slug": "blog",
+  "category_slug": "categorie",
+  "posted_at": "Posté le {{date, DD/MM/YYYY}}",
+  "posted_in": "{{post}} posté dans {{categories}}"
+}
