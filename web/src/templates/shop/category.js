@@ -74,6 +74,7 @@ export const query = graphql`
     }
     products: allSanityProduct(
       filter: { categories: { elemMatch: { id: { eq: $category } } } }
+      sort: { order: DESC, fields: releaseDate }
     ) {
       edges {
         node {

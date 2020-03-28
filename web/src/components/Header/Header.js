@@ -68,17 +68,15 @@ const Header = ({ siteTitle }) => {
               {siteTitle}
             </Link>
           </Heading>
-          <h2 sx={{ color: "#000", fontSize: 1 }}>{t("subtitle")}</h2>
+          <div sx={{ color: "#000", fontSize: 1 }}>{t("subtitle")}</div>
         </Box>
         <Box>
-          <Flex as="nav">
-            <MenuLink to="/blog">Actualité</MenuLink>
-            {categories.map((c) => (
-              <MenuLink to={`/${c._rawSlug[language].current}`}>
-                {c._rawTitle[language]}
-              </MenuLink>
-            ))}
-          </Flex>
+          {categories.map((c) => (
+            <MenuLink key={c.id} to={`/${c._rawSlug[language].current}`}>
+              {c._rawTitle[language]}
+            </MenuLink>
+          ))}
+          <MenuLink to="/blog">Actualité</MenuLink>
         </Box>
       </Grid>
     </header>

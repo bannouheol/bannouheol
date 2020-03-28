@@ -15,6 +15,11 @@ export default {
       type: "localeSlug"
     },
     {
+      name: "previousPath",
+      title: "Adresse ancien site",
+      type: "string"
+    },
+    {
       name: "categories",
       title: "Catégories",
       type: "array",
@@ -65,12 +70,12 @@ export default {
     },
     {
       title: "Traducteur(s)",
-      name: "traductor",
+      name: "traductors",
       type: "array",
       of: [
         {
           type: "reference",
-          to: { type: "person" }
+          to: { type: "profile" }
         }
       ]
     },

@@ -2,26 +2,25 @@
 
 import { jsx, Text } from "theme-ui"
 import { graphql } from "gatsby"
-import { Link } from "../Link"
-import { PersonPreview } from "./PersonPreview"
+import { ProfilePreview } from "./ProfilePreview"
 
 export const BookFeature = ({
   numberOfPages,
-  illustrator,
-  author,
-  scenario,
+  illustrators,
+  authors,
+  scriptwriters,
 }) => {
   const _ = graphql`
     fragment bookFeatureFields on SanityBookFeature {
       numberOfPages
-      illustrator {
-        ...personPreviewFields
+      illustrators {
+        ...profilePreviewFields
       }
-      author {
-        ...personPreviewFields
+      authors {
+        ...profilePreviewFields
       }
-      scenario {
-        ...personPreviewFields
+      scriptwriters {
+        ...profilePreviewFields
       }
     }
   `
@@ -29,22 +28,22 @@ export const BookFeature = ({
     <Text>
       Nombre de pages : {numberOfPages}
       <br />
-      Illustrateur(s) : {personsPreviewer(illustrator)}
+      Illustrateur(s) : {profilesPreviewer(illustrators)}
       <br />
-      Auteur(s) : {personsPreviewer(author)}
+      Auteur(s) : {profilesPreviewer(authors)}
       <br />
-      Scenario : {personsPreviewer(scenario)}
+      Scénariste(s) : {profilesPreviewer(scriptwriters)}
     </Text>
   )
 }
 
-const personsPreviewer = (persons) => {
-  return persons.map((p) => <PersonPreview {...p} showAvatar={false} />)
+const profilesPreviewer = (profiles) => {
+  return profiles.map((p) => <ProfilePreview {...p} showAvatar={false} />)
 }
 
 /*
-const personsLinkReducer = (person) => {
-  return person
+const profileLinkReducer = (profile) => {
+  return profile
     .map((p) => <Link to={`/${p.slug.current}`}>{p.title}</Link>)
     .reduce((acc, el) => {
       return acc === null ? [el] : [...acc, " / ", el]

@@ -4,21 +4,27 @@ import SEO from "../../components/seo"
 import { graphql } from "gatsby"
 import { GraphQLErrorList } from "../../components/GraphQLErrorList"
 import { Product } from "../../components/Shop/Product"
-//import { toPlainText } from "../../lib/helpers"
+import { useTranslation } from "react-i18next"
+import { toPlainText, translateRaw } from "../../lib/helpers"
 
-const ProductPage = (props) => {
-  const { data, errors } = props
-  const product = data && data.product
-  const { title, defaultProductVariant } = product
+const ProductPage = ({ data: { product }, errors }) => {
+  const {
+    t,
+    i18n: { language },
+  } = useTranslation()
+  const { _rawTitle, _rawBody, defaultProductVariant } = product
+  const [title, body] = translateRaw([_rawTitle, _rawBody], language)
+
   return (
     <Layout>
       {errors && <SEO title="GraphQL Error" />}
       {product && (
         <SEO
-          title={title.translate || "Untitled"}
-          //description={toPlainText(post._rawExcerpt)}
+          title={title || "Untitled"}
+          description={body && toPlainText(body)}
           image={
             defaultProductVariant.images &&
+            defaultProductVariant.images[0] &&
             defaultProductVariant.images[0].asset.fluid.src
           }
         />
@@ -33,14 +39,10 @@ const ProductPage = (props) => {
 export const query = graphql`
   fragment productFields on SanityProduct {
     id
-    title {
-      translate(language: $language)
-    }
-    slug {
-      translate(language: $language)
-    }
-    reference: ref
+    _rawTitle
+    _rawSlug
     _rawBody
+    reference: ref
     categories {
       title {
         translate(language: $language)
@@ -63,8 +65,8 @@ export const query = graphql`
         formatted
       }
     }
-    traductor {
-      ...personPreviewFields
+    traductors {
+      ...profilePreviewFields
     }
     bookFeature {
       ...bookFeatureFields

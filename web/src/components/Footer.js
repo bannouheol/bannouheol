@@ -1,33 +1,68 @@
 /** @jsx jsx */
 
-import { jsx } from "theme-ui"
+import { jsx, Grid } from "theme-ui"
 import { Link } from "./Link"
 import { useTranslation } from "react-i18next"
+import { useStaticQuery, graphql } from "gatsby"
+import { mapEdgesToNodes } from "../lib/helpers"
+
+const FooterLink = (props) => <Link sx={{ variant: "links.nav" }} {...props} />
 
 export const Footer = ({ siteTitle, siteUrl }) => {
   const {
     t,
-    //i18n: { language },
+    i18n: { language },
   } = useTranslation("common")
+  const data = useStaticQuery(graphql`
+    query FooterQuery {
+      collections: allSanityCollection {
+        edges {
+          node {
+            id
+            _rawTitle
+            _rawSlug
+          }
+        }
+      }
+    }
+  `)
+  const collections = mapEdgesToNodes(data.collections)
   return (
     <footer
       sx={{
-        display: "flex",
-        flexWrap: "wrap",
-        alignItems: "center",
-        p: 2,
         variant: "layout.footer",
       }}
     >
-      <Link to="/" sx={{ variant: "styles.navlink", p: 2 }}>
-        {t("Accueil")}
-      </Link>
-      <Link to={`/${t("blog:slug")}`} sx={{ variant: "styles.navlink", p: 2 }}>
-        Blog
-      </Link>
-      <div sx={{ mx: "auto" }} />
-      <div sx={{ p: 2 }}>
-        © {new Date().getFullYear()} <a href={siteUrl}>{siteTitle}</a>
+      <Grid
+        sx={{
+          gridTemplateRows: "repeat(4, 32px)",
+          gridTemplateColumns: ["repeat(2, 1fr)", "repeat(3, 1fr)"],
+          gridAutoFlow: "column",
+        }}
+      >
+        <FooterLink to="/">{t("Accueil")}</FooterLink>
+        <FooterLink to={`/${t("blog:slug")}`}>Blog!</FooterLink>
+        {collections.map((c) => (
+          <FooterLink to={`/${c._rawSlug[language].current}`}>
+            {t("x_in_breton", { x: c._rawTitle[language] })}
+          </FooterLink>
+        ))}
+      </Grid>
+      <div
+        sx={{
+          display: "flex",
+          justifyContent: "flex-end",
+          p: 2,
+        }}
+      >
+        <FooterLink to="/cgv">CGV</FooterLink>
+        <div sx={{ mx: 1 }} />
+        <FooterLink to="/mentions-legales">Mentions légales</FooterLink>
+        <div sx={{ mx: 1 }} />© {new Date().getFullYear()}
+        {` `}
+        <a href={siteUrl} sx={{ variant: "links.nav" }}>
+          {siteTitle}
+        </a>
       </div>
     </footer>
   )

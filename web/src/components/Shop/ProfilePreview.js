@@ -5,17 +5,26 @@ import { graphql } from "gatsby"
 import { Link } from "../Link"
 import Img from "gatsby-image"
 import { useTranslation } from "react-i18next"
+import { translateRaw } from "../../lib/helpers"
 
-export const PersonPreview = ({ title, slug, avatar, showAvatar = true }) => {
-  const { t } = useTranslation()
+export const ProfilePreview = ({
+  _rawTitle,
+  _rawSlug,
+  avatar,
+  showAvatar = true,
+}) => {
+  const {
+    t,
+    i18n: { language },
+  } = useTranslation("common")
+
+  const [title, slug] = translateRaw([_rawTitle, _rawSlug], language)
 
   graphql`
-    fragment personPreviewFields on SanityPerson {
+    fragment profilePreviewFields on SanityProfile {
       id
-      title
-      slug {
-        current
-      }
+      _rawTitle
+      _rawSlug
       avatar {
         asset {
           fluid(maxWidth: 300) {
@@ -28,7 +37,7 @@ export const PersonPreview = ({ title, slug, avatar, showAvatar = true }) => {
 
   return (
     <Box>
-      <Link to={`/${t("shop:person_slug")}/${slug.current}`}>
+      <Link to={`/${t("shop:profile_slug")}/${slug.current}`}>
         {avatar && showAvatar && (
           <Img fluid={avatar.asset.fluid} sx={{ variant: "images.avatar" }} />
         )}

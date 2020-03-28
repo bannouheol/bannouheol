@@ -17,7 +17,7 @@ export const AddToCart = ({
     <Button
       className="snipcart-add-item"
       data-item-id={id}
-      data-item-name={title.translate}
+      data-item-name={title}
       data-item-price={price}
       data-item-url={url}
       data-item-description={description}

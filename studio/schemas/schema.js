@@ -11,7 +11,7 @@ import collection from "./document/collection";
 import page from "./document/page";
 import blogPost from "./document/blog/post";
 import blogCategory from "./document/blog/category";
-import person from "./document/person";
+import profile from "./document/profile";
 
 import blockContent from "./object/blockContent";
 import productVariant from "./object/productVariant";
@@ -38,7 +38,7 @@ export default createSchema({
     // in the studio.
     product,
     collection,
-    person,
+    profile,
     category,
     vendor,
     dvdFeature,

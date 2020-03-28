@@ -6,13 +6,14 @@ import Img from "gatsby-image"
 //import { Categories } from "./Categories"
 import { Link } from "../Link"
 
-export const ProductPreview = ({ node, showPrice = true }) => {
+export const ProductPreview = ({
+  node: { title, slug, collection, defaultProductVariant },
+}) => {
   /*const {
     t,
     i18n: { language },
   } = useTranslation("common", "shop")
   */
-  const { title, slug, collection, categories, defaultProductVariant } = node
   const productLink = `/${collection.slug.translate}/${slug.translate}`
   return (
     <Card
@@ -34,11 +35,20 @@ export const ProductPreview = ({ node, showPrice = true }) => {
             )}
         </div>
         <Box p={1}>
-          <Link to={productLink} sx={{ variant: "links.nav" }}>
+          <Link to={productLink} sx={{ variant: "links.product" }}>
             {title.translate}
           </Link>
-          <Text>{collection.title.translate}</Text>
-          <Text>{showPrice && defaultProductVariant.price.formatted}</Text>
+          <Text sx={{ color: "muted" }}>{collection.title.translate}</Text>
+
+          {defaultProductVariant &&
+            defaultProductVariant.inStock &&
+            defaultProductVariant.price && (
+              <Text>{defaultProductVariant.price.formatted}</Text>
+            )}
+
+          {defaultProductVariant && defaultProductVariant.inStock && (
+            <Text sx={{ color: "secondary" }}>En stock</Text>
+          )}
         </Box>
       </div>
     </Card>

@@ -1,21 +1,18 @@
 export default {
-  name: "person",
-  title: "Personne",
+  name: "profile",
+  title: "Profil",
   type: "document",
   fields: [
     {
       name: "title",
       title: "Nom",
-      type: "string"
+      type: "localeString",
+      validation: Rule => Rule.required()
     },
     {
       name: "slug",
       title: "Slug",
-      type: "slug",
-      options: {
-        source: "title",
-        maxLength: 96
-      }
+      type: "localeSlug"
     },
     {
       name: "avatar",
@@ -30,5 +27,12 @@ export default {
       title: "Biographie",
       type: "localeBlockContent"
     }
-  ]
+  ],
+  preview: {
+    select: {
+      title: "title.br",
+      subtitle: "title.fr",
+      media: "avatar"
+    }
+  }
 };

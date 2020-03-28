@@ -5,15 +5,14 @@ import { Layout } from "../../components/Layout"
 import SEO from "../../components/seo"
 import { graphql } from "gatsby"
 import { GraphQLErrorList } from "../../components/GraphQLErrorList"
-import { toPlainText } from "../../lib/helpers"
 import { useTranslation } from "react-i18next"
-import { mapEdgesToNodes } from "../../lib/helpers"
-import { Person } from "../../components/Shop/Person"
+import { Profile } from "../../components/Shop/Profile"
+import { mapEdgesToNodes, toPlainText, translateRaw } from "../../lib/helpers"
 
 import uniqBy from "lodash/uniqBy"
 
-const PersonPage = ({
-  data: { person, asTraductor, asAuthor, asIllustrator, asScenario },
+const ProfilePage = ({
+  data: { profile, asTraductor, asAuthor, asIllustrator, asScriptwriter },
   errors,
 }) => {
   const {
@@ -24,38 +23,36 @@ const PersonPage = ({
   const asTraductorProductNodes = mapEdgesToNodes(asTraductor)
   const asAuthorProductNodes = mapEdgesToNodes(asAuthor)
   const asIllustratorProductNodes = mapEdgesToNodes(asIllustrator)
-  const asScenarioProductNodes = mapEdgesToNodes(asScenario)
+  const asScriptwriterProductNodes = mapEdgesToNodes(asScriptwriter)
   const productNodes = uniqBy(
     [
       ...asTraductorProductNodes,
       ...asAuthorProductNodes,
       ...asIllustratorProductNodes,
-      ...asScenarioProductNodes,
+      ...asScriptwriterProductNodes,
     ],
     "id"
   )
+  const { _rawTitle, _rawBio } = profile
+  const [title, bio] = translateRaw([_rawTitle, _rawBio], language)
 
   return (
     <Layout>
       {errors && <SEO title="GraphQL Error" />}
       <SEO
-        title={person.title || t("Titre inconnu")}
-        description={
-          person._rawBio &&
-          person._rawBio[language] &&
-          toPlainText(person._rawBio[language])
-        }
-        image={person.avatar && person.avatar.asset.fluid.src}
+        title={title || t("Titre inconnu")}
+        description={bio && toPlainText(bio)}
+        image={profile.avatar && profile.avatar.asset.fluid.src}
       />
       {errors && <GraphQLErrorList errors={errors} />}
 
-      <Person {...person} products={productNodes} />
+      <Profile {...profile} products={productNodes} />
     </Layout>
   )
 }
 
 export const query = graphql`
-  fragment productFromPersonFields on SanityProduct {
+  fragment productFromProfileFields on SanityProduct {
     id
     title {
       translate(language: $language)
@@ -79,55 +76,63 @@ export const query = graphql`
           }
         }
       }
+      inStock
+      price {
+        formatted
+      }
     }
   }
-  query Person($person: String, $language: String) {
-    person: sanityPerson(id: { eq: $person }) {
-      ...personFields
+  query Profile($profile: String, $language: String) {
+    profile: sanityProfile(id: { eq: $profile }) {
+      ...profileFields
     }
     asTraductor: allSanityProduct(
-      filter: { traductor: { elemMatch: { id: { eq: $person } } } }
+      filter: { traductors: { elemMatch: { id: { eq: $profile } } } }
+      sort: { order: DESC, fields: releaseDate }
     ) {
       edges {
         node {
-          ...productFromPersonFields
+          ...productFromProfileFields
         }
       }
     }
     asAuthor: allSanityProduct(
       filter: {
-        bookFeature: { author: { elemMatch: { id: { eq: $person } } } }
+        bookFeature: { authors: { elemMatch: { id: { eq: $profile } } } }
       }
+      sort: { order: DESC, fields: releaseDate }
     ) {
       edges {
         node {
-          ...productFromPersonFields
+          ...productFromProfileFields
         }
       }
     }
     asIllustrator: allSanityProduct(
       filter: {
-        bookFeature: { illustrator: { elemMatch: { id: { eq: $person } } } }
+        bookFeature: { illustrators: { elemMatch: { id: { eq: $profile } } } }
       }
+      sort: { order: DESC, fields: releaseDate }
     ) {
       edges {
         node {
-          ...productFromPersonFields
+          ...productFromProfileFields
         }
       }
     }
-    asScenario: allSanityProduct(
+    asScriptwriter: allSanityProduct(
       filter: {
-        bookFeature: { scenario: { elemMatch: { id: { eq: $person } } } }
+        bookFeature: { scriptwriters: { elemMatch: { id: { eq: $profile } } } }
       }
+      sort: { order: DESC, fields: releaseDate }
     ) {
       edges {
         node {
-          ...productFromPersonFields
+          ...productFromProfileFields
         }
       }
     }
   }
 `
 
-export default PersonPage
+export default ProfilePage

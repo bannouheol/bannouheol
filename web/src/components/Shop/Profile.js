@@ -7,16 +7,17 @@ import Img from "gatsby-image"
 import PortableText from "../PortableText"
 import { Products } from "./Products"
 import { useTranslation } from "react-i18next"
+import { translateRaw } from "../../lib/helpers"
 
-export const Person = ({ title, slug, _rawBio, avatar, products }) => {
+export const Profile = ({ _rawTitle, _rawBio, avatar, products }) => {
   const {
     t,
     i18n: { language },
   } = useTranslation()
-
+  const [title, bio] = translateRaw([_rawTitle, _rawBio], language)
   graphql`
-    fragment personFields on SanityPerson {
-      ...personPreviewFields
+    fragment profileFields on SanityProfile {
+      ...profilePreviewFields
       _rawBio
     }
   `
@@ -26,13 +27,11 @@ export const Person = ({ title, slug, _rawBio, avatar, products }) => {
       {avatar && (
         <Img fluid={avatar.asset.fluid} sx={{ variant: "images.avatar" }} />
       )}
-      {_rawBio && _rawBio[language] && (
-        <PortableText blocks={_rawBio[language]} />
-      )}
+      {bio && <PortableText blocks={bio} />}
       <h2>{t("shop:involvement")}</h2>
       {products && products.length > 0 && (
         <Grid width={[128, 128, 128]}>
-          <Products nodes={products} showPrice={false} />
+          <Products nodes={products} />
         </Grid>
       )}
     </>

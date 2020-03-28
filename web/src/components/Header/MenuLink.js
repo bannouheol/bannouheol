@@ -1,18 +1,14 @@
 /** @jsx jsx */
+
 import { Link } from "../Link"
-import { jsx, NavLink } from "theme-ui"
+import { jsx } from "theme-ui"
 
 export const MenuLink = (props) => (
-  <NavLink
-    as={Link}
+  <Link
     {...props}
     activeClassName="active"
-    px={3}
     sx={{
-      color: "inherit",
-      "&.active": {
-        color: "red",
-      },
+      variant: "links.nav",
     }}
   />
 )

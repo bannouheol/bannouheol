@@ -5,6 +5,9 @@
   "fr": "Français",
   "language": "Language",
   "Accueil": "Accueil",
-  "notFound": "Page introuvable",
-  "notFoundMessage": "Cette page n'existe pas ou n'existe plus. Nous vous prions de nous excuser pour la gêne occasionnée."
+  "error": {
+    "notFound": "Page introuvable",
+    "notFoundMessage": "Cette page n'existe pas ou n'existe plus. Nous vous prions de nous excuser pour la gêne occasionnée."
+  },
+  "x_in_breton": "{{x}} en breton"
 }

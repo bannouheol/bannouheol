@@ -1,25 +1,25 @@
 /** @jsx jsx */
+import { jsx, Text, Box } from "theme-ui"
 import PortableText from "../PortableText"
 import Img from "gatsby-image"
 import { useTranslation } from "react-i18next"
 //import { Categories } from "./Categories"
 import { Link } from "../Link"
-import { jsx, Text, Button } from "theme-ui"
-//import { toPlainText } from "../../lib/helpers"
+import { translateRaw } from "../../lib/helpers"
 import { BookFeature } from "./BookFeature"
-import { PersonPreview } from "./PersonPreview"
+import { ProfilePreview } from "./ProfilePreview"
 import { AddToCart } from "./AddToCart"
 
 export const Product = ({
   id,
-  title,
-  slug,
-  reference,
+  _rawTitle,
+  _rawSlug,
   _rawBody,
+  reference,
   categories,
   collection,
   defaultProductVariant,
-  traductor,
+  traductors,
   bookFeature,
   releaseDate,
 }) => {
@@ -27,33 +27,36 @@ export const Product = ({
     t,
     i18n: { language },
   } = useTranslation()
+  const [title, slug, body] = translateRaw(
+    [_rawTitle, _rawSlug, _rawBody],
+    language
+  )
   return (
     <article>
       {defaultProductVariant &&
         defaultProductVariant.images &&
         defaultProductVariant.images.map((i) => (
-          <div>
+          <div sx={{ maxWidth: "300" }}>
             <Img fluid={i.asset.fluid} />
           </div>
         ))}
       <div>
         <div>
-          <h1>{title.translate}</h1>
-          {_rawBody && _rawBody[language] && (
-            <PortableText blocks={_rawBody[language]} />
+          <h1>{title}</h1>
+          {defaultProductVariant.inStock && (
+            <Box sx={{ variant: "boxes.price" }}>
+              {defaultProductVariant.price.formatted}
+            </Box>
           )}
+          {body && <PortableText blocks={body} />}
           <hr />
-          {traductor && <strong>Traducteurs</strong>}
-          {traductor &&
-            traductor.map((t) => (
-              <PersonPreview key={t.id} {...t} showAvatar={false} />
+          {traductors && <strong>Traducteurs</strong>}
+          {traductors &&
+            traductors.map((t) => (
+              <ProfilePreview key={t.id} {...t} showAvatar={false} />
             ))}
           <BookFeature {...bookFeature} />
           <hr />
-          <Text>
-            {defaultProductVariant.inStock &&
-              defaultProductVariant.price.formatted}
-          </Text>
           {defaultProductVariant.inStock && (
             <AddToCart
               id={id}

@@ -1,4 +1,5 @@
 import { format, isFuture } from "date-fns"
+import { useTranslation } from "react-i18next"
 
 export function cn(...args) {
   return args.filter(Boolean).join(" ")
@@ -7,6 +8,31 @@ export function cn(...args) {
 export function mapEdgesToNodes(data) {
   if (!data.edges) return []
   return data.edges.map((edge) => edge.node)
+}
+
+export const translateRaw = (input, language) => {
+  /*
+  Test this function with this data :
+    const _rawTitle = {"fr": "Title FR"}
+    const _rawBody = {"fr": "Body FR", "br": "Body BR"}
+  For objects : 
+    const {title, body} = translateRaw({ title: _rawTitle, body: _rawBody }, "br"));
+    console.log(title, body);
+  For arrays : 
+    const [title, body] = translateRaw([_rawTitle, _rawBody], "br");
+    console.log(title, body);
+  */
+  if (Array.isArray(input)) {
+    return input.map((r, i) =>
+      input[i] && input[i].hasOwnProperty(language) ? input[i][language] : null
+    )
+  } else if (typeof input === "object") {
+    const translated = {}
+    for (const key of Object.keys(input)) {
+      translated[key] = input[key][language]
+    }
+    return translated
+  }
 }
 
 export function filterOutDocsWithoutSlugs({ slug }) {

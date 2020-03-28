@@ -15,6 +15,7 @@ const allLanguages = ["br", "fr"]
 const appDirectory = fs.realpathSync(process.cwd())
 const resolveApp = (relativePath) => path.resolve(appDirectory, relativePath)
 const srcPath = resolveApp("src")
+const redirectInBrowser = true
 
 /* TEMPLATES */
 const templates = {
@@ -29,7 +30,7 @@ const templates = {
     product: `shop/product.js`,
     category: `shop/category.js`,
     collection: `shop/collection.js`,
-    person: `shop/person.js`,
+    profile: `shop/profile.js`,
   },
 }
 
@@ -63,6 +64,7 @@ exports.createPages = async ({
             node {
               id
               _rawSlug
+              previousPath
               collection {
                 _rawSlug
               }
@@ -89,7 +91,7 @@ exports.createPages = async ({
             }
           }
         }
-        persons: allSanityPerson {
+        profiles: allSanityProfile {
           edges {
             node {
               id
@@ -106,7 +108,7 @@ exports.createPages = async ({
     products,
     categories,
     collections,
-    persons,
+    profiles,
   } = startupQuery.data
   /* HOME PAGE */
   await buildI18nPages(
@@ -117,7 +119,8 @@ exports.createPages = async ({
       context: {},
     }),
     namespaces,
-    createPage
+    createPage,
+    createRedirect
   )
 
   /* BLOG PAGE */
@@ -131,7 +134,8 @@ exports.createPages = async ({
       context: {},
     }),
     namespaces,
-    createPage
+    createPage,
+    createRedirect
   )
 
   /* BLOG CATEGORIES */
@@ -147,7 +151,8 @@ exports.createPages = async ({
       context: { category: node.id },
     }),
     namespaces,
-    createPage
+    createPage,
+    createRedirect
   )
 
   /* BLOG POSTS */
@@ -163,21 +168,24 @@ exports.createPages = async ({
       context: { post: node.id },
     }),
     namespaces,
-    createPage
+    createPage,
+    createRedirect
   )
 
   /* PRODUCTS */
-  await buildI18nPages(
+  let productPath = await buildI18nPages(
     products.edges,
     ({ node }, language, _) => ({
       path: `/${language}/${node.collection._rawSlug[language].current}/${node._rawSlug[language].current}`,
+      previousPath: node.previousPath && `/${node.previousPath}`,
       component: path.resolve(
         path.join(templates.baseDir, templates.shop.product)
       ),
       context: { product: node.id },
     }),
     namespaces,
-    createPage
+    createPage,
+    createRedirect
   )
 
   /* CATEGORIES */
@@ -194,7 +202,8 @@ exports.createPages = async ({
       context: { category: node.id },
     }),
     namespaces,
-    createPage
+    createPage,
+    createRedirect
   )
 
   /* COLLECTIONS */
@@ -208,23 +217,25 @@ exports.createPages = async ({
       context: { collection: node.id },
     }),
     namespaces,
-    createPage
+    createPage,
+    createRedirect
   )
 
-  /* PERSONS */
+  /* PROFILES */
   await buildI18nPages(
-    persons.edges,
+    profiles.edges,
     ({ node }, language, i18n) => ({
-      path: `/${language}/${i18n.t("shop:person_slug")}/${
-        node._rawSlug.current
+      path: `/${language}/${i18n.t("shop:profile_slug")}/${
+        node._rawSlug[language].current
       }`,
       component: path.resolve(
-        path.join(templates.baseDir, templates.shop.person)
+        path.join(templates.baseDir, templates.shop.profile)
       ),
-      context: { person: node.id },
+      context: { profile: node.id },
     }),
     namespaces,
-    createPage
+    createPage,
+    createRedirect
   )
 
   await build404Pages(createPage)
@@ -233,7 +244,7 @@ exports.createPages = async ({
     fromPath: "/",
     toPath: "/fr/",
     isPermanent: true,
-    redirectInBrowser: true,
+    redirectInBrowser,
   })
 
   allLanguages.forEach((language) =>
@@ -250,7 +261,8 @@ const buildI18nPages = async (
   inputData,
   pageDefinitionCallback,
   namespaces,
-  createPage
+  createPage,
+  createRedirect
 ) => {
   if (!Array.isArray(inputData)) inputData = [inputData]
   await Promise.all(
@@ -264,6 +276,17 @@ const buildI18nPages = async (
           return res
         })
       )
+
+      definitions.map((d) => {
+        d.previousPath &&
+          d.context.language == "fr" &&
+          createRedirect({
+            fromPath: d.previousPath,
+            toPath: d.path,
+            isPermanent: true,
+            redirectInBrowser,
+          })
+      })
 
       const alternateLinks = definitions.map((d) => ({
         // (4)

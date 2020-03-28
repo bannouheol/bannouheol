@@ -8,9 +8,9 @@ const NotFoundPage = () => {
   const { t } = useTranslation("common")
   return (
     <Layout>
-      <SEO title={"404: " + t("notFound")} />
-      <h1>{t("notFound")}</h1>
-      <p>{t("notFoundMessage")}</p>
+      <SEO title={"404: " + t("error.notFound")} />
+      <h1>{t("error.notFound")}</h1>
+      <p>{t("error.notFoundMessage")}</p>
     </Layout>
   )
 }
