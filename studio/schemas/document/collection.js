@@ -18,6 +18,11 @@ export default {
       name: "description",
       title: "Description",
       type: "localeBlockContent"
+    },
+    {
+      name: "linkedInFooter",
+      title: "Faire apparaître en pied de page",
+      type: "boolean"
     }
   ],
   preview: {

@@ -26,20 +26,17 @@ export const BookFeature = ({
   `
   return (
     <Text>
-      Nombre de pages : {numberOfPages}
-      <br />
-      Illustrateur(s) : {profilesPreviewer(illustrators)}
-      <br />
-      Auteur(s) : {profilesPreviewer(authors)}
-      <br />
-      Scénariste(s) : {profilesPreviewer(scriptwriters)}
+      {numberOfPages && `Nombre de pages : ${numberOfPages}<br />`}
+      {illustrators &&
+        `Illustrateur(s) : ${profilesPreviewer(illustrators)}<br />`}
+      {authors && `Auteur(s) : ${profilesPreviewer(authors)}<br />`}
+      {scriptwriters && `Scénariste(s) : ${profilesPreviewer(scriptwriters)}`}
     </Text>
   )
 }
 
-const profilesPreviewer = (profiles) => {
-  return profiles.map((p) => <ProfilePreview {...p} showAvatar={false} />)
-}
+const profilesPreviewer = (profiles) =>
+  profiles && profiles.map((p) => <ProfilePreview {...p} showAvatar={false} />)
 
 /*
 const profileLinkReducer = (profile) => {

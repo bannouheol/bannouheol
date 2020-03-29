@@ -34,7 +34,8 @@ export default {
       name: "collection",
       title: "Collection",
       type: "reference",
-      to: { type: "collection" }
+      to: { type: "collection" },
+      validation: Rule => Rule.required()
     },
     {
       name: "ref",

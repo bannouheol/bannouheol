@@ -1,42 +1,37 @@
 export default {
-  name: 'vendor',
-  title: 'Editeur',
-  type: 'document',
+  name: "vendor",
+  title: "Editeur",
+  type: "document",
   fields: [
     {
-      name: 'title',
-      title: 'Nom',
-      type: 'string'
+      name: "title",
+      title: "Nom",
+      type: "string"
     },
     {
-      name: 'slug',
-      title: 'Slug',
-      type: 'slug',
+      name: "slug",
+      title: "Slug",
+      type: "slug",
       options: {
-        source: 'title',
+        source: "title",
         maxLength: 96
       }
     },
     {
-      name: 'website',
-      title: 'Site internet',
-      type: 'url',
+      name: "website",
+      title: "Site internet",
+      type: "url"
     },
     {
-      name: 'logo',
-      title: 'logo',
-      type: 'image'
-    },
-    {
-      name: 'description',
-      title: 'Description',
-      type: 'blockContent'
+      name: "logo",
+      title: "logo",
+      type: "image"
     }
   ],
   preview: {
     select: {
-      title: 'title',
-      media: 'logo'
+      title: "title",
+      media: "logo"
     }
   }
-}
+};
