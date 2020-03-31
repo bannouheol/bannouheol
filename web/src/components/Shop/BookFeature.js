@@ -10,7 +10,7 @@ export const BookFeature = ({
   authors,
   scriptwriters,
 }) => {
-  const _ = graphql`
+  graphql`
     fragment bookFeatureFields on SanityBookFeature {
       numberOfPages
       illustrators {
@@ -25,13 +25,16 @@ export const BookFeature = ({
     }
   `
   return (
-    <Text>
-      {numberOfPages && `Nombre de pages : ${numberOfPages}<br />`}
-      {illustrators &&
-        `Illustrateur(s) : ${profilesPreviewer(illustrators)}<br />`}
-      {authors && `Auteur(s) : ${profilesPreviewer(authors)}<br />`}
-      {scriptwriters && `Scénariste(s) : ${profilesPreviewer(scriptwriters)}`}
-    </Text>
+    <div>
+      {numberOfPages && <Text>Nombre de pages : {numberOfPages}</Text>}
+      {illustrators && (
+        <Text>Illustrateur(s) : {profilesPreviewer(illustrators)}</Text>
+      )}
+      {authors && <Text>Auteur(s) : {profilesPreviewer(authors)}</Text>}
+      {scriptwriters && (
+        <Text>Scénariste(s) : {profilesPreviewer(scriptwriters)}</Text>
+      )}
+    </div>
   )
 }
 

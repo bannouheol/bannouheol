@@ -57,13 +57,12 @@ export function wrapPageElement({ element, props }) {
             {props.pageContext &&
               props.pageContext.alternateLinks &&
               props.pageContext.alternateLinks.map((link) => {
-                if (link.language !== props.pageContext.language)
-                  return (
-                    <meta
-                      property="og:locale:alternate"
-                      content={`${link.language}_FR`}
-                    />
-                  )
+                return link.language !== props.pageContext.language ? (
+                  <meta
+                    property="og:locale:alternate"
+                    content={`${link.language}_FR`}
+                  />
+                ) : null
               })}
           </Helmet>
         }

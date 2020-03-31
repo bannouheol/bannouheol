@@ -1,6 +1,5 @@
 /** @jsx jsx */
 
-import React from "react"
 import { jsx, Grid } from "theme-ui"
 import { graphql } from "gatsby"
 import Img from "gatsby-image"
@@ -22,7 +21,7 @@ export const Profile = ({ _rawTitle, _rawBio, avatar, products }) => {
     }
   `
   return (
-    <>
+    <div>
       <h1>{title}</h1>
       {avatar && (
         <Img fluid={avatar.asset.fluid} sx={{ variant: "images.avatar" }} />
@@ -34,6 +33,6 @@ export const Profile = ({ _rawTitle, _rawBio, avatar, products }) => {
           <Products nodes={products} />
         </Grid>
       )}
-    </>
+    </div>
   )
 }

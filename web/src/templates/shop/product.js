@@ -11,16 +11,19 @@ const ProductPage = ({ data: { product }, errors }) => {
   const {
     t,
     i18n: { language },
-  } = useTranslation()
+  } = useTranslation("common")
   const { _rawTitle, _rawBody, defaultProductVariant } = product
   const [title, body] = translateRaw([_rawTitle, _rawBody], language)
-
+  const fullTitle = [
+    title,
+    t("x_in_breton", { x: product.collection.title.translate }),
+  ].join(`, `)
   return (
     <Layout>
       {errors && <SEO title="GraphQL Error" />}
       {product && (
         <SEO
-          title={title || "Untitled"}
+          title={fullTitle || "Untitled"}
           description={body && toPlainText(body)}
           image={
             defaultProductVariant.images &&
@@ -49,6 +52,11 @@ export const query = graphql`
       }
       slug {
         translate(language: $language)
+      }
+      parent: parentCategory {
+        slug {
+          translate(language: $language)
+        }
       }
     }
     defaultProductVariant {

@@ -2,6 +2,7 @@
 import { jsx, Text, Box } from "theme-ui"
 import PortableText from "../PortableText"
 import Img from "gatsby-image"
+import path from "path"
 import { useTranslation } from "react-i18next"
 //import { Categories } from "./Categories"
 import { Link } from "../Link"
@@ -43,20 +44,13 @@ export const Product = ({
       <div>
         <div>
           <h1>{title}</h1>
+          {body && <PortableText blocks={body} />}
           {defaultProductVariant.inStock && (
             <Box sx={{ variant: "boxes.price" }}>
               {defaultProductVariant.price.formatted}
             </Box>
           )}
-          {body && <PortableText blocks={body} />}
-          <hr />
-          {traductors && <strong>Traducteurs</strong>}
-          {traductors &&
-            traductors.map((t) => (
-              <ProfilePreview key={t.id} {...t} showAvatar={false} />
-            ))}
-          <BookFeature {...bookFeature} />
-          <hr />
+          {` `}
           {defaultProductVariant.inStock && (
             <AddToCart
               id={id}
@@ -73,6 +67,13 @@ export const Product = ({
           {!defaultProductVariant.inStock && (
             <Text>{t("shop:out_of_stock")}</Text>
           )}
+          <hr />
+          {traductors && <strong>Traducteurs</strong>}
+          {traductors &&
+            traductors.map((t) => (
+              <ProfilePreview key={t.id} {...t} showAvatar={false} />
+            ))}
+          <BookFeature {...bookFeature} />
         </div>
         <aside>
           {releaseDate && (
@@ -88,17 +89,22 @@ export const Product = ({
             <h3>Catégories</h3>
             <ul>
               {categories &&
-                categories
-                  .map((c) => (
+                categories.map((c) => {
+                  c["path"] = path.join(
+                    "/",
+                    c.parent === null ? `` : c.parent.slug.translate,
+                    c.slug.translate
+                  )
+                  return (
                     <li>
-                      <Link to={`/${c.slug.translate}`}>
-                        {c.title.translate}
-                      </Link>
+                      <Link to={c.path}>{c.title.translate}</Link>
                     </li>
-                  ))
-                  .reduce((acc, el) => {
+                  )
+                })
+              /*.reduce((acc, el) => {
                     return acc === null ? [el] : [...acc, ", ", el]
-                  }, null)}
+                  }, null)*/
+              }
             </ul>
           </div>
         </aside>

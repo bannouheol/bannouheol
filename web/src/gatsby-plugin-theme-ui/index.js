@@ -115,7 +115,7 @@ export default {
       color: "background",
       bg: "primary",
       "&:hover": {
-        bg: "primaryHover",
+        bg: "secondary",
       },
     },
     secondary: {

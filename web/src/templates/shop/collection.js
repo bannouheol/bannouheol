@@ -17,14 +17,15 @@ const CollectionPage = (props) => {
   const {
     t,
     i18n: { language },
-  } = useTranslation()
+  } = useTranslation("common")
   const productNodes = mapEdgesToNodes(products)
+  const fullTitle = t("x_in_breton", { x: collection.title.translate })
   return (
     <Layout>
       {errors && <SEO title="GraphQL Error" />}
       {collection && (
         <SEO
-          title={collection.title.translate || t("Titre inconnu")}
+          title={fullTitle}
           description={
             collection._rawDescription &&
             collection._rawDescription[language] &&
@@ -35,7 +36,7 @@ const CollectionPage = (props) => {
       )}
       {errors && <GraphQLErrorList errors={errors} />}
 
-      {collection && <h1>{collection.title.translate}</h1>}
+      {collection && <h1>{fullTitle}</h1>}
       {collection &&
         collection._rawDescription &&
         collection._rawDescription[language] && (

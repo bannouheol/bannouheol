@@ -11,7 +11,7 @@ const PostPage = (props) => {
   const { data, errors } = props
   const post = data && data.post
   const {
-    t,
+    //t,
     i18n: { language },
   } = useTranslation()
   return (

@@ -18,14 +18,15 @@ const CategoryPage = (props) => {
   const {
     t,
     i18n: { language },
-  } = useTranslation()
+  } = useTranslation("common")
   const productNodes = mapEdgesToNodes(products)
+  const fullTitle = t("x_in_breton", { x: category.title.translate })
   return (
     <Layout>
       {errors && <SEO title="GraphQL Error" />}
       {category && (
         <SEO
-          title={category.title.translate || t("Titre inconnu")}
+          title={fullTitle}
           description={
             category._rawDescription &&
             category._rawDescription[language] &&
@@ -36,7 +37,7 @@ const CategoryPage = (props) => {
       )}
       {errors && <GraphQLErrorList errors={errors} />}
 
-      {category && <h1>{category.title.translate}</h1>}
+      {category && <h1>{fullTitle}</h1>}
       {category &&
         category._rawDescription &&
         category._rawDescription[language] && (

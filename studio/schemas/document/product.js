@@ -4,6 +4,11 @@ export default {
   type: "document",
   fields: [
     {
+      name: "ref",
+      title: "Référence",
+      type: "string"
+    },
+    {
       name: "title",
       title: "Titre",
       type: "localeString",
@@ -36,11 +41,6 @@ export default {
       type: "reference",
       to: { type: "collection" },
       validation: Rule => Rule.required()
-    },
-    {
-      name: "ref",
-      title: "Référence",
-      type: "string"
     },
     {
       title: "Default variant",

@@ -5,7 +5,7 @@ import { useStaticQuery, graphql } from "gatsby"
 import { useTranslation } from "react-i18next"
 import { mapEdgesToNodes } from "../../lib/helpers"
 import { Link } from "../Link"
-import { jsx, Grid, Box, Flex, Heading } from "theme-ui"
+import { jsx, Grid, Box, Heading } from "theme-ui"
 import { MenuLink } from "./MenuLink"
 
 const Header = ({ siteTitle }) => {
