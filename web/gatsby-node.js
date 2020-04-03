@@ -66,6 +66,7 @@ exports.createPages = async ({
               _rawSlug
               previousPath
               collection {
+                id
                 _rawSlug
               }
             }
@@ -110,6 +111,7 @@ exports.createPages = async ({
     collections,
     profiles,
   } = startupQuery.data
+
   /* HOME PAGE */
   await buildI18nPages(
     null,
@@ -173,7 +175,7 @@ exports.createPages = async ({
   )
 
   /* PRODUCTS */
-  let productPath = await buildI18nPages(
+  await buildI18nPages(
     products.edges,
     ({ node }, language, _) => ({
       path: `/${language}/${node.collection._rawSlug[language].current}/${node._rawSlug[language].current}`,
@@ -181,7 +183,7 @@ exports.createPages = async ({
       component: path.resolve(
         path.join(templates.baseDir, templates.shop.product)
       ),
-      context: { product: node.id },
+      context: { product: node.id, collection: node.collection.id },
     }),
     namespaces,
     createPage,

@@ -1,4 +1,6 @@
+/** @jsx jsx */
 import React from "react"
+import { jsx } from "theme-ui"
 import PropTypes from "prop-types"
 import { Link as GatsbyLink, navigate as gatsbyNavigate } from "gatsby"
 import { useTranslation } from "react-i18next"
@@ -7,13 +9,21 @@ const IntlContext = React.createContext()
 //export const IntlContextProvider = IntlContext.Provider
 export const IntlContextConsumer = IntlContext.Consumer
 
-const Link = ({ to, language, children, onClick, ...rest }) => {
+const Link = ({
+  to,
+  language,
+  children,
+  onClick,
+  sxVariant = "styles.a",
+  i18nPrefixed = true,
+  ...rest
+}) => {
   const { i18n } = useTranslation()
 
   return (
     <IntlContextConsumer>
       {(intl) => {
-        const link = `/${i18n.language}${to}`
+        const link = i18nPrefixed ? `/${i18n.language}${to}` : `/${to}`
         const handleClick = (e) => {
           if (language) {
             localStorage.setItem("language", language)
@@ -24,7 +34,12 @@ const Link = ({ to, language, children, onClick, ...rest }) => {
         }
 
         return (
-          <GatsbyLink {...rest} to={link} onClick={handleClick}>
+          <GatsbyLink
+            {...rest}
+            to={link}
+            onClick={handleClick}
+            sx={{ variant: sxVariant }}
+          >
             {children}
           </GatsbyLink>
         )

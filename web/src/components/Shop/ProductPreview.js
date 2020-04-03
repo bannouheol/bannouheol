@@ -1,20 +1,48 @@
 /** @jsx jsx */
-
 import { jsx, Card, Text, Box } from "theme-ui"
 import Img from "gatsby-image"
-//import { useTranslation } from "react-i18next"
+import { graphql } from "gatsby"
+import { useTranslation } from "react-i18next"
 //import { Categories } from "./Categories"
 import { Link } from "../Link"
+import { translateRaw } from "../../lib/helpers"
 
-export const ProductPreview = ({
-  node: { title, slug, collection, defaultProductVariant },
-}) => {
-  /*const {
-    t,
+export const ProductPreview = (product) => {
+  const {
+    //t,
     i18n: { language },
-  } = useTranslation("common", "shop")
-  */
-  const productLink = `/${collection.slug.translate}/${slug.translate}`
+  } = useTranslation("common")
+
+  graphql`
+    fragment productPreviewFields on SanityProduct {
+      id
+      _rawTitle
+      _rawSlug
+      collection {
+        _rawTitle
+        _rawSlug
+      }
+      defaultProductVariant {
+        images {
+          asset {
+            fluid(maxWidth: 800) {
+              ...GatsbySanityImageFluid
+            }
+          }
+        }
+        inStock
+        price {
+          formatted
+        }
+      }
+    }
+  `
+  const { title, slug, collection, defaultProductVariant } = translateRaw(
+    product,
+    language
+  )
+
+  const productLink = `/${collection.slug.current}/${slug.current}`
   return (
     <Card
       sx={{
@@ -36,9 +64,9 @@ export const ProductPreview = ({
         </div>
         <Box p={1}>
           <Link to={productLink} sx={{ variant: "links.product" }}>
-            {title.translate}
+            {title}
           </Link>
-          <Text sx={{ color: "muted" }}>{collection.title.translate}</Text>
+          <Text sx={{ color: "muted" }}>{collection.title}</Text>
 
           {defaultProductVariant &&
             defaultProductVariant.inStock &&

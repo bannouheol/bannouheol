@@ -8,7 +8,7 @@ export const MenuLink = (props) => (
     {...props}
     activeClassName="active"
     sx={{
-      variant: "links.nav",
+      variant: "links.header",
     }}
   />
 )

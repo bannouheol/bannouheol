@@ -27,11 +27,13 @@ export const BookFeature = ({
   return (
     <div>
       {numberOfPages && <Text>Nombre de pages : {numberOfPages}</Text>}
-      {illustrators && (
+      {illustrators && illustrators.length > 0 && (
         <Text>Illustrateur(s) : {profilesPreviewer(illustrators)}</Text>
       )}
-      {authors && <Text>Auteur(s) : {profilesPreviewer(authors)}</Text>}
-      {scriptwriters && (
+      {authors && authors.length > 0 && (
+        <Text>Auteur(s) : {profilesPreviewer(authors)}</Text>
+      )}
+      {scriptwriters && scriptwriters.length > 0 && (
         <Text>Scénariste(s) : {profilesPreviewer(scriptwriters)}</Text>
       )}
     </div>
@@ -39,7 +41,12 @@ export const BookFeature = ({
 }
 
 const profilesPreviewer = (profiles) =>
-  profiles && profiles.map((p) => <ProfilePreview {...p} showAvatar={false} />)
+  profiles &&
+  profiles
+    .map((p) => <ProfilePreview key={p.id} {...p} showAvatar={false} />)
+    .reduce((acc, el) => {
+      return acc === null ? [el] : [...acc, ", ", el]
+    }, null)
 
 /*
 const profileLinkReducer = (profile) => {

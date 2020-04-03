@@ -5,32 +5,28 @@ import { Layout } from "../../components/Layout"
 import SEO from "../../components/seo"
 import { graphql } from "gatsby"
 import { GraphQLErrorList } from "../../components/GraphQLErrorList"
-import { toPlainText } from "../../lib/helpers"
+import { toPlainText, translateRaw } from "../../lib/helpers"
 import PortableText from "../../components/PortableText"
 import { useTranslation } from "react-i18next"
 import { Products } from "../../components/Shop/Products"
 import { mapEdgesToNodes } from "../../lib/helpers"
 
-const CategoryPage = (props) => {
-  const { data, errors } = props
-  //const category = data && data.category
-  const { category, products } = data
+const CategoryPage = ({ data, errors, ...props }) => {
   const {
     t,
     i18n: { language },
   } = useTranslation("common")
+  const { products, category } = translateRaw(data, language)
   const productNodes = mapEdgesToNodes(products)
-  const fullTitle = t("x_in_breton", { x: category.title.translate })
+  const fullTitle = t("x_in_breton", { x: category.title })
   return (
-    <Layout>
+    <Layout {...props}>
       {errors && <SEO title="GraphQL Error" />}
       {category && (
         <SEO
           title={fullTitle}
           description={
-            category._rawDescription &&
-            category._rawDescription[language] &&
-            toPlainText(category._rawDescription[language])
+            category.description && toPlainText(category.description)
           }
           //image={product.image}
         />
@@ -38,16 +34,12 @@ const CategoryPage = (props) => {
       {errors && <GraphQLErrorList errors={errors} />}
 
       {category && <h1>{fullTitle}</h1>}
-      {category &&
-        category._rawDescription &&
-        category._rawDescription[language] && (
-          <PortableText blocks={category._rawDescription[language]} />
-        )}
+      {category && category.description && (
+        <PortableText blocks={category.description} />
+      )}
 
       {productNodes && productNodes.length > 0 && (
-        <Grid width={[128, 128, 128]}>
-          <Products nodes={productNodes} />
-        </Grid>
+        <Products nodes={productNodes} />
       )}
     </Layout>
   )
@@ -56,64 +48,27 @@ const CategoryPage = (props) => {
 export const query = graphql`
   fragment categoryFields on SanityCategory {
     id
-    title {
-      translate(language: $language)
-    }
+    _rawTitle
     _rawDescription
     parentCategory {
-      title {
-        translate(language: $language)
-      }
-      slug {
-        translate(language: $language)
-      }
+      _rawTitle
+      _rawSlug
     }
   }
-  query Category($category: String, $language: String) {
+  query Category($category: String) {
     category: sanityCategory(id: { eq: $category }) {
       ...categoryFields
     }
     products: allSanityProduct(
       filter: { categories: { elemMatch: { id: { eq: $category } } } }
-      sort: { order: DESC, fields: releaseDate }
+      sort: {
+        order: [DESC, DESC]
+        fields: [defaultProductVariant___inStock, releaseDate]
+      }
     ) {
       edges {
         node {
-          title {
-            translate(language: $language)
-          }
-          slug {
-            translate(language: $language)
-          }
-          collection {
-            title {
-              translate(language: $language)
-            }
-            slug {
-              translate(language: $language)
-            }
-          }
-          categories {
-            title {
-              translate(language: $language)
-            }
-            slug {
-              translate(language: $language)
-            }
-          }
-          defaultProductVariant {
-            images {
-              asset {
-                fluid(maxWidth: 800) {
-                  ...GatsbySanityImageFluid
-                }
-              }
-            }
-            inStock
-            price {
-              formatted
-            }
-          }
+          ...productPreviewFields
         }
       }
     }

@@ -6,19 +6,18 @@ import { mapEdgesToNodes } from "../lib/helpers"
 import { GraphQLErrorList } from "../components/GraphQLErrorList"
 import { Posts } from "../components/Blog/Posts"
 
-const IndexPage = (props) => {
+const IndexPage = ({ data, errors, ...props }) => {
   const { t } = useTranslation("common")
-  const { data, errors } = props
   if (errors) {
     return (
-      <Layout>
+      <Layout {...props}>
         <GraphQLErrorList errors={errors} />
       </Layout>
     )
   }
   const postNodes = data && data.posts && mapEdgesToNodes(data.posts)
   return (
-    <Layout alternateLink={props.alternateLinks}>
+    <Layout {...props}>
       <h2>{t(`Derniers posts`)}</h2>
       {postNodes && postNodes.length > 0 && <Posts nodes={postNodes} />}
       <h2>{t(`Derniers produits`)}</h2>

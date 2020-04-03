@@ -7,19 +7,17 @@ import { Post } from "../../components/Blog/Post"
 import { useTranslation } from "react-i18next"
 import { toPlainText } from "../../lib/helpers"
 
-const PostPage = (props) => {
-  const { data, errors } = props
-  const post = data && data.post
+const PostPage = ({ data: { post }, errors, ...props }) => {
   const {
     //t,
     i18n: { language },
   } = useTranslation()
   return (
-    <Layout>
+    <Layout {...props}>
       {errors && <SEO title="GraphQL Error" />}
       {post && (
         <SEO
-          title={post.title.translate || "Untitled"}
+          title={post.title.translate}
           description={toPlainText(post._rawBody[language])}
           image={post.image.asset.fluid.src}
         />

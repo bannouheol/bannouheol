@@ -1,35 +1,31 @@
 /** @jsx jsx */
-
+import { jsx, Grid } from "theme-ui"
 import { Layout } from "../../components/Layout"
 import SEO from "../../components/seo"
 import { graphql } from "gatsby"
 import { GraphQLErrorList } from "../../components/GraphQLErrorList"
-import { toPlainText } from "../../lib/helpers"
+import { toPlainText, translateRaw } from "../../lib/helpers"
 import PortableText from "../../components/PortableText"
 import { useTranslation } from "react-i18next"
 import { Products } from "../../components/Shop/Products"
 import { mapEdgesToNodes } from "../../lib/helpers"
-import { jsx, Grid } from "theme-ui"
 
-const CollectionPage = (props) => {
-  const { data, errors } = props
-  const { collection, products } = data
+const CollectionPage = ({ data, errors, ...props }) => {
   const {
     t,
     i18n: { language },
   } = useTranslation("common")
+  const { products, collection } = translateRaw(data, language)
   const productNodes = mapEdgesToNodes(products)
-  const fullTitle = t("x_in_breton", { x: collection.title.translate })
+  const fullTitle = t("x_in_breton", { x: collection.title })
   return (
-    <Layout>
+    <Layout {...props}>
       {errors && <SEO title="GraphQL Error" />}
       {collection && (
         <SEO
           title={fullTitle}
           description={
-            collection._rawDescription &&
-            collection._rawDescription[language] &&
-            toPlainText(collection._rawDescription[language])
+            collection.description && toPlainText(collection.description)
           }
           //image={product.image}
         />
@@ -37,16 +33,12 @@ const CollectionPage = (props) => {
       {errors && <GraphQLErrorList errors={errors} />}
 
       {collection && <h1>{fullTitle}</h1>}
-      {collection &&
-        collection._rawDescription &&
-        collection._rawDescription[language] && (
-          <PortableText blocks={collection._rawDescription[language]} />
-        )}
+      {collection && collection.description && (
+        <PortableText blocks={collection.description} />
+      )}
 
       {productNodes && productNodes.length > 0 && (
-        <Grid width={[128, 128, 128]}>
-          <Products nodes={productNodes} />
-        </Grid>
+        <Products nodes={productNodes} />
       )}
     </Layout>
   )
@@ -55,48 +47,23 @@ const CollectionPage = (props) => {
 export const query = graphql`
   fragment collectionFields on SanityCollection {
     id
-    title {
-      translate(language: $language)
-    }
+    _rawTitle
     _rawDescription
   }
-  query Collection($collection: String, $language: String) {
+  query Collection($collection: String) {
     collection: sanityCollection(id: { eq: $collection }) {
       ...collectionFields
     }
     products: allSanityProduct(
       filter: { collection: { id: { eq: $collection } } }
-      sort: { order: DESC, fields: releaseDate }
+      sort: {
+        order: [DESC, DESC]
+        fields: [defaultProductVariant___inStock, releaseDate]
+      }
     ) {
       edges {
         node {
-          title {
-            translate(language: $language)
-          }
-          slug {
-            translate(language: $language)
-          }
-          collection {
-            title {
-              translate(language: $language)
-            }
-            slug {
-              translate(language: $language)
-            }
-          }
-          defaultProductVariant {
-            images {
-              asset {
-                fluid(maxWidth: 800) {
-                  ...GatsbySanityImageFluid
-                }
-              }
-            }
-            inStock
-            price {
-              formatted
-            }
-          }
+          ...productPreviewFields
         }
       }
     }

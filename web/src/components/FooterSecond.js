@@ -6,15 +6,15 @@ import { useTranslation } from "react-i18next"
 import { useStaticQuery, graphql } from "gatsby"
 import { mapEdgesToNodes } from "../lib/helpers"
 
-const FooterLink = (props) => <Link sx={{ variant: "links.nav" }} {...props} />
+const FooterLink = (props) => <Link sxVariant="links.footer" {...props} />
 
-export const Footer = ({ siteTitle, siteUrl }) => {
+export const FooterSecond = ({ siteTitle, siteUrl }) => {
   const {
     t,
     i18n: { language },
   } = useTranslation("common")
   const data = useStaticQuery(graphql`
-    query FooterQuery {
+    query FooterSecondQuery {
       collections: allSanityCollection(
         filter: { linkedInFooter: { eq: true } }
       ) {
@@ -30,9 +30,9 @@ export const Footer = ({ siteTitle, siteUrl }) => {
   `)
   const collections = mapEdgesToNodes(data.collections)
   return (
-    <footer
+    <div
       sx={{
-        variant: "layout.footer",
+        variant: "layout.footerSecond",
       }}
     >
       <Grid
@@ -40,12 +40,11 @@ export const Footer = ({ siteTitle, siteUrl }) => {
           gridTemplateRows: "repeat(4, 32px)",
           gridTemplateColumns: ["repeat(2, 1fr)", "repeat(3, 1fr)"],
           gridAutoFlow: "column",
+          gap: 2,
         }}
       >
-        <FooterLink to="/">{t("Accueil")}</FooterLink>
-        <FooterLink to={`/${t("blog:slug")}`}>Blog!</FooterLink>
         {collections.map((c) => (
-          <FooterLink to={`/${c._rawSlug[language].current}`}>
+          <FooterLink key={c.id} to={`/${c._rawSlug[language].current}`}>
             {t("x_in_breton", { x: c._rawTitle[language] })}
           </FooterLink>
         ))}
@@ -57,6 +56,8 @@ export const Footer = ({ siteTitle, siteUrl }) => {
           p: 2,
         }}
       >
+        <FooterLink to="/">{t("Accueil")}</FooterLink>
+        <FooterLink to={`/${t("blog:slug")}`}>Blog!</FooterLink>
         <FooterLink to="/cgv">CGV</FooterLink>
         <div sx={{ mx: 1 }} />
         <FooterLink to="/mentions-legales">Mentions légales</FooterLink>
@@ -66,6 +67,6 @@ export const Footer = ({ siteTitle, siteUrl }) => {
           {siteTitle}
         </a>
       </div>
-    </footer>
+    </div>
   )
 }

@@ -34,6 +34,7 @@ export function wrapPageElement({ element, props }) {
               props.pageContext.alternateLinks &&
               props.pageContext.alternateLinks.map((link) => (
                 <link
+                  key={link.language}
                   rel="alternate"
                   hrefLang={link.language}
                   href={link.path}
@@ -59,6 +60,7 @@ export function wrapPageElement({ element, props }) {
               props.pageContext.alternateLinks.map((link) => {
                 return link.language !== props.pageContext.language ? (
                   <meta
+                    key={link.language}
                     property="og:locale:alternate"
                     content={`${link.language}_FR`}
                   />

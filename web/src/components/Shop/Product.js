@@ -1,7 +1,8 @@
 /** @jsx jsx */
-import { jsx, Text, Box } from "theme-ui"
+import { jsx, Grid, Text, Box } from "theme-ui"
 import PortableText from "../PortableText"
 import Img from "gatsby-image"
+import { graphql } from "gatsby"
 import path from "path"
 import { useTranslation } from "react-i18next"
 //import { Categories } from "./Categories"
@@ -10,105 +11,176 @@ import { translateRaw } from "../../lib/helpers"
 import { BookFeature } from "./BookFeature"
 import { ProfilePreview } from "./ProfilePreview"
 import { AddToCart } from "./AddToCart"
+import Sticky from "react-sticky-el"
+import {
+  FaFacebookSquare,
+  FaTwitterSquare,
+  FaPinterestSquare,
+} from "react-icons/fa"
 
-export const Product = ({
-  id,
-  _rawTitle,
-  _rawSlug,
-  _rawBody,
-  reference,
-  categories,
-  collection,
-  defaultProductVariant,
-  traductors,
-  bookFeature,
-  releaseDate,
-}) => {
+export const Product = (product) => {
   const {
     t,
     i18n: { language },
-  } = useTranslation()
-  const [title, slug, body] = translateRaw(
-    [_rawTitle, _rawSlug, _rawBody],
-    language
-  )
+  } = useTranslation("common")
+  graphql`
+    fragment productFields on SanityProduct {
+      id
+      _rawTitle
+      _rawSlug
+      _rawBody
+      reference: ref
+      collection {
+        _rawTitle
+        _rawSlug
+      }
+      categories {
+        id
+        _rawTitle
+        _rawSlug
+        parent: parentCategory {
+          _rawSlug
+        }
+      }
+      defaultProductVariant {
+        images {
+          asset {
+            fluid: fluid(maxWidth: 600) {
+              ...GatsbySanityImageFluid
+            }
+          }
+        }
+        inStock
+        price {
+          value
+          formatted
+        }
+      }
+      traductors {
+        ...profilePreviewFields
+      }
+      bookFeature {
+        ...bookFeatureFields
+      }
+      releaseDate
+    }
+  `
+
+  const {
+    id,
+    title,
+    slug,
+    body,
+    collection,
+    categories,
+    traductors,
+    bookFeature,
+    reference,
+    defaultProductVariant,
+    releaseDate,
+  } = translateRaw(product, language)
+
   return (
     <article>
-      {defaultProductVariant &&
-        defaultProductVariant.images &&
-        defaultProductVariant.images.map((i) => (
-          <div sx={{ maxWidth: "300" }}>
-            <Img fluid={i.asset.fluid} />
-          </div>
-        ))}
-      <div>
-        <div>
-          <h1>{title}</h1>
-          {body && <PortableText blocks={body} />}
-          {defaultProductVariant.inStock && (
-            <Box sx={{ variant: "boxes.price" }}>
-              {defaultProductVariant.price.formatted}
+      <Grid gap={2} columns={[1, 2, "4fr 6fr 3fr"]}>
+        {defaultProductVariant &&
+          defaultProductVariant.images &&
+          defaultProductVariant.images.map((i) => (
+            <Box key={i.asset.fluid.src} sx={{ p: 2 }}>
+              <Img fluid={i.asset.fluid} />
             </Box>
+          ))}
+        <Box sx={{ p: 2, mb: 2 }}>
+          <h1>{title}</h1>
+          <p>
+            Collection :{` `}
+            <Link to={`/${collection.slug.current}`}>{collection.title}</Link>
+            <br />
+            Catégories : {` `}
+            {categories &&
+              categories
+                .map((c) => {
+                  c["path"] = path.join(
+                    "/",
+                    c.parent === null ? `` : c.parent.slug.current,
+                    c.slug.current
+                  )
+                  return (
+                    <Link key={c.id} to={c.path}>
+                      {c.title}
+                    </Link>
+                  )
+                })
+                .reduce((acc, el) => {
+                  return acc === null ? [el] : [...acc, ", ", el]
+                }, null)}
+          </p>
+          {language === "fr" && <p>Titre breton : {product._rawTitle.br}</p>}
+          {language === "br" && (
+            <p>
+              {t("Titre original")} : {product._rawTitle.br}
+            </p>
           )}
-          {` `}
-          {defaultProductVariant.inStock && (
-            <AddToCart
-              id={id}
-              title={title}
-              price={defaultProductVariant.price.value}
-              url={`/${collection.slug.translate}/${slug.translate}`}
-              description={`${collection.title.translate} - ${reference}`}
-              image={
-                defaultProductVariant.images &&
-                defaultProductVariant.images[0].asset.fluid.src
-              }
-            />
-          )}
-          {!defaultProductVariant.inStock && (
-            <Text>{t("shop:out_of_stock")}</Text>
-          )}
-          <hr />
-          {traductors && <strong>Traducteurs</strong>}
-          {traductors &&
-            traductors.map((t) => (
+          {body && <PortableText blocks={body} />}
+        </Box>
+        <Box>
+          <Sticky>
+            <Box sx={{ variant: "boxes.important" }}>
+              {defaultProductVariant.inStock && (
+                <div sx={{ mb: 1, fontSize: 3 }}>
+                  {defaultProductVariant.price.formatted}
+                </div>
+              )}
+              {defaultProductVariant.inStock && (
+                <div sx={{ mb: 3, fontSize: 1, color: "secondary" }}>
+                  En stock
+                </div>
+              )}
+              {defaultProductVariant.inStock && (
+                <AddToCart
+                  id={id}
+                  title={title}
+                  price={defaultProductVariant.price.value}
+                  url={`/${collection.slug}/${slug}`}
+                  description={`${collection.title} - ${reference}`}
+                  image={
+                    defaultProductVariant.images &&
+                    defaultProductVariant.images[0].asset.fluid.src
+                  }
+                />
+              )}
+              {!defaultProductVariant.inStock && (
+                <Text>{t("shop:out_of_stock")}</Text>
+              )}
+              <p sx={{ fontSize: 0 }}>
+                Livraison offerte à partir de 10€, en 3 jours chez vous
+              </p>
+              <hr sx={{ my: 3, variant: "styles.hr" }} />
+              <Box>
+                Partager sur : <FaFacebookSquare /> <FaTwitterSquare />{" "}
+                <FaPinterestSquare />
+              </Box>
+            </Box>
+          </Sticky>
+        </Box>
+      </Grid>
+      <Box>
+        {traductors.length > 0 && (
+          <Box>
+            Traducteurs :{` `}
+            {traductors.map((t) => (
               <ProfilePreview key={t.id} {...t} showAvatar={false} />
             ))}
-          <BookFeature {...bookFeature} />
-        </div>
+          </Box>
+        )}
+        <BookFeature {...bookFeature} />
+
         <aside>
           {releaseDate && (
             <p>{t("shop:released_on", { date: new Date(releaseDate) })}</p>
           )}
-          <div>
-            <h3>Collection</h3>
-            <p>
-              <Link to={`/${collection.slug.translate}`}>
-                {collection.title.translate}
-              </Link>
-            </p>
-            <h3>Catégories</h3>
-            <ul>
-              {categories &&
-                categories.map((c) => {
-                  c["path"] = path.join(
-                    "/",
-                    c.parent === null ? `` : c.parent.slug.translate,
-                    c.slug.translate
-                  )
-                  return (
-                    <li>
-                      <Link to={c.path}>{c.title.translate}</Link>
-                    </li>
-                  )
-                })
-              /*.reduce((acc, el) => {
-                    return acc === null ? [el] : [...acc, ", ", el]
-                  }, null)*/
-              }
-            </ul>
-          </div>
         </aside>
-      </div>
+      </Box>
     </article>
   )
 }

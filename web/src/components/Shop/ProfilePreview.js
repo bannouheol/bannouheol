@@ -1,6 +1,6 @@
 /** @jsx jsx */
 
-import { jsx, Box } from "theme-ui"
+import { jsx } from "theme-ui"
 import { graphql } from "gatsby"
 import { Link } from "../Link"
 import Img from "gatsby-image"
@@ -36,13 +36,11 @@ export const ProfilePreview = ({
   `
 
   return (
-    <Box>
-      <Link to={`/${t("shop:profile_slug")}/${slug.current}`}>
-        {avatar && showAvatar && (
-          <Img fluid={avatar.asset.fluid} sx={{ variant: "images.avatar" }} />
-        )}
-        {title}
-      </Link>
-    </Box>
+    <Link to={`/${t("shop:profile_slug")}/${slug.current}`}>
+      {avatar && showAvatar && (
+        <Img fluid={avatar.asset.fluid} sx={{ variant: "images.avatar" }} />
+      )}
+      {title}
+    </Link>
   )
 }

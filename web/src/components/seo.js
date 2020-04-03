@@ -10,8 +10,13 @@ import PropTypes from "prop-types"
 import Helmet from "react-helmet"
 import { useStaticQuery, graphql } from "gatsby"
 import { truncateString } from "../lib/helpers"
+//import { useTranslation } from "react-i18next"
 
 function SEO({ description, meta, title, image }) {
+  /*const {
+    t,
+    i18n: { language },
+  } = useTranslation()*/
   const { site } = useStaticQuery(
     graphql`
       query {
@@ -78,7 +83,6 @@ function SEO({ description, meta, title, image }) {
 }
 
 SEO.defaultProps = {
-  lang: `en`,
   meta: [],
   description: ``,
 }

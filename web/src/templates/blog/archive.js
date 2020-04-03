@@ -6,9 +6,8 @@ import { mapEdgesToNodes } from "../../lib/helpers"
 import { GraphQLErrorList } from "../../components/GraphQLErrorList"
 import { Posts } from "../../components/Blog/Posts"
 
-const ArchivePage = (props) => {
+const ArchivePage = ({ data, errors, ...props }) => {
   //const { t } = useTranslation("common")
-  const { data, errors } = props
   if (errors) {
     return (
       <Layout>
@@ -18,7 +17,7 @@ const ArchivePage = (props) => {
   }
   const postNodes = data && data.posts && mapEdgesToNodes(data.posts)
   return (
-    <Layout alternateLink={props.pageContext.alternateLinks}>
+    <Layout {...props}>
       <h1>
         {(props.pageContext.category && data.category.title.translate) ||
           "Blog"}

@@ -8,7 +8,7 @@ import { Link } from "../Link"
 import { jsx, Grid, Box, Heading } from "theme-ui"
 import { MenuLink } from "./MenuLink"
 
-const Header = ({ siteTitle }) => {
+const Header = ({ siteTitle, alternateLink }) => {
   const {
     t,
     i18n: { language },
@@ -51,11 +51,16 @@ const Header = ({ siteTitle }) => {
         p: 4,
         width: "100%",
         display: "flex",
-        alignItems: "center",
         variant: "layout.header",
       }}
     >
-      <Grid gap={2} columns={[2, "1fr 2fr"]}>
+      <Grid
+        gap={4}
+        columns={[2, "1fr 2fr"]}
+        sx={{
+          alignItems: "center",
+        }}
+      >
         <Box>
           <Heading as="h1">
             <Link
@@ -77,6 +82,9 @@ const Header = ({ siteTitle }) => {
             </MenuLink>
           ))}
           <MenuLink to="/blog">Actualité</MenuLink>
+          <MenuLink to={alternateLink.path} i18nPrefixed={false}>
+            {alternateLink.language}
+          </MenuLink>
         </Box>
       </Grid>
     </header>

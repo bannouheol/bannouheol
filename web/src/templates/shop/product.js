@@ -1,97 +1,68 @@
-import React from "react"
+/** @jsx jsx */
+import { jsx } from "theme-ui"
 import { Layout } from "../../components/Layout"
 import SEO from "../../components/seo"
 import { graphql } from "gatsby"
 import { GraphQLErrorList } from "../../components/GraphQLErrorList"
 import { Product } from "../../components/Shop/Product"
+import { Products } from "../../components/Shop/Products"
 import { useTranslation } from "react-i18next"
-import { toPlainText, translateRaw } from "../../lib/helpers"
+import { mapEdgesToNodes, toPlainText, translateRaw } from "../../lib/helpers"
 
-const ProductPage = ({ data: { product }, errors }) => {
+const ProductPage = ({ data, errors, ...props }) => {
   const {
     t,
     i18n: { language },
   } = useTranslation("common")
-  const { _rawTitle, _rawBody, defaultProductVariant } = product
-  const [title, body] = translateRaw([_rawTitle, _rawBody], language)
+  const { product, sameCollectionProducts } = translateRaw(data, language)
+  const sameCollectionProductNodes = mapEdgesToNodes(sameCollectionProducts)
   const fullTitle = [
-    title,
-    t("x_in_breton", { x: product.collection.title.translate }),
+    product.title,
+    t("x_in_breton", { x: product.collection.title }),
   ].join(`, `)
   return (
-    <Layout>
+    <Layout {...props}>
       {errors && <SEO title="GraphQL Error" />}
       {product && (
         <SEO
-          title={fullTitle || "Untitled"}
-          description={body && toPlainText(body)}
+          title={fullTitle}
+          description={product.body && toPlainText(product.body)}
           image={
-            defaultProductVariant.images &&
-            defaultProductVariant.images[0] &&
-            defaultProductVariant.images[0].asset.fluid.src
+            product.defaultProductVariant.images &&
+            product.defaultProductVariant.images[0] &&
+            product.defaultProductVariant.images[0].asset.fluid.src
           }
         />
       )}
       {errors && <GraphQLErrorList errors={errors} />}
 
       {product && <Product {...product} />}
+      <h2>Dans la même collection</h2>
+      {sameCollectionProductNodes && sameCollectionProductNodes.length > 0 && (
+        <Products nodes={sameCollectionProductNodes} />
+      )}
     </Layout>
   )
 }
 
 export const query = graphql`
-  fragment productFields on SanityProduct {
-    id
-    _rawTitle
-    _rawSlug
-    _rawBody
-    reference: ref
-    categories {
-      title {
-        translate(language: $language)
-      }
-      slug {
-        translate(language: $language)
-      }
-      parent: parentCategory {
-        slug {
-          translate(language: $language)
-        }
-      }
-    }
-    defaultProductVariant {
-      images {
-        asset {
-          fluid(maxWidth: 800) {
-            ...GatsbySanityImageFluid
-          }
-        }
-      }
-      inStock
-      price {
-        value
-        formatted
-      }
-    }
-    traductors {
-      ...profilePreviewFields
-    }
-    bookFeature {
-      ...bookFeatureFields
-    }
-    collection {
-      title {
-        translate(language: $language)
-      }
-      slug {
-        translate(language: $language)
-      }
-    }
-    releaseDate
-  }
-  query Product($product: String, $language: String) {
+  query Product($product: String, $collection: String) {
     product: sanityProduct(id: { eq: $product }) {
       ...productFields
+    }
+    sameCollectionProducts: allSanityProduct(
+      filter: { id: { ne: $product }, collection: { id: { eq: $collection } } }
+      sort: {
+        order: [DESC, DESC]
+        fields: [defaultProductVariant___inStock, releaseDate]
+      }
+      limit: 6
+    ) {
+      edges {
+        node {
+          ...productPreviewFields
+        }
+      }
     }
   }
 `

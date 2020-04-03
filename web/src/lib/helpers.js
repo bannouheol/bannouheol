@@ -20,7 +20,93 @@ export const translateRaw = (input, language) => {
   For arrays : 
     const [title, body] = translateRaw([_rawTitle, _rawBody], "br");
     console.log(title, body);
+
+  const data = {
+  _rawTitle: {
+    fr: "rootFR",
+    br: "rootBr"
+  },
+  collection: {
+    _rawTitle: {
+      fr: "collectionTitleFR",
+      br: "collectionTitleBR"
+    },
+    _rawBody: {
+      fr: "collectionBodyFR",
+      br: "collectionBodyBR"
+    }
+  },
+  category: {
+    _rawTitle: {
+      fr: "categoryTitleFR",
+      br: "categoryTitleBR"
+    }
+  },
+  notReduced: {
+    dummy: 1,
+    var: 2
+  },
+  halfReduced: {
+    dummy: 1,
+    var: 2,
+    _rawTitle: {
+      fr: "halfReducedTitleFR",
+      br: "halfReducedTitleBR"
+    }
+  }
+};
+
+const transformed = {
+  _rawTitle: "titleFR",
+  collection: {
+    _rawTitle: "titleFR",
+    _rawBody: "bodyFR"
+  },
+  category: {
+    _rawTitle: "catTitleFR"
+  },
+  notReduced: {
+    dummy: 1,
+    var: 2
+  },
+  halfReduced: {
+    dummy: 1,
+    var: 2,
+    _rawTitle: "halfReducedTitleFR"
+  }
+};
   */
+
+  if (input instanceof Object) {
+    Object.keys(input).forEach(function (key) {
+      reduceField(input, key, language)
+      const item = input[key]
+      if (item instanceof Object || item instanceof Array) {
+        translateRaw(item, language)
+      }
+    })
+  } else if (input instanceof Array) {
+    input.forEach(function (item, ix) {
+      reduceField(input, ix, language)
+      if (item instanceof Object || item instanceof Array) {
+        translateRaw(item, language)
+      }
+    })
+  }
+  return input
+  function reduceField(parent, key, lang) {
+    var value = parent[key]
+    if (value instanceof Object && value.hasOwnProperty(lang)) {
+      if (Object.isExtensible(parent)) {
+        if (key.substring(0, 4) === "_raw")
+          key = key.substring(4).charAt(0).toLowerCase() + key.substring(5)
+        parent[key] = value[lang]
+      }
+    }
+  }
+
+  /*
+  OLD VERSION
   if (Array.isArray(input)) {
     return input.map((r, i) =>
       input[i] && input[i].hasOwnProperty(language) ? input[i][language] : null
@@ -32,6 +118,7 @@ export const translateRaw = (input, language) => {
     }
     return translated
   }
+  */
 }
 
 export function filterOutDocsWithoutSlugs({ slug }) {

@@ -1,11 +1,14 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui"
 import { useStaticQuery, graphql } from "gatsby"
-
 import { Header } from "./Header"
-import { Footer } from "./Footer"
+import { FooterFirst } from "./FooterFirst"
+import { FooterSecond } from "./FooterSecond"
 
-export const Layout = ({ children }) => {
+export const Layout = ({
+  children,
+  pageContext: { language, alternateLinks },
+}) => {
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
       site {
@@ -19,6 +22,10 @@ export const Layout = ({ children }) => {
   const {
     site: { siteMetadata },
   } = data
+  const alternateLink = alternateLinks.reduce((acc, el) => {
+    return el.language !== language ? el : acc
+  }, null)
+  console.log(alternateLink)
   return (
     <div
       sx={{
@@ -28,7 +35,7 @@ export const Layout = ({ children }) => {
         variant: "layout.root",
       }}
     >
-      <Header {...siteMetadata} />
+      <Header {...siteMetadata} alternateLink={alternateLink} />
 
       <main
         sx={{
@@ -39,7 +46,6 @@ export const Layout = ({ children }) => {
       >
         <div
           sx={{
-            maxWidth: 768,
             mx: "auto",
             px: 3,
             variant: "layout.container",
@@ -48,7 +54,14 @@ export const Layout = ({ children }) => {
           {children}
         </div>
       </main>
-      <Footer {...siteMetadata} />
+      <footer
+        sx={{
+          variant: "layout.footerWrap",
+        }}
+      >
+        <FooterFirst />
+        <FooterSecond {...siteMetadata} />
+      </footer>
     </div>
   )
 }

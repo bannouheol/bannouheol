@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx, Button } from "theme-ui"
 import { useTranslation } from "react-i18next"
-import { IoIosAdd } from "react-icons/io"
+import { IoIosCart } from "react-icons/io"
 
 export const AddToCart = ({
   id,
@@ -24,7 +24,7 @@ export const AddToCart = ({
       data-item-image={image}
       {...props}
     >
-      <IoIosAdd />
+      <IoIosCart />
       {t("shop:add_to_cart")}
     </Button>
   )

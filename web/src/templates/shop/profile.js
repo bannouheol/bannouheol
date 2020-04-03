@@ -11,14 +11,19 @@ import { mapEdgesToNodes, toPlainText, translateRaw } from "../../lib/helpers"
 
 import uniqBy from "lodash/uniqBy"
 
-const ProfilePage = ({
-  data: { profile, asTraductor, asAuthor, asIllustrator, asScriptwriter },
-  errors,
-}) => {
+const ProfilePage = ({ data, errors, ...props }) => {
   const {
     t,
     i18n: { language },
   } = useTranslation()
+
+  const {
+    profile,
+    asTraductor,
+    asAuthor,
+    asIllustrator,
+    asScriptwriter,
+  } = translateRaw(data, language)
 
   const asTraductorProductNodes = mapEdgesToNodes(asTraductor)
   const asAuthorProductNodes = mapEdgesToNodes(asAuthor)
@@ -33,15 +38,13 @@ const ProfilePage = ({
     ],
     "id"
   )
-  const { _rawTitle, _rawBio } = profile
-  const [title, bio] = translateRaw([_rawTitle, _rawBio], language)
 
   return (
-    <Layout>
+    <Layout {...props}>
       {errors && <SEO title="GraphQL Error" />}
       <SEO
-        title={title || t("Titre inconnu")}
-        description={bio && toPlainText(bio)}
+        title={profile.title || t("Titre inconnu")}
+        description={profile.bio && toPlainText(profile.bio)}
         image={profile.avatar && profile.avatar.asset.fluid.src}
       />
       {errors && <GraphQLErrorList errors={errors} />}
@@ -52,37 +55,7 @@ const ProfilePage = ({
 }
 
 export const query = graphql`
-  fragment productFromProfileFields on SanityProduct {
-    id
-    title {
-      translate(language: $language)
-    }
-    slug {
-      translate(language: $language)
-    }
-    collection {
-      title {
-        translate(language: $language)
-      }
-      slug {
-        translate(language: $language)
-      }
-    }
-    defaultProductVariant {
-      images {
-        asset {
-          fluid(maxWidth: 800) {
-            ...GatsbySanityImageFluid
-          }
-        }
-      }
-      inStock
-      price {
-        formatted
-      }
-    }
-  }
-  query Profile($profile: String, $language: String) {
+  query Profile($profile: String) {
     profile: sanityProfile(id: { eq: $profile }) {
       ...profileFields
     }
@@ -92,7 +65,7 @@ export const query = graphql`
     ) {
       edges {
         node {
-          ...productFromProfileFields
+          ...productPreviewFields
         }
       }
     }
@@ -104,7 +77,7 @@ export const query = graphql`
     ) {
       edges {
         node {
-          ...productFromProfileFields
+          ...productPreviewFields
         }
       }
     }
@@ -116,7 +89,7 @@ export const query = graphql`
     ) {
       edges {
         node {
-          ...productFromProfileFields
+          ...productPreviewFields
         }
       }
     }
@@ -128,7 +101,7 @@ export const query = graphql`
     ) {
       edges {
         node {
-          ...productFromProfileFields
+          ...productPreviewFields
         }
       }
     }
