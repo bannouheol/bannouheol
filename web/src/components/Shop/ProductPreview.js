@@ -32,15 +32,13 @@ export const ProductPreview = (product) => {
         }
         inStock
         price {
+          value
           formatted
         }
       }
     }
   `
-  const { title, slug, collection, defaultProductVariant } = translateRaw(
-    product,
-    language
-  )
+  const { title, slug, collection, defaultProductVariant } = translateRaw(product, language)
 
   const productLink = `/${collection.slug.current}/${slug.current}`
   return (
@@ -51,32 +49,21 @@ export const ProductPreview = (product) => {
     >
       <div>
         <div>
-          {defaultProductVariant &&
-            defaultProductVariant.images[0] &&
-            defaultProductVariant.images[0].asset && (
-              <Link to={productLink}>
-                <Img
-                  fluid={defaultProductVariant.images[0].asset.fluid}
-                  sx={{ variant: "images.card" }}
-                />
-              </Link>
-            )}
+          {defaultProductVariant && defaultProductVariant.images[0] && defaultProductVariant.images[0].asset && (
+            <Link to={productLink}>
+              <Img fluid={defaultProductVariant.images[0].asset.fluid} sx={{ variant: "images.card" }} />
+            </Link>
+          )}
         </div>
         <Box p={1}>
           <Link to={productLink} sx={{ variant: "links.product" }}>
             {title}
           </Link>
-          <Text sx={{ color: "muted" }}>{collection.title}</Text>
+          <Text sx={{ color: "textMuted" }}>{collection.title}</Text>
 
-          {defaultProductVariant &&
-            defaultProductVariant.inStock &&
-            defaultProductVariant.price && (
-              <Text>{defaultProductVariant.price.formatted}</Text>
-            )}
+          {defaultProductVariant && defaultProductVariant.inStock && defaultProductVariant.price && <Text>{defaultProductVariant.price.formatted}</Text>}
 
-          {defaultProductVariant && defaultProductVariant.inStock && (
-            <Text sx={{ color: "secondary" }}>En stock</Text>
-          )}
+          {defaultProductVariant && defaultProductVariant.inStock && <Text sx={{ color: "secondary" }}>En stock</Text>}
         </Box>
       </div>
     </Card>

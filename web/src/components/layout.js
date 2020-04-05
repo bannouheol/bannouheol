@@ -5,10 +5,7 @@ import { Header } from "./Header"
 import { FooterFirst } from "./FooterFirst"
 import { FooterSecond } from "./FooterSecond"
 
-export const Layout = ({
-  children,
-  pageContext: { language, alternateLinks },
-}) => {
+export const Layout = ({ children, pageContext: { language, alternateLinks }, mainP = 3 }) => {
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
       site {
@@ -22,10 +19,12 @@ export const Layout = ({
   const {
     site: { siteMetadata },
   } = data
-  const alternateLink = alternateLinks.reduce((acc, el) => {
-    return el.language !== language ? el : acc
-  }, null)
-  console.log(alternateLink)
+  const alternateLink =
+    alternateLinks && alternateLinks.length > 0
+      ? alternateLinks.reduce((acc, el) => {
+          return el.language !== language ? el : acc
+        }, null)
+      : null
   return (
     <div
       sx={{
@@ -40,19 +39,11 @@ export const Layout = ({
       <main
         sx={{
           width: "100%",
-          flex: "1 1 auto",
           variant: "layout.main",
+          p: mainP,
         }}
       >
-        <div
-          sx={{
-            mx: "auto",
-            px: 3,
-            variant: "layout.container",
-          }}
-        >
-          {children}
-        </div>
+        {children}
       </main>
       <footer
         sx={{

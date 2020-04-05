@@ -1,6 +1,5 @@
 /** @jsx jsx */
-
-import { jsx, Grid } from "theme-ui"
+import { jsx, Styled } from "theme-ui"
 import { Layout } from "../../components/Layout"
 import SEO from "../../components/seo"
 import { graphql } from "gatsby"
@@ -25,22 +24,16 @@ const CategoryPage = ({ data, errors, ...props }) => {
       {category && (
         <SEO
           title={fullTitle}
-          description={
-            category.description && toPlainText(category.description)
-          }
+          description={category.description && toPlainText(category.description)}
           //image={product.image}
         />
       )}
       {errors && <GraphQLErrorList errors={errors} />}
 
-      {category && <h1>{fullTitle}</h1>}
-      {category && category.description && (
-        <PortableText blocks={category.description} />
-      )}
+      {category && <Styled.h1>{fullTitle}</Styled.h1>}
+      {category && category.description && <PortableText blocks={category.description} />}
 
-      {productNodes && productNodes.length > 0 && (
-        <Products nodes={productNodes} />
-      )}
+      {productNodes && productNodes.length > 0 && <Products nodes={productNodes} />}
     </Layout>
   )
 }
@@ -61,10 +54,7 @@ export const query = graphql`
     }
     products: allSanityProduct(
       filter: { categories: { elemMatch: { id: { eq: $category } } } }
-      sort: {
-        order: [DESC, DESC]
-        fields: [defaultProductVariant___inStock, releaseDate]
-      }
+      sort: { order: [DESC, DESC], fields: [defaultProductVariant___inStock, releaseDate] }
     ) {
       edges {
         node {

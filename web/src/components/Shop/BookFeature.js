@@ -4,12 +4,7 @@ import { jsx, Text } from "theme-ui"
 import { graphql } from "gatsby"
 import { ProfilePreview } from "./ProfilePreview"
 
-export const BookFeature = ({
-  numberOfPages,
-  illustrators,
-  authors,
-  scriptwriters,
-}) => {
+export const BookFeature = ({ numberOfPages, illustrators, authors, scriptwriters }) => {
   graphql`
     fragment bookFeatureFields on SanityBookFeature {
       numberOfPages
@@ -27,15 +22,9 @@ export const BookFeature = ({
   return (
     <div>
       {numberOfPages && <Text>Nombre de pages : {numberOfPages}</Text>}
-      {illustrators && illustrators.length > 0 && (
-        <Text>Illustrateur(s) : {profilesPreviewer(illustrators)}</Text>
-      )}
-      {authors && authors.length > 0 && (
-        <Text>Auteur(s) : {profilesPreviewer(authors)}</Text>
-      )}
-      {scriptwriters && scriptwriters.length > 0 && (
-        <Text>Scénariste(s) : {profilesPreviewer(scriptwriters)}</Text>
-      )}
+      {illustrators && illustrators.length > 0 && <Text>Illustrateur(s) : {profilesPreviewer(illustrators)}</Text>}
+      {authors && authors.length > 0 && <Text>Auteur(s) : {profilesPreviewer(authors)}</Text>}
+      {scriptwriters && scriptwriters.length > 0 && <Text>Scénariste(s) : {profilesPreviewer(scriptwriters)}</Text>}
     </div>
   )
 }

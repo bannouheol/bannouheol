@@ -9,12 +9,6 @@ const serializers = {
   },
 }
 
-const PortableText = ({ blocks }) => (
-  <BasePortableText
-    blocks={blocks}
-    serializers={serializers}
-    {...clientConfig.sanity}
-  />
-)
+const PortableText = ({ blocks }) => <BasePortableText blocks={blocks} serializers={serializers} {...clientConfig.sanity} />
 
 export default PortableText

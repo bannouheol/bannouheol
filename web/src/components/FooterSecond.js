@@ -15,9 +15,7 @@ export const FooterSecond = ({ siteTitle, siteUrl }) => {
   } = useTranslation("common")
   const data = useStaticQuery(graphql`
     query FooterSecondQuery {
-      collections: allSanityCollection(
-        filter: { linkedInFooter: { eq: true } }
-      ) {
+      collections: allSanityCollection(filter: { linkedInFooter: { eq: true } }) {
         edges {
           node {
             id

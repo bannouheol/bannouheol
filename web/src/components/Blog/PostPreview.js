@@ -15,20 +15,10 @@ export const PostPreview = ({ node }) => {
     >
       {image && <Img fluid={image.asset.fluid} />}
       <Text>
-        <Link to={`/${t("blog:slug")}/${slug.translate}`}>
-          {title.translate}
-        </Link>
+        <Link to={`/${t("blog:slug")}/${slug.translate}`}>{title.translate}</Link>
         {t("blog:posted_in")}
         {categories
-          .map((c) => (
-            <Link
-              to={`/${t("blog:slug")}/${t("blog:category_slug")}/${
-                c.slug.translate
-              }`}
-            >
-              {c.title.translate}
-            </Link>
-          ))
+          .map((c) => <Link to={`/${t("blog:slug")}/${t("blog:category_slug")}/${c.slug.translate}`}>{c.title.translate}</Link>)
           .reduce((acc, el) => {
             return acc === null ? [el] : [...acc, ", ", el]
           }, null)}

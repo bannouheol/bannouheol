@@ -9,15 +9,7 @@ const IntlContext = React.createContext()
 //export const IntlContextProvider = IntlContext.Provider
 export const IntlContextConsumer = IntlContext.Consumer
 
-const Link = ({
-  to,
-  language,
-  children,
-  onClick,
-  sxVariant = "styles.a",
-  i18nPrefixed = true,
-  ...rest
-}) => {
+const Link = ({ to, language, children, onClick, sxVariant = "styles.a", i18nPrefixed = true, ...rest }) => {
   const { i18n } = useTranslation()
 
   return (
@@ -34,12 +26,7 @@ const Link = ({
         }
 
         return (
-          <GatsbyLink
-            {...rest}
-            to={link}
-            onClick={handleClick}
-            sx={{ variant: sxVariant }}
-          >
+          <GatsbyLink {...rest} to={link} onClick={handleClick} sx={{ variant: sxVariant }}>
             {children}
           </GatsbyLink>
         )
@@ -77,8 +64,7 @@ export const changeLocale = (language, to) => {
   const { routed } = window.___gatsbyIntl
 
   const removePrefix = (pathname) => {
-    const base =
-      typeof __BASE_PATH__ !== `undefined` ? __BASE_PATH__ : __PATH_PREFIX__
+    const base = typeof __BASE_PATH__ !== `undefined` ? __BASE_PATH__ : __PATH_PREFIX__
     if (base && pathname.indexOf(base) === 0) {
       pathname = pathname.slice(base.length)
     }
@@ -93,8 +79,7 @@ export const changeLocale = (language, to) => {
     return pathname.substring(i)
   }
 
-  const pathname =
-    to || removeLocalePart(removePrefix(window.location.pathname))
+  const pathname = to || removeLocalePart(removePrefix(window.location.pathname))
   // TODO: check slash
   const link = `/${language}${pathname}${window.location.search}`
   localStorage.setItem("gatsby-intl-language", language)

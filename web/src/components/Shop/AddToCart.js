@@ -3,15 +3,7 @@ import { jsx, Button } from "theme-ui"
 import { useTranslation } from "react-i18next"
 import { IoIosCart } from "react-icons/io"
 
-export const AddToCart = ({
-  id,
-  title,
-  price,
-  url,
-  description,
-  image,
-  ...props
-}) => {
+export const AddToCart = ({ id, title, price, url, description, image, ...props }) => {
   const { t } = useTranslation()
   return (
     <Button

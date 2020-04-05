@@ -17,36 +17,18 @@ const ProfilePage = ({ data, errors, ...props }) => {
     i18n: { language },
   } = useTranslation()
 
-  const {
-    profile,
-    asTraductor,
-    asAuthor,
-    asIllustrator,
-    asScriptwriter,
-  } = translateRaw(data, language)
+  const { profile, asTraductor, asAuthor, asIllustrator, asScriptwriter } = translateRaw(data, language)
 
   const asTraductorProductNodes = mapEdgesToNodes(asTraductor)
   const asAuthorProductNodes = mapEdgesToNodes(asAuthor)
   const asIllustratorProductNodes = mapEdgesToNodes(asIllustrator)
   const asScriptwriterProductNodes = mapEdgesToNodes(asScriptwriter)
-  const productNodes = uniqBy(
-    [
-      ...asTraductorProductNodes,
-      ...asAuthorProductNodes,
-      ...asIllustratorProductNodes,
-      ...asScriptwriterProductNodes,
-    ],
-    "id"
-  )
+  const productNodes = uniqBy([...asTraductorProductNodes, ...asAuthorProductNodes, ...asIllustratorProductNodes, ...asScriptwriterProductNodes], "id")
 
   return (
     <Layout {...props}>
       {errors && <SEO title="GraphQL Error" />}
-      <SEO
-        title={profile.title || t("Titre inconnu")}
-        description={profile.bio && toPlainText(profile.bio)}
-        image={profile.avatar && profile.avatar.asset.fluid.src}
-      />
+      <SEO title={profile.title || t("Titre inconnu")} description={profile.bio && toPlainText(profile.bio)} image={profile.avatar && profile.avatar.asset.fluid.src} />
       {errors && <GraphQLErrorList errors={errors} />}
 
       <Profile {...profile} products={productNodes} />
@@ -59,46 +41,28 @@ export const query = graphql`
     profile: sanityProfile(id: { eq: $profile }) {
       ...profileFields
     }
-    asTraductor: allSanityProduct(
-      filter: { traductors: { elemMatch: { id: { eq: $profile } } } }
-      sort: { order: DESC, fields: releaseDate }
-    ) {
+    asTraductor: allSanityProduct(filter: { traductors: { elemMatch: { id: { eq: $profile } } } }, sort: { order: DESC, fields: releaseDate }) {
       edges {
         node {
           ...productPreviewFields
         }
       }
     }
-    asAuthor: allSanityProduct(
-      filter: {
-        bookFeature: { authors: { elemMatch: { id: { eq: $profile } } } }
-      }
-      sort: { order: DESC, fields: releaseDate }
-    ) {
+    asAuthor: allSanityProduct(filter: { bookFeature: { authors: { elemMatch: { id: { eq: $profile } } } } }, sort: { order: DESC, fields: releaseDate }) {
       edges {
         node {
           ...productPreviewFields
         }
       }
     }
-    asIllustrator: allSanityProduct(
-      filter: {
-        bookFeature: { illustrators: { elemMatch: { id: { eq: $profile } } } }
-      }
-      sort: { order: DESC, fields: releaseDate }
-    ) {
+    asIllustrator: allSanityProduct(filter: { bookFeature: { illustrators: { elemMatch: { id: { eq: $profile } } } } }, sort: { order: DESC, fields: releaseDate }) {
       edges {
         node {
           ...productPreviewFields
         }
       }
     }
-    asScriptwriter: allSanityProduct(
-      filter: {
-        bookFeature: { scriptwriters: { elemMatch: { id: { eq: $profile } } } }
-      }
-      sort: { order: DESC, fields: releaseDate }
-    ) {
+    asScriptwriter: allSanityProduct(filter: { bookFeature: { scriptwriters: { elemMatch: { id: { eq: $profile } } } } }, sort: { order: DESC, fields: releaseDate }) {
       edges {
         node {
           ...productPreviewFields

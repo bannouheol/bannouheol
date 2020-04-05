@@ -1,4 +1,5 @@
-import React from "react"
+/** @jsx jsx */
+import { jsx, Styled } from "theme-ui"
 import { graphql } from "gatsby"
 import { Layout } from "../../components/Layout"
 //import { useTranslation } from "react-i18next"
@@ -18,10 +19,7 @@ const ArchivePage = ({ data, errors, ...props }) => {
   const postNodes = data && data.posts && mapEdgesToNodes(data.posts)
   return (
     <Layout {...props}>
-      <h1>
-        {(props.pageContext.category && data.category.title.translate) ||
-          "Blog"}
-      </h1>
+      <Styled.h1>{(props.pageContext.category && data.category.title.translate) || "Blog"}</Styled.h1>
       {postNodes && postNodes.length > 0 && <Posts nodes={postNodes} />}
     </Layout>
   )
@@ -37,13 +35,7 @@ export const query = graphql`
     category: sanityBlogCategory(id: { eq: $category }) {
       ...blogCategoryFields
     }
-    posts: allSanityBlogPost(
-      sort: { fields: [publishedAt], order: DESC }
-      filter: {
-        publishedAt: { ne: null }
-        categories: { elemMatch: { id: { eq: $category } } }
-      }
-    ) {
+    posts: allSanityBlogPost(sort: { fields: [publishedAt], order: DESC }, filter: { publishedAt: { ne: null }, categories: { elemMatch: { id: { eq: $category } } } }) {
       edges {
         node {
           id

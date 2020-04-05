@@ -98,8 +98,7 @@ const transformed = {
     var value = parent[key]
     if (value instanceof Object && value.hasOwnProperty(lang)) {
       if (Object.isExtensible(parent)) {
-        if (key.substring(0, 4) === "_raw")
-          key = key.substring(4).charAt(0).toLowerCase() + key.substring(5)
+        if (key.substring(0, 4) === "_raw") key = key.substring(4).charAt(0).toLowerCase() + key.substring(5)
         parent[key] = value[lang]
       }
     }

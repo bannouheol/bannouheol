@@ -13,7 +13,7 @@ module.exports = {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `images`,
-        path: `${__dirname}/src/images`,
+        path: `${__dirname}/src/assets/images`,
       },
     },
     `gatsby-plugin-preact`,
@@ -26,6 +26,20 @@ module.exports = {
         token: process.env.SANITY_TOKEN,
         watchMode: true,
         overlayDrafts: true,
+      },
+    },
+    {
+      resolve: "gatsby-plugin-react-svg",
+      options: {
+        rule: {
+          include: /assets/,
+        },
+      },
+    },
+    {
+      resolve: "gatsby-plugin-mailchimp",
+      options: {
+        endpoint: process.env.MAILCHIMP_ENDPOINT,
       },
     },
     {
@@ -45,7 +59,7 @@ module.exports = {
         background_color: `#3e92cc`,
         theme_color: `#3e92cc`,
         display: `minimal-ui`,
-        icon: `src/images/icon.png`, // This path is relative to the root of the site.
+        icon: `src/assets/images/icon.png`, // This path is relative to the root of the site.
       },
     },
     `gatsby-plugin-catch-links`,

@@ -6,12 +6,5 @@ import { ProductPreview } from "./ProductPreview"
 
 export const Products = ({ nodes }) => {
   //const { t } = useTranslation("common", "shop")
-  return (
-    <Grid width={[128, 128, 128]}>
-      {nodes &&
-        nodes.map((product) => (
-          <ProductPreview key={product.id} {...product} />
-        ))}
-    </Grid>
-  )
+  return <Grid width={[128, 128, 128]}>{nodes && nodes.map((product) => <ProductPreview key={product.id} {...product} />)}</Grid>
 }

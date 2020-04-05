@@ -1,10 +1,10 @@
 /** @jsx jsx */
 
-import { jsx, Grid, Box, Heading } from "theme-ui"
+import { jsx, Grid, Box } from "theme-ui"
 //import { Link } from "./Link"
-import { useTranslation } from "react-i18next"
+//import { useTranslation } from "react-i18next"
 //import { useStaticQuery, graphql } from "gatsby"
-//import { mapEdgesToNodes } from "../lib/helpers"
+import { Mailchimp } from "./Mailchimp"
 
 //const FooterLink = (props) => <Link sx={{ variant: "links.nav" }} {...props} />
 
@@ -28,15 +28,9 @@ export const FooterFirst = () => {
     >
       <Grid gap={2} columns={[1, "1fr 1fr"]}>
         <Box>
-          <Heading sx={{ variant: "layout.footerFirst.heading" }}>
-            Inscrivez-vous à la newsletter !
-          </Heading>
+          <Mailchimp />
         </Box>
-        <Box>
-          <Heading sx={{ variant: "layout.footerFirst.heading" }}>
-            Suivez-nous
-          </Heading>
-        </Box>
+        <Box></Box>
       </Grid>
     </div>
   )

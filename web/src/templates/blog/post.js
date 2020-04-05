@@ -15,13 +15,7 @@ const PostPage = ({ data: { post }, errors, ...props }) => {
   return (
     <Layout {...props}>
       {errors && <SEO title="GraphQL Error" />}
-      {post && (
-        <SEO
-          title={post.title.translate}
-          description={toPlainText(post._rawBody[language])}
-          image={post.image.asset.fluid.src}
-        />
-      )}
+      {post && <SEO title={post.title.translate} description={toPlainText(post._rawBody[language])} image={post.image.asset.fluid.src} />}
       {errors && <GraphQLErrorList errors={errors} />}
 
       {post && <Post {...post} />}

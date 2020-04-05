@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx, Grid, Text, Box } from "theme-ui"
+import { jsx, Grid, Styled, Text, Box, Divider } from "theme-ui"
 import PortableText from "../PortableText"
 import Img from "gatsby-image"
 import { graphql } from "gatsby"
@@ -12,11 +12,7 @@ import { BookFeature } from "./BookFeature"
 import { ProfilePreview } from "./ProfilePreview"
 import { AddToCart } from "./AddToCart"
 import Sticky from "react-sticky-el"
-import {
-  FaFacebookSquare,
-  FaTwitterSquare,
-  FaPinterestSquare,
-} from "react-icons/fa"
+import { FaFacebookSquare, FaTwitterSquare, FaPinterestSquare } from "react-icons/fa"
 
 export const Product = (product) => {
   const {
@@ -25,35 +21,15 @@ export const Product = (product) => {
   } = useTranslation("common")
   graphql`
     fragment productFields on SanityProduct {
-      id
-      _rawTitle
-      _rawSlug
+      ...productPreviewFields
       _rawBody
       reference: ref
-      collection {
-        _rawTitle
-        _rawSlug
-      }
       categories {
         id
         _rawTitle
         _rawSlug
         parent: parentCategory {
           _rawSlug
-        }
-      }
-      defaultProductVariant {
-        images {
-          asset {
-            fluid: fluid(maxWidth: 600) {
-              ...GatsbySanityImageFluid
-            }
-          }
-        }
-        inStock
-        price {
-          value
-          formatted
         }
       }
       traductors {
@@ -66,19 +42,7 @@ export const Product = (product) => {
     }
   `
 
-  const {
-    id,
-    title,
-    slug,
-    body,
-    collection,
-    categories,
-    traductors,
-    bookFeature,
-    reference,
-    defaultProductVariant,
-    releaseDate,
-  } = translateRaw(product, language)
+  const { id, title, slug, body, collection, categories, traductors, bookFeature, reference, defaultProductVariant, releaseDate } = translateRaw(product, language)
 
   return (
     <article>
@@ -86,25 +50,22 @@ export const Product = (product) => {
         {defaultProductVariant &&
           defaultProductVariant.images &&
           defaultProductVariant.images.map((i) => (
-            <Box key={i.asset.fluid.src} sx={{ p: 2 }}>
+            <Box key={i.asset.fluid.src}>
               <Img fluid={i.asset.fluid} />
             </Box>
           ))}
         <Box sx={{ p: 2, mb: 2 }}>
-          <h1>{title}</h1>
-          <p>
-            Collection :{` `}
+          <Styled.h1>{title}</Styled.h1>
+          <h2>
             <Link to={`/${collection.slug.current}`}>{collection.title}</Link>
+          </h2>
+          <p>
             <br />
             Catégories : {` `}
             {categories &&
               categories
                 .map((c) => {
-                  c["path"] = path.join(
-                    "/",
-                    c.parent === null ? `` : c.parent.slug.current,
-                    c.slug.current
-                  )
+                  c["path"] = path.join("/", c.parent === null ? `` : c.parent.slug.current, c.slug.current)
                   return (
                     <Link key={c.id} to={c.path}>
                       {c.title}
@@ -118,7 +79,7 @@ export const Product = (product) => {
           {language === "fr" && <p>Titre breton : {product._rawTitle.br}</p>}
           {language === "br" && (
             <p>
-              {t("Titre original")} : {product._rawTitle.br}
+              {t("Titre original")} : {product._rawTitle.fr}
             </p>
           )}
           {body && <PortableText blocks={body} />}
@@ -126,16 +87,8 @@ export const Product = (product) => {
         <Box>
           <Sticky>
             <Box sx={{ variant: "boxes.important" }}>
-              {defaultProductVariant.inStock && (
-                <div sx={{ mb: 1, fontSize: 3 }}>
-                  {defaultProductVariant.price.formatted}
-                </div>
-              )}
-              {defaultProductVariant.inStock && (
-                <div sx={{ mb: 3, fontSize: 1, color: "secondary" }}>
-                  En stock
-                </div>
-              )}
+              {defaultProductVariant.inStock && <div sx={{ mb: 1, fontSize: 3 }}>{defaultProductVariant.price.formatted}</div>}
+              {defaultProductVariant.inStock && <div sx={{ mb: 3, fontSize: 1, color: "secondary" }}>En stock</div>}
               {defaultProductVariant.inStock && (
                 <AddToCart
                   id={id}
@@ -143,22 +96,14 @@ export const Product = (product) => {
                   price={defaultProductVariant.price.value}
                   url={`/${collection.slug}/${slug}`}
                   description={`${collection.title} - ${reference}`}
-                  image={
-                    defaultProductVariant.images &&
-                    defaultProductVariant.images[0].asset.fluid.src
-                  }
+                  image={defaultProductVariant.images && defaultProductVariant.images[0].asset.fluid.src}
                 />
               )}
-              {!defaultProductVariant.inStock && (
-                <Text>{t("shop:out_of_stock")}</Text>
-              )}
-              <p sx={{ fontSize: 0 }}>
-                Livraison offerte à partir de 10€, en 3 jours chez vous
-              </p>
-              <hr sx={{ my: 3, variant: "styles.hr" }} />
+              {!defaultProductVariant.inStock && <Text>{t("shop:out_of_stock")}</Text>}
+              <p sx={{ fontSize: 1 }}>Livraison offerte à partir de 10€, en 3 jours chez vous</p>
+              <Divider sx={{ my: 3 }} />
               <Box>
-                Partager sur : <FaFacebookSquare /> <FaTwitterSquare />{" "}
-                <FaPinterestSquare />
+                Partager sur : <FaFacebookSquare /> <FaTwitterSquare /> <FaPinterestSquare />
               </Box>
             </Box>
           </Sticky>
@@ -175,11 +120,7 @@ export const Product = (product) => {
         )}
         <BookFeature {...bookFeature} />
 
-        <aside>
-          {releaseDate && (
-            <p>{t("shop:released_on", { date: new Date(releaseDate) })}</p>
-          )}
-        </aside>
+        <aside>{releaseDate && <p>{t("shop:released_on", { date: new Date(releaseDate) })}</p>}</aside>
       </Box>
     </article>
   )

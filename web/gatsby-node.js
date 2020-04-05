@@ -36,10 +36,7 @@ const templates = {
 
 const namespaces = ["common", "blog", "shop"]
 
-exports.createPages = async ({
-  graphql,
-  actions: { createPage, createRedirect },
-}) => {
+exports.createPages = async ({ graphql, actions: { createPage, createRedirect } }) => {
   const startupQuery = await graphql(
     `
       query startupQuery {
@@ -103,20 +100,13 @@ exports.createPages = async ({
       }
     `
   )
-  const {
-    blogCategories,
-    blogPosts,
-    products,
-    categories,
-    collections,
-    profiles,
-  } = startupQuery.data
+  const { blogCategories, blogPosts, products, categories, collections, profiles } = startupQuery.data
 
   /* HOME PAGE */
   await buildI18nPages(
     null,
     (_, language) => ({
-      path: "/" + language, // (1)
+      path: `/${language}`, // (1)
       component: path.resolve(path.join(templates.baseDir, templates.home)),
       context: {},
     }),
@@ -130,9 +120,7 @@ exports.createPages = async ({
     null,
     (_, language, i18n) => ({
       path: `/${language}/${i18n.t("blog:slug")}`, // (1)
-      component: path.resolve(
-        path.join(templates.baseDir, templates.blog.archive)
-      ),
+      component: path.resolve(path.join(templates.baseDir, templates.blog.archive)),
       context: {},
     }),
     namespaces,
@@ -144,12 +132,8 @@ exports.createPages = async ({
   await buildI18nPages(
     blogCategories.edges,
     ({ node }, language, i18n) => ({
-      path: `/${language}/${i18n.t("blog:slug")}/${i18n.t(
-        "blog:category_slug"
-      )}/${node._rawSlug[language].current}`,
-      component: path.resolve(
-        path.join(templates.baseDir, templates.blog.archive)
-      ),
+      path: `/${language}/${i18n.t("blog:slug")}/${i18n.t("blog:category_slug")}/${node._rawSlug[language].current}`,
+      component: path.resolve(path.join(templates.baseDir, templates.blog.archive)),
       context: { category: node.id },
     }),
     namespaces,
@@ -161,12 +145,8 @@ exports.createPages = async ({
   await buildI18nPages(
     blogPosts.edges,
     ({ node }, language, i18n) => ({
-      path: `/${language}/${i18n.t("blog:slug")}/${
-        node._rawSlug[language].current
-      }`,
-      component: path.resolve(
-        path.join(templates.baseDir, templates.blog.post)
-      ),
+      path: `/${language}/${i18n.t("blog:slug")}/${node._rawSlug[language].current}`,
+      component: path.resolve(path.join(templates.baseDir, templates.blog.post)),
       context: { post: node.id },
     }),
     namespaces,
@@ -180,9 +160,7 @@ exports.createPages = async ({
     ({ node }, language, _) => ({
       path: `/${language}/${node.collection._rawSlug[language].current}/${node._rawSlug[language].current}`,
       previousPath: node.previousPath && `/${node.previousPath}`,
-      component: path.resolve(
-        path.join(templates.baseDir, templates.shop.product)
-      ),
+      component: path.resolve(path.join(templates.baseDir, templates.shop.product)),
       context: { product: node.id, collection: node.collection.id },
     }),
     namespaces,
@@ -198,9 +176,7 @@ exports.createPages = async ({
         node.parent === null ? `` : node.parent._rawSlug[language].current,
         node._rawSlug[language].current
       )}`,
-      component: path.resolve(
-        path.join(templates.baseDir, templates.shop.category)
-      ),
+      component: path.resolve(path.join(templates.baseDir, templates.shop.category)),
       context: { category: node.id },
     }),
     namespaces,
@@ -213,9 +189,7 @@ exports.createPages = async ({
     collections.edges,
     ({ node }, language, _) => ({
       path: `/${language}/${node._rawSlug[language].current}`,
-      component: path.resolve(
-        path.join(templates.baseDir, templates.shop.collection)
-      ),
+      component: path.resolve(path.join(templates.baseDir, templates.shop.collection)),
       context: { collection: node.id },
     }),
     namespaces,
@@ -227,12 +201,8 @@ exports.createPages = async ({
   await buildI18nPages(
     profiles.edges,
     ({ node }, language, i18n) => ({
-      path: `/${language}/${i18n.t("shop:profile_slug")}/${
-        node._rawSlug[language].current
-      }`,
-      component: path.resolve(
-        path.join(templates.baseDir, templates.shop.profile)
-      ),
+      path: `/${language}/${i18n.t("shop:profile_slug")}/${node._rawSlug[language].current}`,
+      component: path.resolve(path.join(templates.baseDir, templates.shop.profile)),
       context: { profile: node.id },
     }),
     namespaces,
@@ -259,13 +229,7 @@ exports.createPages = async ({
   createRedirect({ fromPath: "/*", toPath: "/404", statusCode: 404 })
 }
 
-const buildI18nPages = async (
-  inputData,
-  pageDefinitionCallback,
-  namespaces,
-  createPage,
-  createRedirect
-) => {
+const buildI18nPages = async (inputData, pageDefinitionCallback, namespaces, createPage, createRedirect) => {
   if (!Array.isArray(inputData)) inputData = [inputData]
   await Promise.all(
     inputData.map(async (ipt) => {
@@ -361,10 +325,7 @@ exports.createResolvers = ({ createResolvers }) => {
         type: `String!`,
         args: { language: { type: "String" } },
         resolve: (source, args) => {
-          return (
-            (source[args.language].current && source[args.language].current) ||
-            source.br.current
-          )
+          return (source[args.language].current && source[args.language].current) || source.br.current
         },
       },
     },

@@ -1,6 +1,5 @@
 /** @jsx jsx */
-
-import { jsx, Grid, Box } from "theme-ui"
+import { jsx, Styled, Grid, Box } from "theme-ui"
 import { graphql } from "gatsby"
 import Img from "gatsby-image"
 import PortableText from "../PortableText"
@@ -29,7 +28,7 @@ export const Profile = (data) => {
           </Box>
         )}
         <Box>
-          <h1>{title}</h1>
+          <Styled.h1>{title}</Styled.h1>
           {bio && <PortableText blocks={bio} />}
         </Box>
       </Grid>

@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx, Grid } from "theme-ui"
+import { jsx, Styled } from "theme-ui"
 import { Layout } from "../../components/Layout"
 import SEO from "../../components/seo"
 import { graphql } from "gatsby"
@@ -24,22 +24,16 @@ const CollectionPage = ({ data, errors, ...props }) => {
       {collection && (
         <SEO
           title={fullTitle}
-          description={
-            collection.description && toPlainText(collection.description)
-          }
+          description={collection.description && toPlainText(collection.description)}
           //image={product.image}
         />
       )}
       {errors && <GraphQLErrorList errors={errors} />}
 
-      {collection && <h1>{fullTitle}</h1>}
-      {collection && collection.description && (
-        <PortableText blocks={collection.description} />
-      )}
+      {collection && <Styled.h1>{fullTitle}</Styled.h1>}
+      {collection && collection.description && <PortableText blocks={collection.description} />}
 
-      {productNodes && productNodes.length > 0 && (
-        <Products nodes={productNodes} />
-      )}
+      {productNodes && productNodes.length > 0 && <Products nodes={productNodes} />}
     </Layout>
   )
 }
@@ -54,13 +48,7 @@ export const query = graphql`
     collection: sanityCollection(id: { eq: $collection }) {
       ...collectionFields
     }
-    products: allSanityProduct(
-      filter: { collection: { id: { eq: $collection } } }
-      sort: {
-        order: [DESC, DESC]
-        fields: [defaultProductVariant___inStock, releaseDate]
-      }
-    ) {
+    products: allSanityProduct(filter: { collection: { id: { eq: $collection } } }, sort: { order: [DESC, DESC], fields: [defaultProductVariant___inStock, releaseDate] }) {
       edges {
         node {
           ...productPreviewFields

@@ -31,10 +31,7 @@ function SEO({ description, meta, title, image }) {
     `
   )
 
-  const metaDescription = truncateString(
-    description || site.siteMetadata.description,
-    150
-  )
+  const metaDescription = truncateString(description || site.siteMetadata.description, 150)
 
   return (
     <Helmet

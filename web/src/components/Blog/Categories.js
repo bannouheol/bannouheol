@@ -13,13 +13,7 @@ export const Categories = ({ nodes }) => {
       <ul>
         {nodes.map((category) => (
           <li key={category._id}>
-            <Link
-              to={`/${t("blog:slug")}/${t("blog:category_slug")}/${
-                category.slug.translate
-              }`}
-            >
-              {category.title.translate}
-            </Link>
+            <Link to={`/${t("blog:slug")}/${t("blog:category_slug")}/${category.slug.translate}`}>{category.title.translate}</Link>
           </li>
         ))}
       </ul>

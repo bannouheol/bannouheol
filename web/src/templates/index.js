@@ -27,10 +27,7 @@ const IndexPage = ({ data, errors, ...props }) => {
 
 export const query = graphql`
   query IndexPageQuery($language: String) {
-    posts: allSanityBlogPost(
-      sort: { fields: [publishedAt], order: DESC }
-      filter: { publishedAt: { ne: null } }
-    ) {
+    posts: allSanityBlogPost(sort: { fields: [publishedAt], order: DESC }, filter: { publishedAt: { ne: null } }) {
       edges {
         node {
           id
