@@ -1,10 +1,13 @@
 /** @jsx jsx */
+import { useContext } from "react"
 import { jsx, Box, Flex, Heading, MenuButton } from "theme-ui"
 import PropTypes from "prop-types"
 import { useTranslation } from "react-i18next"
 import { Link } from "../Link"
+import { MenuContext } from "../Layout"
 
 const HeaderLogo = ({ siteTitle, canonicalUrl }) => {
+  const ctx = useContext(MenuContext)
   const isHome = (canonicalUrl === "/fr" && true) || (canonicalUrl === "/br" && true)
   const {
     t,
@@ -59,7 +62,7 @@ const HeaderLogo = ({ siteTitle, canonicalUrl }) => {
         </Heading>
       </Flex>
       <Flex sx={{ display: ["flex", "none"] }}>
-        <MenuButton />
+        <MenuButton onClick={ctx.toggleMenu} />
       </Flex>
     </Box>
   )

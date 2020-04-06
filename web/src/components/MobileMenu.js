@@ -1,26 +1,21 @@
 /** @jsx jsx */
-import { jsx, Box } from "theme-ui"
+import { jsx } from "theme-ui"
+import { useContext } from "react"
 import { useStaticQuery, graphql } from "gatsby"
 import { useTranslation } from "react-i18next"
-import { mapEdgesToNodes, translateRaw } from "../../lib/helpers"
-import { MenuLink } from "./MenuLink"
+import { mapEdgesToNodes, translateRaw } from "../lib/helpers"
+import { slide as Menu } from "react-burger-menu"
+import { MenuContext } from "./Layout"
+import { MenuLink } from "./Header/MenuLink"
 
-export const HeaderMenu = () => {
+export const MobileMenu = () => {
   const {
     //t,
     i18n: { language },
   } = useTranslation("common")
+  const ctx = useContext(MenuContext)
   const data = useStaticQuery(graphql`
-    fragment menuCategories on SanityCategory {
-      id
-      _rawTitle
-      _rawSlug
-      parent: parentCategory {
-        id
-        _rawSlug
-      }
-    }
-    query HeaderQuery {
+    query MobileMenuQuery {
       categories: allSanityCategory(sort: { fields: menuOrder }) {
         edges {
           node {
@@ -44,28 +39,23 @@ export const HeaderMenu = () => {
 
     nodes[parentIndex].children.push(node)
   })
-
   return (
-    <Box
-      sx={{
-        variant: "layout.headerFirst",
-        alignItems: "center",
-        justifyContent: "space-evenly",
-        gridColumnStart: [1, 1, 1, 2],
-        gridColumnEnd: [3, 4, 4, 3],
-        order: [2, 2, 2, 1],
-        p: [2, 2, 0],
-        pt: [1, 0, 0],
-        fontSize: [0, 1, 2],
-        display: ["none", "flex"],
-      }}
+    <Menu
+      right
+      width={"80%"}
+      sx={{ variant: "layout.mobileMenu" }}
+      customBurgerIcon={false}
+      isOpen={ctx.isMenuOpen}
+      onStateChange={(state) => ctx.stateChangeHandler(state)}
+      pageWrapId={`page-wrap`}
     >
+      <MenuLink to="/">Accueil</MenuLink>
       {categories.map((c) => (
         <MenuLink key={c.id} to={`/${c.slug.current}`}>
           {c.title}
         </MenuLink>
       ))}
       <MenuLink to="/blog">Actualité</MenuLink>
-    </Box>
+    </Menu>
   )
 }

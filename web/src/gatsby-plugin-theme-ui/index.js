@@ -51,6 +51,19 @@ export default {
         textDecoration: "none",
       },
     },
+    mobileMenu: {
+      bg: "secondary",
+      position: "fixed",
+      height: "100%",
+      display: ["block", "none"],
+      p: 4,
+      color: "white",
+      a: {
+        color: "white",
+        py: 3,
+        borderColor: "rgba(255,255,255,0.125)",
+      },
+    },
     footerWrap: {
       color: "white",
     },
@@ -304,6 +317,9 @@ export default {
         textDecoration: "none",
         ":hover": {
           textDecoration: "underline",
+        },
+        ":focus": {
+          outline: "none",
         },
       },
     },

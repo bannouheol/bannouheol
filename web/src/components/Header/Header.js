@@ -12,20 +12,22 @@ export const Header = ({ siteTitle, alternateLink, canonicalUrl }) => {
   } = useTranslation("common")*/
 
   return (
-    <header
-      sx={{
-        width: "100%",
-        display: "grid",
-        mx: "auto",
-        gridAutoFlow: "row",
-        gridTemplateColumns: ["auto", "auto 3fr 1fr"],
-      }}
-    >
-      <HeaderLogo siteTitle={siteTitle} canonicalUrl={canonicalUrl} />
+    <div>
+      <header
+        sx={{
+          width: "100%",
+          display: "grid",
+          mx: "auto",
+          gridAutoFlow: "row",
+          gridTemplateColumns: ["auto", "auto 3fr 1fr"],
+        }}
+      >
+        <HeaderLogo siteTitle={siteTitle} canonicalUrl={canonicalUrl} />
 
-      <HeaderMenu />
+        <HeaderMenu />
 
-      <HeaderSecond alternateLink={alternateLink} />
-    </header>
+        <HeaderSecond alternateLink={alternateLink} />
+      </header>
+    </div>
   )
 }
