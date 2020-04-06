@@ -54,10 +54,10 @@ export const FooterSecond = ({ siteTitle, siteUrl }) => {
           mt: 4,
         }}
       >
-        <FooterLink to="/">{t("Accueil")}</FooterLink>
+        <FooterLink to="/">{t("home")}</FooterLink>
         <FooterLink to={`/${t("blog:slug")}`}>Blog</FooterLink>
-        <FooterLink to="/cgv">CGV</FooterLink>
-        <FooterLink to="/mentions-legales">Mentions légales</FooterLink>
+        <FooterLink to="/cgv">{t("conditions")}</FooterLink>
+        <FooterLink to="/mentions-legales">{t("mentions")}</FooterLink>
         <div sx={{ mx: 1 }} />© {new Date().getFullYear()}
         {` `}
         <a href={siteUrl} sx={{ variant: "links.nav" }}>

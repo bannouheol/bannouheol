@@ -36,7 +36,7 @@ export const HeaderSecond = ({ alternateLink }) => {
         <IoMdSearch size={32} />
         <Input
           type="search"
-          placeholder="Rechercher"
+          placeholder={t("search")}
           autocomplete="off"
           sx={{ variant: "inputs.shadow", width: "full" }}
         />
@@ -65,7 +65,7 @@ export const HeaderSecond = ({ alternateLink }) => {
             <span className="snipcart-items-count"></span>
           </Badge>
         </Box>
-        <Text>Mon panier</Text>
+        <Text>{t("shop:my_cart")}</Text>
       </button>
       <Flex sx={{ alignItems: "center", order: [0, 0, 0, 2] }}>
         <Flex pr={1}>

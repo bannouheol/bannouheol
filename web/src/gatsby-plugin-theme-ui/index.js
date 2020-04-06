@@ -435,7 +435,7 @@ export default {
       px: 1,
       display: "inline-block",
       bg: "transparent",
-      color: "text",
+      color: "grey",
       border: "1px solid rgba(200,200,200,0.325)",
       "&:hover": {
         cursor: "pointer",

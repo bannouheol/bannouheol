@@ -10,7 +10,7 @@ import { AddToCart } from "./AddToCart"
 
 export const ProductPreview = (product) => {
   const {
-    //t,
+    t,
     i18n: { language },
   } = useTranslation("common")
 
@@ -19,6 +19,7 @@ export const ProductPreview = (product) => {
       id
       _rawTitle
       _rawSlug
+      reference: ref
       collection {
         _rawTitle
         _rawSlug
@@ -60,7 +61,7 @@ export const ProductPreview = (product) => {
 
           {inStock && productFeature.price && <Text>{productFeature.price.formatted}</Text>}
 
-          {inStock && <Text sx={{ color: "secondary", display: "inline-block", mr: 2 }}>En stock</Text>}
+          {inStock && <Text sx={{ color: "secondary", display: "inline-block", mr: 2 }}>{t("shop:in_stock")}</Text>}
           {inStock && (
             <AddToCart
               id={id}

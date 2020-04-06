@@ -10,7 +10,7 @@ import { MenuLink } from "./Header/MenuLink"
 
 export const MobileMenu = () => {
   const {
-    //t,
+    t,
     i18n: { language },
   } = useTranslation("common")
   const ctx = useContext(MenuContext)
@@ -49,13 +49,13 @@ export const MobileMenu = () => {
       onStateChange={(state) => ctx.stateChangeHandler(state)}
       pageWrapId={`page-wrap`}
     >
-      <MenuLink to="/">Accueil</MenuLink>
+      <MenuLink to="/">{t("home")}</MenuLink>
       {categories.map((c) => (
         <MenuLink key={c.id} to={`/${c.slug.current}`}>
           {c.title}
         </MenuLink>
       ))}
-      <MenuLink to="/blog">Actualité</MenuLink>
+      <MenuLink to="/blog">{t("news")}</MenuLink>
     </Menu>
   )
 }

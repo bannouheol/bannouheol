@@ -7,7 +7,7 @@ import { MenuLink } from "./MenuLink"
 
 export const HeaderMenu = () => {
   const {
-    //t,
+    t,
     i18n: { language },
   } = useTranslation("common")
   const data = useStaticQuery(graphql`
@@ -65,7 +65,7 @@ export const HeaderMenu = () => {
           {c.title}
         </MenuLink>
       ))}
-      <MenuLink to="/blog">Actualité</MenuLink>
+      <MenuLink to="/blog">{t("news")}</MenuLink>
     </Box>
   )
 }

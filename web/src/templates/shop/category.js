@@ -33,7 +33,7 @@ const CategoryPage = ({ data, errors, ...props }) => {
       {category && <Styled.h1>{fullTitle}</Styled.h1>}
       {category && category.description && <PortableText blocks={category.description} />}
 
-      {productNodes && productNodes.length > 0 && <Products nodes={productNodes} />}
+      {productNodes && productNodes.length > 0 && <Products nodes={productNodes} sx={{ mt: 3 }} />}
     </Layout>
   )
 }

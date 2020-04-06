@@ -4,10 +4,19 @@
   "br": "Brezhoneg",
   "fr": "Français",
   "language": "Language",
-  "Accueil": "Accueil",
+  "search": "Rechercher",
+  "home": "Accueil",
+  "news": "Actualité",
   "error": {
     "notFound": "Page introuvable",
     "notFoundMessage": "Cette page n'existe pas ou n'existe plus. Nous vous prions de nous excuser pour la gêne occasionnée."
   },
-  "x_in_breton": "{{x}} en breton"
+  "x_in_breton": "{{x}} en breton",
+  "mailing_subscribe": "Inscrivez-vous à la newsletter",
+  "mailing_receive_offers": "et recevez nos offres en exclusivité !",
+  "mailing_your_mail": "Votre adresse email ?",
+  "mailing_submit": "Je m'inscris",
+  "follow_us": "Suivez-nous sur les réseaux sociaux",
+  "conditions": "Conditions générales de vente",
+  "mentions": "Mentions légales"
 }

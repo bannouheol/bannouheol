@@ -33,7 +33,7 @@ const CollectionPage = ({ data, errors, ...props }) => {
       {collection && <Styled.h1>{fullTitle}</Styled.h1>}
       {collection && collection.description && <PortableText blocks={collection.description} />}
 
-      {productNodes && productNodes.length > 0 && <Products nodes={productNodes} />}
+      {productNodes && productNodes.length > 0 && <Products nodes={productNodes} sx={{ mt: 3 }} />}
     </Layout>
   )
 }
@@ -48,7 +48,10 @@ export const query = graphql`
     collection: sanityCollection(id: { eq: $collection }) {
       ...collectionFields
     }
-    products: allSanityProduct(filter: { collection: { id: { eq: $collection } } }, sort: { order: [DESC, DESC], fields: [defaultProductVariant___inStock, releaseDate] }) {
+    products: allSanityProduct(
+      filter: { collection: { id: { eq: $collection } } }
+      sort: { order: [DESC, DESC], fields: [defaultProductVariant___inStock, releaseDate] }
+    ) {
       edges {
         node {
           ...productPreviewFields

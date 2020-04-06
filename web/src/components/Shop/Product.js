@@ -157,7 +157,7 @@ export const Product = (product) => {
               <Box>
                 {inStock && <div sx={{ mb: 1, fontSize: 3 }}>{productFeature.price.formatted}</div>}
                 <div sx={{ mb: [0, 3], fontSize: 1, color: inStock ? "secondary" : "tomato" }}>
-                  {inStock ? "En stock" : t("shop:out_of_stock")}
+                  {inStock ? t("shop:in_stock") : t("shop:out_of_stock")}
                 </div>
               </Box>
               {inStock && (

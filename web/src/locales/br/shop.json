@@ -2,6 +2,8 @@
   "released_on": "Paru le {{date, DD/MM/YYYY}}",
   "buy": "Prenañ",
   "add_to_cart": "Ajouter au panier",
+  "my_cart": "Ma fanerad",
+  "in_stock": "Er stok",
   "out_of_stock": "Stok peurwerzhet",
   "profile_slug": "profil",
   "involvement": "Participations"
