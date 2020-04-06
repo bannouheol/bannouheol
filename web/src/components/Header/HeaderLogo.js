@@ -33,6 +33,7 @@ const HeaderLogo = ({ siteTitle, canonicalUrl }) => {
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
+          mt: [2, 0],
         }}
       >
         <Heading as={isHome && "h1"} sx={{ fontFamily: "logo", mb: 3, fontSize: 5 }}>

@@ -5,6 +5,7 @@ import { IoIosCart } from "react-icons/io"
 
 export const AddToCart = ({ id, title, price, url, description, image, ...props }) => {
   const { t } = useTranslation()
+
   return (
     <Button
       className="snipcart-add-item"

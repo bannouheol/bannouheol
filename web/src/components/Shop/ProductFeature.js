@@ -6,7 +6,7 @@ export const ProductFeature = ({
   //price,
   weight,
   dimensions,
-  barcode: { barcode },
+  barcode,
 }) => {
   graphql`
     fragment productFeatureFields on SanityProduct {
@@ -28,7 +28,7 @@ export const ProductFeature = ({
     <div>
       {weight && <Text>Poids : {weight}g</Text>}
       {dimensions && <Text>Dimensions : {dimensions}</Text>}
-      {barcode && <Text>ISBN : {barcode}</Text>}
+      {barcode && <Text>ISBN : {barcode.barcode}</Text>}
     </div>
   )
 }

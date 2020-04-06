@@ -299,12 +299,12 @@ export default {
       lineHeight: "body",
       fontWeight: "body",
       fontSize: 2,
-    },
-    a: {
-      color: "secondary",
-      textDecoration: "none",
-      ":hover": {
-        textDecoration: "underline",
+      a: {
+        color: "secondary",
+        textDecoration: "none",
+        ":hover": {
+          textDecoration: "underline",
+        },
       },
     },
     h1: {

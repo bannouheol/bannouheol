@@ -8,6 +8,7 @@ import { useTranslation } from "react-i18next"
 import { Link } from "../Link"
 import { translateRaw } from "../../lib/helpers"
 import { BookFeature } from "./BookFeature"
+import { ProductFeature } from "./ProductFeature"
 import { ProfilePreview } from "./ProfilePreview"
 import { AddToCart } from "./AddToCart"
 import { FaFacebookSquare, FaTwitterSquare, FaPinterestSquare } from "react-icons/fa"
@@ -70,7 +71,14 @@ export const Product = (product) => {
   }
 
   const specs = (
-    <Box my={4}>
+    <Box mt={2}>
+      {language === "fr" && <Text>Titre en breton : {product._rawTitle.br}</Text>}
+      {language === "br" && (
+        <Text>
+          {t("Titre original")} : {product._rawTitle.fr}
+        </Text>
+      )}
+      <ProductFeature {...productFeature} />
       <BookFeature {...bookFeature} />
 
       {releaseDate && <p>{t("shop:released_on", { date: new Date(releaseDate) })}</p>}
@@ -83,12 +91,6 @@ export const Product = (product) => {
               return acc === null ? [el] : [...acc, ", ", el]
             }, null)}
         </Box>
-      )}
-      {language === "fr" && <Text>Titre en breton : {product._rawTitle.br}</Text>}
-      {language === "br" && (
-        <Text>
-          {t("Titre original")} : {product._rawTitle.fr}
-        </Text>
       )}
     </Box>
   )
@@ -118,37 +120,38 @@ export const Product = (product) => {
           }}
         >
           <Styled.h1>{title}</Styled.h1>
-          Collection :{" "}
-          <h2 sx={{ display: "inline-block" }}>
-            <Link sx={{ p: 1, bg: "light", borderRadius: 8 }} to={`/${collection.slug.current}`}>
-              {collection.title}
-            </Link>
-          </h2>{" "}
-          Catégories :{" "}
-          {categories &&
-            categories
-              .map((c) => {
-                c["path"] = path.join("/", c.parent === null ? `` : c.parent.slug.current, c.slug.current)
-                return (
-                  <h3 sx={{ display: "inline-block" }}>
-                    <Link key={c.id} to={c.path}>
-                      {c.title}
-                    </Link>
-                  </h3>
-                )
-              })
-              .reduce((acc, el) => {
-                return acc === null ? [el] : [...acc, " - ", el]
-              }, null)}
-          {body ? (
+          <Box sx={{ lineHeight: 2 }}>
+            Collection :{" "}
+            <h2 sx={{ display: "inline-block" }}>
+              <Link sx={{ p: 1, bg: "light", borderRadius: 8 }} to={`/${collection.slug.current}`}>
+                {collection.title}
+              </Link>
+            </h2>{" "}
+            Catégories :{" "}
+            {categories &&
+              categories
+                .map((c) => {
+                  c["path"] = path.join("/", c.parent === null ? `` : c.parent.slug.current, c.slug.current)
+                  return (
+                    <h3 sx={{ display: "inline-block" }}>
+                      <Link key={c.id} to={c.path} sx={{ p: 1, bg: "light", borderRadius: 8 }}>
+                        {c.title}
+                      </Link>
+                    </h3>
+                  )
+                })
+                .reduce((acc, el) => {
+                  return acc === null ? [el] : [...acc, " - ", el]
+                }, null)}
+          </Box>
+          {body && (
             <Box sx={{ my: 4 }}>
               <PortableText blocks={body} />
             </Box>
-          ) : (
-            specs
           )}
+          {specs}
         </Box>
-        <Box sx={{ order: [2, 1, 2] }}>
+        <Box sx={{ order: [2, 1, 2], mb: [4, 0] }}>
           <Box sx={{ variant: "boxes.important" }}>
             <Grid gap={2} columns={["1fr 2fr", 1]} sx={{ alignItems: "center", justifyContent: "center" }}>
               <Box>
@@ -164,7 +167,7 @@ export const Product = (product) => {
                   price={productFeature.price.value}
                   url={`/${language}/${collection.slug.current}/${slug.current}`}
                   description={`${collection.title} - ${reference}`}
-                  image={images.images && images.images[0].asset.fluid.src}
+                  image={product.images.images && product.images.images[0].asset.fluid.src}
                 />
               )}
             </Grid>
@@ -172,14 +175,14 @@ export const Product = (product) => {
               <span sx={{ color: "tomato" }}>Livraison offerte</span> à partir de 10€, en 3 jours chez vous
             </Text>
             <Divider sx={{ my: 3 }} />
-            <Flex sx={{ alignItems: "center" }}>
-              Partager sur : <FaFacebookSquare size={24} sx={{ ml: 1 }} /> <FaTwitterSquare size={24} sx={{ ml: 1 }} />{" "}
-              <FaPinterestSquare size={24} sx={{ ml: 1 }} />
+            <Flex sx={{ alignItems: "center", color: "textMuted" }}>
+              Partager sur : <FaFacebookSquare size={24} sx={{ ml: 1, color: "light" }} />{" "}
+              <FaTwitterSquare size={24} sx={{ ml: 1, color: "light" }} />{" "}
+              <FaPinterestSquare size={24} sx={{ ml: 1, color: "light" }} />
             </Flex>
           </Box>
         </Box>
       </Grid>
-      {body && specs}
     </article>
   )
 }

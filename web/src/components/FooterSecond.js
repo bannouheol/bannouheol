@@ -35,9 +35,9 @@ export const FooterSecond = ({ siteTitle, siteUrl }) => {
     >
       <Grid
         sx={{
-          gridTemplateRows: "repeat(4, 32px)",
-          gridTemplateColumns: ["repeat(2, 1fr)", "repeat(3, 1fr)"],
-          gridAutoFlow: "column",
+          //gridTemplateRows: "repeat(4, 32px)",
+          gridTemplateColumns: ["repeat(2, 1fr)", "repeat(2, 1fr)", "repeat(3, 1fr)"],
+          gridAutoFlow: "row",
           gap: 2,
           width: "full",
         }}
