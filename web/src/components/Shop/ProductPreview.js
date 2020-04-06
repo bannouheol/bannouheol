@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next"
 //import { Categories } from "./Categories"
 import { Link } from "../Link"
 import { translateRaw } from "../../lib/helpers"
+import { AddToCart } from "./AddToCart"
 
 export const ProductPreview = (product) => {
   const {
@@ -34,8 +35,9 @@ export const ProductPreview = (product) => {
       ...productFeatureFields
     }
   `
-  const { title, slug, collection, images, productFeature } = translateRaw(product, language)
+  const { id, title, slug, collection, images, productFeature, reference } = translateRaw(product, language)
   const productLink = `/${collection.slug.current}/${slug.current}`
+  const inStock = productFeature && productFeature.inStock
   return (
     <Card
       sx={{
@@ -56,11 +58,20 @@ export const ProductPreview = (product) => {
           </Link>
           <Text sx={{ color: "textMuted" }}>{collection.title}</Text>
 
-          {productFeature && productFeature.inStock && productFeature.price && (
-            <Text>{productFeature.price.formatted}</Text>
-          )}
+          {inStock && productFeature.price && <Text>{productFeature.price.formatted}</Text>}
 
-          {productFeature && productFeature.inStock && <Text sx={{ color: "secondary" }}>En stock</Text>}
+          {inStock && <Text sx={{ color: "secondary", display: "inline-block", mr: 2 }}>En stock</Text>}
+          {inStock && (
+            <AddToCart
+              id={id}
+              title={title}
+              price={productFeature.price.value}
+              url={`/${language}/${collection.slug.current}/${slug.current}`}
+              description={`${collection.title} - ${reference}`}
+              image={product.images.images && product.images.images[0].asset.fluid.src}
+              discrete="true"
+            />
+          )}
         </Box>
       </div>
     </Card>

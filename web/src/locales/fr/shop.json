@@ -1,5 +1,6 @@
 {
   "released_on": "Paru le {{date, DD/MM/YYYY}}",
+  "buy": "Acheter",
   "add_to_cart": "Ajouter au panier",
   "out_of_stock": "Stock épuisé",
   "profile_slug": "profil",

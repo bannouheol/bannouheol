@@ -25,7 +25,7 @@ export default {
     grey: "#353B50",
     bluebird: "#246EB9", //"#89B1D8", //https://www.behr.com/consumer/inspiration/2020-color-trends/
     grayDark: "#2d3748",
-    text: "#111",
+    text: "#222",
     muted: "rgba(255,255,255,0.125)",
     success: "#9ae6b4",
     info: "#63b3ed",
@@ -428,6 +428,17 @@ export default {
       borderRadius: "full",
       "&:hover": {
         backgroundColor: "primaryHover",
+      },
+    },
+    discrete: {
+      p: 0,
+      px: 1,
+      display: "inline-block",
+      bg: "transparent",
+      color: "text",
+      border: "1px solid rgba(200,200,200,0.325)",
+      "&:hover": {
+        cursor: "pointer",
       },
     },
     outline: {
