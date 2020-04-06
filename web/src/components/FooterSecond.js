@@ -1,6 +1,6 @@
 /** @jsx jsx */
 
-import { jsx, Grid } from "theme-ui"
+import { jsx, Grid, Flex } from "theme-ui"
 import { Link } from "./Link"
 import { useTranslation } from "react-i18next"
 import { useStaticQuery, graphql } from "gatsby"
@@ -39,6 +39,7 @@ export const FooterSecond = ({ siteTitle, siteUrl }) => {
           gridTemplateColumns: ["repeat(2, 1fr)", "repeat(3, 1fr)"],
           gridAutoFlow: "column",
           gap: 2,
+          width: "full",
         }}
       >
         {collections.map((c) => (
@@ -47,24 +48,22 @@ export const FooterSecond = ({ siteTitle, siteUrl }) => {
           </FooterLink>
         ))}
       </Grid>
-      <div
+      <Flex
         sx={{
-          display: "flex",
-          justifyContent: "flex-end",
-          p: 2,
+          justifyContent: "space-between",
+          mt: 4,
         }}
       >
         <FooterLink to="/">{t("Accueil")}</FooterLink>
-        <FooterLink to={`/${t("blog:slug")}`}>Blog!</FooterLink>
+        <FooterLink to={`/${t("blog:slug")}`}>Blog</FooterLink>
         <FooterLink to="/cgv">CGV</FooterLink>
-        <div sx={{ mx: 1 }} />
         <FooterLink to="/mentions-legales">Mentions légales</FooterLink>
         <div sx={{ mx: 1 }} />© {new Date().getFullYear()}
         {` `}
         <a href={siteUrl} sx={{ variant: "links.nav" }}>
           {siteTitle}
         </a>
-      </div>
+      </Flex>
     </div>
   )
 }

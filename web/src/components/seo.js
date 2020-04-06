@@ -31,12 +31,12 @@ function SEO({ description, meta, title, image }) {
     `
   )
 
-  const metaDescription = truncateString(description || site.siteMetadata.description, 150)
+  const metaDescription = truncateString(description || site.siteMetadata.description, 147)
 
   return (
     <Helmet
-      title={title}
-      titleTemplate={`%s — ${site.siteMetadata.title}`}
+      title={title.length <= 60 ? `${title} — ${site.siteMetadata.title}` : title}
+      //titleTemplate={`%s — ${site.siteMetadata.title}`}
       meta={[
         {
           name: `description`,

@@ -5,13 +5,14 @@ import Img from "gatsby-image"
 import { graphql } from "gatsby"
 import path from "path"
 import { useTranslation } from "react-i18next"
-//import { Categories } from "./Categories"
 import { Link } from "../Link"
 import { translateRaw } from "../../lib/helpers"
 import { BookFeature } from "./BookFeature"
 import { ProfilePreview } from "./ProfilePreview"
 import { AddToCart } from "./AddToCart"
 import { FaFacebookSquare, FaTwitterSquare, FaPinterestSquare } from "react-icons/fa"
+import YouTube from "react-youtube"
+import getVideoId from "get-video-id"
 
 export const Product = (product) => {
   const {
@@ -38,9 +39,11 @@ export const Product = (product) => {
         ...bookFeatureFields
       }
       releaseDate
+      youtubeVideos {
+        url
+      }
     }
   `
-
   const {
     id,
     title,
@@ -53,44 +56,73 @@ export const Product = (product) => {
     reference,
     defaultProductVariant,
     releaseDate,
+    youtubeVideos,
   } = translateRaw(product, language)
   const inStock = defaultProductVariant.inStock
+
+  const images = defaultProductVariant.images.map((i) => i.asset.fluid)
+
+  const opts = {
+    //height: "auto",
+    width: "100%",
+    playerVars: {
+      // https://developers.google.com/youtube/player_parameters
+      //autoplay: 1,
+    },
+  }
+
   return (
     <article>
       <Grid gap={2} columns={[1, 2, "4fr 6fr 4fr", "4fr 6fr 3fr"]} className="boundary-element">
-        {defaultProductVariant &&
-          defaultProductVariant.images &&
-          defaultProductVariant.images.map((i) => (
-            <Box key={i.asset.fluid.src}>
-              <Img fluid={i.asset.fluid} />
+        {images &&
+          images.map((i) => (
+            <Box sx={{ order: 0 }}>
+              <Img key={i.src} fluid={i} />
+              {youtubeVideos &&
+                youtubeVideos.length > 0 &&
+                youtubeVideos.map((video) => {
+                  const { id } = getVideoId(video.url)
+                  return id && <YouTube videoId={id} opts={opts} sx={{ mt: 3 }} />
+                })}
             </Box>
           ))}
-        <Box sx={{ p: 2, mb: 2 }}>
+        <Box
+          sx={{
+            p: 2,
+            mb: 2,
+            order: [1, 2, 1],
+            gridColumnStart: ["auto", 1, "auto"],
+            gridColumnEnd: ["auto", 4, "auto"],
+          }}
+        >
           <Styled.h1>{title}</Styled.h1>
-          <h2>
-            Collection <Link to={`/${collection.slug.current}`}>{collection.title}</Link>
-          </h2>
-          <p>
-            Catégories : {` `}
-            {categories &&
-              categories
-                .map((c) => {
-                  c["path"] = path.join("/", c.parent === null ? `` : c.parent.slug.current, c.slug.current)
-                  return (
+          Collection :{" "}
+          <h2 sx={{ display: "inline-block" }}>
+            <Link sx={{ p: 1, bg: "light", borderRadius: 8 }} to={`/${collection.slug.current}`}>
+              {collection.title}
+            </Link>
+          </h2>{" "}
+          Catégories :{" "}
+          {categories &&
+            categories
+              .map((c) => {
+                c["path"] = path.join("/", c.parent === null ? `` : c.parent.slug.current, c.slug.current)
+                return (
+                  <h3 sx={{ display: "inline-block" }}>
                     <Link key={c.id} to={c.path}>
                       {c.title}
                     </Link>
-                  )
-                })
-                .reduce((acc, el) => {
-                  return acc === null ? [el] : [...acc, ", ", el]
-                }, null)}
-          </p>
-          {language === "fr" && <p>Titre breton : {product._rawTitle.br}</p>}
+                  </h3>
+                )
+              })
+              .reduce((acc, el) => {
+                return acc === null ? [el] : [...acc, " - ", el]
+              }, null)}
+          {language === "fr" && <Text mt={3}>Titre breton : {product._rawTitle.br}</Text>}
           {language === "br" && (
-            <p>
+            <Text mt={3}>
               {t("Titre original")} : {product._rawTitle.fr}
-            </p>
+            </Text>
           )}
           {body && (
             <Box sx={{ my: 4 }}>
@@ -98,7 +130,7 @@ export const Product = (product) => {
             </Box>
           )}
         </Box>
-        <Box>
+        <Box sx={{ order: [2, 1, 2] }}>
           <Box sx={{ variant: "boxes.important" }}>
             <Grid gap={2} columns={["1fr 2fr", 1]} sx={{ alignItems: "center", justifyContent: "center" }}>
               <Box>

@@ -21,8 +21,7 @@ export const HeaderSecond = ({ alternateLink }) => {
         gridTemplateColumns: ["repeat(3, 1fr)", "repeat(3, 1fr)", "repeat(3, 1fr)", "auto"],
         gap: 0,
         fontSize: [0, 1],
-        pl: [1, 3],
-        pr: [1, 3],
+        px: 4,
         py: [1, 1, 1, 0],
       }}
     >
