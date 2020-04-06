@@ -21,6 +21,7 @@ export default {
     primary: "#FBAF16", //https://infographic.likitimavm.com/color-palettes-for-2020/
     primaryHover: "#853F75",
     secondary: "#40C9A2", //"#8ACCB1", //https://infographic.likitimavm.com/color-palettes-for-2020/
+    green: "#8ACCB1",
     grey: "#353B50",
     bluebird: "#246EB9", //"#89B1D8", //https://www.behr.com/consumer/inspiration/2020-color-trends/
     grayDark: "#2d3748",
