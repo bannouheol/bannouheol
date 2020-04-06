@@ -18,7 +18,11 @@ export const PostPreview = ({ node }) => {
         <Link to={`/${t("blog:slug")}/${slug.translate}`}>{title.translate}</Link>
         {t("blog:posted_in")}
         {categories
-          .map((c) => <Link to={`/${t("blog:slug")}/${t("blog:category_slug")}/${c.slug.translate}`}>{c.title.translate}</Link>)
+          .map((c) => (
+            <Link key={c.id} to={`/${t("blog:slug")}/${t("blog:category_slug")}/${c.slug.translate}`}>
+              {c.title.translate}
+            </Link>
+          ))
           .reduce((acc, el) => {
             return acc === null ? [el] : [...acc, ", ", el]
           }, null)}

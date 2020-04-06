@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx, Box, Styled, Input, Button } from "theme-ui"
+import { jsx, Box, Styled, Text, Input, Button } from "theme-ui"
 import { useState } from "react"
 //import addToMailchimp from "gatsby-plugin-mailchimp"
 
@@ -27,16 +27,17 @@ export const Mailchimp = () => {
 
   return (
     <Box as="form" onSubmit={handleSubmit}>
-      <Styled.h4>Inscrivez-vous à la newsletter !</Styled.h4>
+      <Styled.h4 sx={{ mb: 0 }}>Inscrivez-vous à la newsletter</Styled.h4>
+      <Text sx={{ mb: 2 }}>et recevez nos offres en exclusivité !</Text>
       <Input
         sx={{ variant: "inputs.inline" }}
-        placeholder="Votre adresse email..."
+        placeholder="Votre adresse email ?"
         name="email"
         type="email"
         onChange={handleEmailChange}
         mb={3}
       />
-      <Button>Inscription</Button>
+      <Button>Je m'inscris</Button>
     </Box>
   )
 }

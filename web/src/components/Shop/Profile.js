@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx, Styled, Grid, Box } from "theme-ui"
+import { jsx, Styled, Flex, Box } from "theme-ui"
 import { graphql } from "gatsby"
 import Img from "gatsby-image"
 import PortableText from "../PortableText"
@@ -21,9 +21,9 @@ export const Profile = (data) => {
   `
   return (
     <div>
-      <Grid gap={2} columns={[1, "1fr 4fr"]}>
+      <Flex sx={{ alignItems: "center", flexWrap: "wrap" }}>
         {avatar && (
-          <Box sx={{ p: 4 }}>
+          <Box sx={{ p: [2, 4] }}>
             <Img fluid={avatar.asset.fluid} sx={{ variant: "images.avatar" }} />
           </Box>
         )}
@@ -31,8 +31,8 @@ export const Profile = (data) => {
           <Styled.h1>{title}</Styled.h1>
           {bio && <PortableText blocks={bio} />}
         </Box>
-      </Grid>
-      <h2>{t("shop:involvement")}</h2>
+      </Flex>
+      <Styled.h2>{t("shop:involvement")}</Styled.h2>
       {products && products.length > 0 && <Products nodes={products} />}
     </div>
   )

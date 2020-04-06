@@ -1,11 +1,11 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui"
 import { useStaticQuery, graphql } from "gatsby"
-import { Header } from "./Header"
+import { Header } from "./Header/Header"
 import { FooterFirst } from "./FooterFirst"
 import { FooterSecond } from "./FooterSecond"
 
-export const Layout = ({ children, pageContext: { language, alternateLinks }, mainP = 3 }) => {
+export const Layout = ({ children, pageContext: { language, alternateLinks, ...pageContext }, mainP = 3 }) => {
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
       site {
@@ -34,7 +34,7 @@ export const Layout = ({ children, pageContext: { language, alternateLinks }, ma
         variant: "layout.root",
       }}
     >
-      <Header {...siteMetadata} alternateLink={alternateLink} />
+      <Header {...siteMetadata} {...pageContext} alternateLink={alternateLink} />
 
       <main
         sx={{

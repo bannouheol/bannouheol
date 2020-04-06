@@ -46,6 +46,7 @@ export const query = graphql`
             }
           }
           categories {
+            id
             slug {
               translate(language: $language)
             }

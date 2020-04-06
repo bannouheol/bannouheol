@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx, Grid, Styled, Text, Box, Divider } from "theme-ui"
+import { jsx, Grid, Flex, Styled, Text, Box, Divider } from "theme-ui"
 import PortableText from "../PortableText"
 import Img from "gatsby-image"
 import { graphql } from "gatsby"
@@ -11,7 +11,6 @@ import { translateRaw } from "../../lib/helpers"
 import { BookFeature } from "./BookFeature"
 import { ProfilePreview } from "./ProfilePreview"
 import { AddToCart } from "./AddToCart"
-import Sticky from "react-sticky-el"
 import { FaFacebookSquare, FaTwitterSquare, FaPinterestSquare } from "react-icons/fa"
 
 export const Product = (product) => {
@@ -42,11 +41,23 @@ export const Product = (product) => {
     }
   `
 
-  const { id, title, slug, body, collection, categories, traductors, bookFeature, reference, defaultProductVariant, releaseDate } = translateRaw(product, language)
-
+  const {
+    id,
+    title,
+    slug,
+    body,
+    collection,
+    categories,
+    traductors,
+    bookFeature,
+    reference,
+    defaultProductVariant,
+    releaseDate,
+  } = translateRaw(product, language)
+  const inStock = defaultProductVariant.inStock
   return (
     <article>
-      <Grid gap={2} columns={[1, 2, "4fr 6fr 3fr"]}>
+      <Grid gap={2} columns={[1, 2, "4fr 6fr 4fr", "4fr 6fr 3fr"]} className="boundary-element">
         {defaultProductVariant &&
           defaultProductVariant.images &&
           defaultProductVariant.images.map((i) => (
@@ -57,10 +68,9 @@ export const Product = (product) => {
         <Box sx={{ p: 2, mb: 2 }}>
           <Styled.h1>{title}</Styled.h1>
           <h2>
-            <Link to={`/${collection.slug.current}`}>{collection.title}</Link>
+            Collection <Link to={`/${collection.slug.current}`}>{collection.title}</Link>
           </h2>
           <p>
-            <br />
             Catégories : {` `}
             {categories &&
               categories
@@ -82,40 +92,52 @@ export const Product = (product) => {
               {t("Titre original")} : {product._rawTitle.fr}
             </p>
           )}
-          {body && <PortableText blocks={body} />}
+          {body && (
+            <Box sx={{ my: 4 }}>
+              <PortableText blocks={body} />
+            </Box>
+          )}
         </Box>
         <Box>
-          <Sticky>
-            <Box sx={{ variant: "boxes.important" }}>
-              {defaultProductVariant.inStock && <div sx={{ mb: 1, fontSize: 3 }}>{defaultProductVariant.price.formatted}</div>}
-              {defaultProductVariant.inStock && <div sx={{ mb: 3, fontSize: 1, color: "secondary" }}>En stock</div>}
-              {defaultProductVariant.inStock && (
+          <Box sx={{ variant: "boxes.important" }}>
+            <Grid gap={2} columns={["1fr 2fr", 1]} sx={{ alignItems: "center", justifyContent: "center" }}>
+              <Box>
+                {inStock && <div sx={{ mb: 1, fontSize: 3 }}>{defaultProductVariant.price.formatted}</div>}
+                <div sx={{ mb: [0, 3], fontSize: 1, color: inStock ? "secondary" : "tomato" }}>
+                  {inStock ? "En stock" : t("shop:out_of_stock")}
+                </div>
+              </Box>
+              {inStock && (
                 <AddToCart
                   id={id}
                   title={title}
                   price={defaultProductVariant.price.value}
-                  url={`/${collection.slug}/${slug}`}
+                  url={`/${language}/${collection.slug.current}/${slug.current}`}
                   description={`${collection.title} - ${reference}`}
                   image={defaultProductVariant.images && defaultProductVariant.images[0].asset.fluid.src}
                 />
               )}
-              {!defaultProductVariant.inStock && <Text>{t("shop:out_of_stock")}</Text>}
-              <p sx={{ fontSize: 1 }}>Livraison offerte à partir de 10€, en 3 jours chez vous</p>
-              <Divider sx={{ my: 3 }} />
-              <Box>
-                Partager sur : <FaFacebookSquare /> <FaTwitterSquare /> <FaPinterestSquare />
-              </Box>
-            </Box>
-          </Sticky>
+            </Grid>
+            <Text sx={{ fontSize: 1, mt: 2 }}>
+              <span sx={{ color: "tomato" }}>Livraison offerte</span> à partir de 10€, en 3 jours chez vous
+            </Text>
+            <Divider sx={{ my: 3 }} />
+            <Flex sx={{ alignItems: "center" }}>
+              Partager sur : <FaFacebookSquare size={24} sx={{ ml: 1 }} /> <FaTwitterSquare size={24} sx={{ ml: 1 }} />{" "}
+              <FaPinterestSquare size={24} sx={{ ml: 1 }} />
+            </Flex>
+          </Box>
         </Box>
       </Grid>
-      <Box>
+      <Box my={4}>
         {traductors.length > 0 && (
           <Box>
-            Traducteurs :{` `}
-            {traductors.map((t) => (
-              <ProfilePreview key={t.id} {...t} showAvatar={false} />
-            ))}
+            Traducteur(s) :{` `}
+            {traductors
+              .map((t) => <ProfilePreview key={t.id} {...t} showAvatar={false} />)
+              .reduce((acc, el) => {
+                return acc === null ? [el] : [...acc, ", ", el]
+              }, null)}
           </Box>
         )}
         <BookFeature {...bookFeature} />

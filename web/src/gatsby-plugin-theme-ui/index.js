@@ -1,7 +1,6 @@
 //import { tailwind as base } from "@theme-ui/presets"
 import "../assets/css/reset.css"
 import "../assets/css/fonts.css"
-import footerWave from "../assets/images/footer-wave.svg"
 
 export default {
   borderWidths: {
@@ -16,6 +15,7 @@ export default {
     transparent: "transparent",
     black: "#000",
     white: "#fff",
+    tomato: "#ff6347",
     background: "#fff",
     primary: "#FBAF16", //https://infographic.likitimavm.com/color-palettes-for-2020/
     primaryHover: "#853F75",
@@ -51,15 +51,6 @@ export default {
     },
     footerWrap: {
       color: "white",
-      "::before": {
-        content: '""',
-        display: "flex",
-        height: [75, 105],
-        background: `transparent url(${footerWave}) no-repeat center 2px`,
-        backgroundSize: "cover",
-        position: "relative",
-        flexWrap: "wrap",
-      },
     },
     footerFirst: {
       color: "white",
@@ -67,6 +58,10 @@ export default {
       p: 4,
       display: "flex",
       flexWrap: "wrap",
+      a: {
+        color: "white",
+        pr: 3,
+      },
     },
     footerSecond: {
       bg: "secondary",
@@ -78,7 +73,8 @@ export default {
   },
   boxes: {
     important: {
-      p: 4,
+      p: [4, 3, 3, 4],
+      width: ["full", "auto"],
       bg: "grey",
       color: "background",
       fontWeight: "bold",
@@ -131,7 +127,7 @@ export default {
       },
       "&.active": {
         color: "white",
-        borderColor: "rgba(255,255,255,0.075)",
+        borderColor: "rgba(255,255,255,0.75)",
       },
     },
     footer: {
@@ -174,7 +170,7 @@ export default {
     body: '"Quicksand", sans-serif',
     logo: '"Comics", sans-serif',
   },
-  fontSizes: ["0.675rem", "0.875rem", "1rem", "1.25rem", "1.5rem", "1.875rem", "2rem", "2.25rem", "2.5rem", "2.75rem"],
+  fontSizes: ["0.775rem", "0.875rem", "1rem", "1.25rem", "1.5rem", "1.875rem", "2rem", "2.25rem", "2.5rem", "2.75rem"],
   fontWeights: {
     hairline: "100",
     thin: "200",
@@ -324,7 +320,7 @@ export default {
       fontWeight: "heading",
       lineHeight: "heading",
       m: 0,
-      mb: 1,
+      mb: 2,
       fontSize: 5,
       mt: 1,
     },
@@ -333,7 +329,7 @@ export default {
       fontWeight: "heading",
       lineHeight: "heading",
       m: 0,
-      mb: 1,
+      mb: 2,
       fontSize: 4,
       mt: 3,
     },
@@ -342,7 +338,7 @@ export default {
       fontWeight: "heading",
       lineHeight: "heading",
       m: 0,
-      mb: 1,
+      mb: 2,
       fontSize: 3,
     },
     h5: {
@@ -377,9 +373,10 @@ export default {
       justifyContent: "center",
       display: "flex",
       color: "background",
-      bg: "secondary",
+      fontSize: "inherit",
+      bg: "tomato",
       "&:hover": {
-        bg: "tomato",
+        bg: "primary",
       },
     },
     secondary: {
@@ -517,6 +514,9 @@ export default {
       "&:focus": {
         outline: "none",
         boxShadow: "outline",
+      },
+      "&::placeholder": {
+        color: "rgba(0,0,0,0.5)",
       },
     },
     inline: {

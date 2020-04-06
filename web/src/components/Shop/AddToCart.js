@@ -14,6 +14,7 @@ export const AddToCart = ({ id, title, price, url, description, image, ...props 
       data-item-url={url}
       data-item-description={description}
       data-item-image={image}
+      //sx={{ bg: "secondary", "&:hover": { bg: "tomato" } }}
       {...props}
     >
       <IoIosCart />

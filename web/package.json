@@ -39,7 +39,6 @@
     "react-helmet": "^5.2.1",
     "react-i18next": "^11.3.4",
     "react-icons": "^3.9.0",
-    "react-sticky-el": "^1.1.1",
     "theme-ui": "^0.3.1"
   },
   "devDependencies": {
@@ -52,7 +51,7 @@
   "license": "MIT",
   "scripts": {
     "build": "gatsby build",
-    "develop": "gatsby develop",
+    "develop": "gatsby develop -H 192.168.1.10",
     "dev": "yarn develop",
     "start": "npm run serve",
     "serve": "gatsby serve",

@@ -35,7 +35,10 @@ export const query = graphql`
     category: sanityBlogCategory(id: { eq: $category }) {
       ...blogCategoryFields
     }
-    posts: allSanityBlogPost(sort: { fields: [publishedAt], order: DESC }, filter: { publishedAt: { ne: null }, categories: { elemMatch: { id: { eq: $category } } } }) {
+    posts: allSanityBlogPost(
+      sort: { fields: [publishedAt], order: DESC }
+      filter: { publishedAt: { ne: null }, categories: { elemMatch: { id: { eq: $category } } } }
+    ) {
       edges {
         node {
           id
@@ -54,6 +57,7 @@ export const query = graphql`
             }
           }
           categories {
+            id
             slug {
               translate(language: $language)
             }
