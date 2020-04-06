@@ -6,16 +6,18 @@ import { ProfilePreview } from "./ProfilePreview"
 
 export const BookFeature = ({ numberOfPages, illustrators, authors, scriptwriters }) => {
   graphql`
-    fragment bookFeatureFields on SanityBookFeature {
-      numberOfPages
-      illustrators {
-        ...profilePreviewFields
-      }
-      authors {
-        ...profilePreviewFields
-      }
-      scriptwriters {
-        ...profilePreviewFields
+    fragment bookFeatureFields on SanityProduct {
+      bookFeature {
+        numberOfPages
+        illustrators {
+          ...profilePreviewFields
+        }
+        authors {
+          ...profilePreviewFields
+        }
+        scriptwriters {
+          ...profilePreviewFields
+        }
       }
     }
   `

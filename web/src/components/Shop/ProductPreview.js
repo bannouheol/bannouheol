@@ -22,7 +22,7 @@ export const ProductPreview = (product) => {
         _rawTitle
         _rawSlug
       }
-      defaultProductVariant {
+      images: defaultProductVariant {
         images {
           asset {
             fluid(maxWidth: 800) {
@@ -30,16 +30,11 @@ export const ProductPreview = (product) => {
             }
           }
         }
-        inStock
-        price {
-          value
-          formatted
-        }
       }
+      ...productFeatureFields
     }
   `
-  const { title, slug, collection, defaultProductVariant } = translateRaw(product, language)
-
+  const { title, slug, collection, images, productFeature } = translateRaw(product, language)
   const productLink = `/${collection.slug.current}/${slug.current}`
   return (
     <Card
@@ -49,9 +44,9 @@ export const ProductPreview = (product) => {
     >
       <div>
         <div>
-          {defaultProductVariant && defaultProductVariant.images[0] && defaultProductVariant.images[0].asset && (
+          {images && images.images[0] && images.images[0].asset && (
             <Link to={productLink}>
-              <Img fluid={defaultProductVariant.images[0].asset.fluid} sx={{ variant: "images.card" }} />
+              <Img fluid={images.images[0].asset.fluid} sx={{ variant: "images.card" }} />
             </Link>
           )}
         </div>
@@ -61,22 +56,13 @@ export const ProductPreview = (product) => {
           </Link>
           <Text sx={{ color: "textMuted" }}>{collection.title}</Text>
 
-          {defaultProductVariant && defaultProductVariant.inStock && defaultProductVariant.price && <Text>{defaultProductVariant.price.formatted}</Text>}
+          {productFeature && productFeature.inStock && productFeature.price && (
+            <Text>{productFeature.price.formatted}</Text>
+          )}
 
-          {defaultProductVariant && defaultProductVariant.inStock && <Text sx={{ color: "secondary" }}>En stock</Text>}
+          {productFeature && productFeature.inStock && <Text sx={{ color: "secondary" }}>En stock</Text>}
         </Box>
       </div>
     </Card>
   )
 }
-
-/*
-{categories &&
-  categories
-    .map((c) => (
-      <Link to={`/${c.slug.translate}`}>{c.title.translate}</Link>
-    ))
-    .reduce((acc, el) => {
-      return acc === null ? [el] : [...acc, ", ", el]
-    }, null)}
-    */

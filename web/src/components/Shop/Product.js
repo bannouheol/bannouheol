@@ -35,9 +35,7 @@ export const Product = (product) => {
       traductors {
         ...profilePreviewFields
       }
-      bookFeature {
-        ...bookFeatureFields
-      }
+      ...bookFeatureFields
       releaseDate
       youtubeVideos {
         url
@@ -54,13 +52,13 @@ export const Product = (product) => {
     traductors,
     bookFeature,
     reference,
-    defaultProductVariant,
+    productFeature,
     releaseDate,
     youtubeVideos,
   } = translateRaw(product, language)
-  const inStock = defaultProductVariant.inStock
+  const inStock = productFeature.inStock
 
-  const images = defaultProductVariant.images.map((i) => i.asset.fluid)
+  const images = product.images.images.map((i) => i.asset.fluid)
 
   const opts = {
     //height: "auto",
@@ -70,6 +68,30 @@ export const Product = (product) => {
       //autoplay: 1,
     },
   }
+
+  const specs = (
+    <Box my={4}>
+      <BookFeature {...bookFeature} />
+
+      {releaseDate && <p>{t("shop:released_on", { date: new Date(releaseDate) })}</p>}
+      {traductors.length > 0 && (
+        <Box>
+          Traducteur(s) :{` `}
+          {traductors
+            .map((t) => <ProfilePreview key={t.id} {...t} showAvatar={false} />)
+            .reduce((acc, el) => {
+              return acc === null ? [el] : [...acc, ", ", el]
+            }, null)}
+        </Box>
+      )}
+      {language === "fr" && <Text>Titre en breton : {product._rawTitle.br}</Text>}
+      {language === "br" && (
+        <Text>
+          {t("Titre original")} : {product._rawTitle.fr}
+        </Text>
+      )}
+    </Box>
+  )
 
   return (
     <article>
@@ -118,23 +140,19 @@ export const Product = (product) => {
               .reduce((acc, el) => {
                 return acc === null ? [el] : [...acc, " - ", el]
               }, null)}
-          {language === "fr" && <Text mt={3}>Titre breton : {product._rawTitle.br}</Text>}
-          {language === "br" && (
-            <Text mt={3}>
-              {t("Titre original")} : {product._rawTitle.fr}
-            </Text>
-          )}
-          {body && (
+          {body ? (
             <Box sx={{ my: 4 }}>
               <PortableText blocks={body} />
             </Box>
+          ) : (
+            specs
           )}
         </Box>
         <Box sx={{ order: [2, 1, 2] }}>
           <Box sx={{ variant: "boxes.important" }}>
             <Grid gap={2} columns={["1fr 2fr", 1]} sx={{ alignItems: "center", justifyContent: "center" }}>
               <Box>
-                {inStock && <div sx={{ mb: 1, fontSize: 3 }}>{defaultProductVariant.price.formatted}</div>}
+                {inStock && <div sx={{ mb: 1, fontSize: 3 }}>{productFeature.price.formatted}</div>}
                 <div sx={{ mb: [0, 3], fontSize: 1, color: inStock ? "secondary" : "tomato" }}>
                   {inStock ? "En stock" : t("shop:out_of_stock")}
                 </div>
@@ -143,10 +161,10 @@ export const Product = (product) => {
                 <AddToCart
                   id={id}
                   title={title}
-                  price={defaultProductVariant.price.value}
+                  price={productFeature.price.value}
                   url={`/${language}/${collection.slug.current}/${slug.current}`}
                   description={`${collection.title} - ${reference}`}
-                  image={defaultProductVariant.images && defaultProductVariant.images[0].asset.fluid.src}
+                  image={images.images && images.images[0].asset.fluid.src}
                 />
               )}
             </Grid>
@@ -161,21 +179,7 @@ export const Product = (product) => {
           </Box>
         </Box>
       </Grid>
-      <Box my={4}>
-        {traductors.length > 0 && (
-          <Box>
-            Traducteur(s) :{` `}
-            {traductors
-              .map((t) => <ProfilePreview key={t.id} {...t} showAvatar={false} />)
-              .reduce((acc, el) => {
-                return acc === null ? [el] : [...acc, ", ", el]
-              }, null)}
-          </Box>
-        )}
-        <BookFeature {...bookFeature} />
-
-        <aside>{releaseDate && <p>{t("shop:released_on", { date: new Date(releaseDate) })}</p>}</aside>
-      </Box>
+      {body && specs}
     </article>
   )
 }

@@ -17,20 +17,11 @@ const ProductPage = ({ data, errors, ...props }) => {
   const { product, sameCollectionProducts } = translateRaw(data, language)
   const sameCollectionProductNodes = mapEdgesToNodes(sameCollectionProducts)
   const fullTitle = [product.title, t("x_in_breton", { x: product.collection.title })].join(`, `)
+  const image = product.images.images && product.images.images[0] && product.images.images[0].asset.fluid.src
   return (
     <Layout {...props}>
       {errors && <SEO title="GraphQL Error" />}
-      {product && (
-        <SEO
-          title={fullTitle}
-          description={product.body && toPlainText(product.body)}
-          image={
-            product.defaultProductVariant.images &&
-            product.defaultProductVariant.images[0] &&
-            product.defaultProductVariant.images[0].asset.fluid.src
-          }
-        />
-      )}
+      {product && <SEO title={fullTitle} description={product.body && toPlainText(product.body)} image={image} />}
       {errors && <GraphQLErrorList errors={errors} />}
 
       {product && <Product {...product} />}
