@@ -16,12 +16,13 @@ export default {
     black: "#000",
     white: "#fff",
     tomato: "#ff6347",
+    red: "#FE5F55",
     background: "#fff",
     primary: "#FBAF16", //https://infographic.likitimavm.com/color-palettes-for-2020/
     primaryHover: "#853F75",
-    secondary: "#8ACCB1", //https://infographic.likitimavm.com/color-palettes-for-2020/
+    secondary: "#40C9A2", //"#8ACCB1", //https://infographic.likitimavm.com/color-palettes-for-2020/
     grey: "#353B50",
-    bluebird: "#89B1D8", //https://www.behr.com/consumer/inspiration/2020-color-trends/
+    bluebird: "#246EB9", //"#89B1D8", //https://www.behr.com/consumer/inspiration/2020-color-trends/
     grayDark: "#2d3748",
     text: "#111",
     muted: "rgba(255,255,255,0.125)",
@@ -39,10 +40,10 @@ export default {
       bg: "primary",
     },
     headerSecond: {
-      color: "text",
+      color: "white",
       bg: "secondary",
       a: {
-        color: "text",
+        color: "inherit",
       },
       "button:hover > div:last-child, a:hover": {
         color: "white",
@@ -137,10 +138,9 @@ export default {
     product: {
       fontWeight: "bold",
       color: "black",
-      textDecoration: "none",
-      fontSize: 2,
-      p: 0,
-      m: 0,
+      "&:hover": {
+        textDecoration: "none",
+      },
     },
   },
   images: {
@@ -374,9 +374,9 @@ export default {
       display: "flex",
       color: "background",
       fontSize: "inherit",
-      bg: "tomato",
+      bg: "primary",
       "&:hover": {
-        bg: "primary",
+        bg: "tomato",
       },
     },
     secondary: {
@@ -516,7 +516,7 @@ export default {
         boxShadow: "outline",
       },
       "&::placeholder": {
-        color: "rgba(0,0,0,0.5)",
+        color: "rgba(255,255,255,0.5)",
       },
     },
     inline: {

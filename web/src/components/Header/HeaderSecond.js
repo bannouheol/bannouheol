@@ -18,16 +18,57 @@ export const HeaderSecond = ({ alternateLink }) => {
         gridColumnStart: [1, 1, 1, 3],
         gridColumnEnd: [3, 4, 4, 4],
         order: [0, 0, 0, 2],
-        gridTemplateColumns: ["repeat(3, 1fr)", "repeat(3, 1fr)", "repeat(3, 1fr)", "repeat(2, 1fr)"],
+        gridTemplateColumns: ["repeat(3, 1fr)", "repeat(3, 1fr)", "repeat(3, 1fr)", "auto"],
         gap: 0,
-        color: "text",
-        fontSize: [0, 1, 2],
+        fontSize: [0, 1],
         pl: [1, 3],
         pr: [1, 3],
         py: [1, 1, 1, 0],
       }}
     >
-      <Flex sx={{ alignItems: "center" }}>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+          order: [2, 2, 2, 0],
+        }}
+      >
+        <IoMdSearch size={32} />
+        <Input
+          type="search"
+          placeholder="Rechercher"
+          autocomplete="off"
+          sx={{ variant: "inputs.shadow", width: "full" }}
+        />
+      </Box>
+      <button
+        className="snipcart-checkout"
+        sx={{
+          border: 0,
+          p: 0,
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+          bg: "transparent",
+          color: "inherit",
+          fontSize: "inherit",
+          fontFamily: "inherit",
+          "&:hover": {
+            cursor: "pointer",
+          },
+          order: 1,
+        }}
+      >
+        <Box pr={2}>
+          <IoMdBasket size={32} />
+          <Badge variant="circle" ml={-3} mt={-3}>
+            <span className="snipcart-items-count"></span>
+          </Badge>
+        </Box>
+        <Text>Mon panier</Text>
+      </button>
+      <Flex sx={{ alignItems: "center", order: [0, 0, 0, 2] }}>
         <Flex pr={1}>
           <FaLanguage size={32} />
         </Flex>
@@ -44,47 +85,6 @@ export const HeaderSecond = ({ alternateLink }) => {
           </Link>
         )}
       </Flex>
-      <button
-        className="snipcart-checkout"
-        sx={{
-          border: 0,
-          p: 0,
-          display: "flex",
-          flexDirection: "row",
-          alignItems: "center",
-          bg: "transparent",
-          fontSize: "inherit",
-          fontFamily: "inherit",
-          "&:hover": {
-            cursor: "pointer",
-          },
-        }}
-      >
-        <Box pr={2}>
-          <IoMdBasket size={32} />
-          <Badge variant="circle" ml={-3} mt={-3}>
-            <span className="snipcart-items-count"></span>
-          </Badge>
-        </Box>
-        <Text>Mon panier</Text>
-      </button>
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "row",
-          alignItems: "center",
-          gridColumnStart: [3, 3, 3, 1],
-          gridColumnEnd: [4, 4, 4, 3],
-        }}
-      >
-        <IoMdSearch size={32} />
-        <Input
-          type="search"
-          placeholder="Rechercher"
-          autocomplete="off"
-          sx={{ variant: "inputs.shadow", width: "full" }}
-        />
-      </Box>
     </Grid>
   )
 }

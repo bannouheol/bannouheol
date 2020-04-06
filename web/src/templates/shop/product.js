@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from "theme-ui"
+import { jsx, Box, Styled } from "theme-ui"
 import { Layout } from "../../components/Layout"
 import SEO from "../../components/seo"
 import { graphql } from "gatsby"
@@ -24,14 +24,22 @@ const ProductPage = ({ data, errors, ...props }) => {
         <SEO
           title={fullTitle}
           description={product.body && toPlainText(product.body)}
-          image={product.defaultProductVariant.images && product.defaultProductVariant.images[0] && product.defaultProductVariant.images[0].asset.fluid.src}
+          image={
+            product.defaultProductVariant.images &&
+            product.defaultProductVariant.images[0] &&
+            product.defaultProductVariant.images[0].asset.fluid.src
+          }
         />
       )}
       {errors && <GraphQLErrorList errors={errors} />}
 
       {product && <Product {...product} />}
-      <h2>Dans la même collection</h2>
-      {sameCollectionProductNodes && sameCollectionProductNodes.length > 0 && <Products nodes={sameCollectionProductNodes} />}
+      {sameCollectionProductNodes && sameCollectionProductNodes.length > 0 && (
+        <Box>
+          <Styled.h3>Dans la même collection</Styled.h3>
+          <Products nodes={sameCollectionProductNodes} />
+        </Box>
+      )}
     </Layout>
   )
 }

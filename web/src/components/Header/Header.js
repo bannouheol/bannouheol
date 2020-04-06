@@ -18,7 +18,7 @@ export const Header = ({ siteTitle, alternateLink, canonicalUrl }) => {
         display: "grid",
         mx: "auto",
         gridAutoFlow: "row",
-        gridTemplateColumns: ["auto", "auto 2fr 1fr"],
+        gridTemplateColumns: ["auto", "auto 3fr 1fr"],
       }}
     >
       <HeaderLogo siteTitle={siteTitle} canonicalUrl={canonicalUrl} />
