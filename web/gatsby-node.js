@@ -21,6 +21,7 @@ const redirectInBrowser = true
 const templates = {
   baseDir: `src/templates`,
   home: `index.js`,
+  page: `page.js`,
   error: `404.js`,
   blog: {
     post: `blog/post.js`,
@@ -40,6 +41,14 @@ exports.createPages = async ({ graphql, actions: { createPage, createRedirect } 
   const startupQuery = await graphql(
     `
       query startupQuery {
+        pages: allSanityPage(filter: { createPage: { eq: true } }) {
+          edges {
+            node {
+              id
+              _rawSlug
+            }
+          }
+        }
         blogPosts: allSanityBlogPost {
           edges {
             node {
@@ -100,7 +109,7 @@ exports.createPages = async ({ graphql, actions: { createPage, createRedirect } 
       }
     `
   )
-  const { blogCategories, blogPosts, products, categories, collections, profiles } = startupQuery.data
+  const { pages, blogCategories, blogPosts, products, categories, collections, profiles } = startupQuery.data
 
   /* HOME PAGE */
   await buildI18nPages(
@@ -109,6 +118,19 @@ exports.createPages = async ({ graphql, actions: { createPage, createRedirect } 
       path: `/${language}`, // (1)
       component: path.resolve(path.join(templates.baseDir, templates.home)),
       context: {},
+    }),
+    namespaces,
+    createPage,
+    createRedirect
+  )
+
+  /* PAGES */
+  await buildI18nPages(
+    pages.edges,
+    ({ node }, language, i18n) => ({
+      path: `/${language}/${node._rawSlug[language].current}`,
+      component: path.resolve(path.join(templates.baseDir, templates.page)),
+      context: { page: node.id },
     }),
     namespaces,
     createPage,

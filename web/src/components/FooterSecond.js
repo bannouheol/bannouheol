@@ -4,7 +4,7 @@ import { jsx, Grid, Flex } from "theme-ui"
 import { Link } from "./Link"
 import { useTranslation } from "react-i18next"
 import { useStaticQuery, graphql } from "gatsby"
-import { mapEdgesToNodes } from "../lib/helpers"
+import { mapEdgesToNodes, translateRaw } from "../lib/helpers"
 
 const FooterLink = (props) => <Link sxVariant="links.footer" {...props} />
 
@@ -24,9 +24,19 @@ export const FooterSecond = ({ siteTitle, siteUrl }) => {
           }
         }
       }
+      pages: allSanityPage(filter: { createPage: { eq: true } }) {
+        edges {
+          node {
+            id
+            _rawTitle
+            _rawSlug
+          }
+        }
+      }
     }
   `)
-  const collections = mapEdgesToNodes(data.collections)
+  const [pages, collections] = translateRaw([mapEdgesToNodes(data.pages), mapEdgesToNodes(data.collections)], language)
+
   return (
     <div
       sx={{
@@ -43,8 +53,8 @@ export const FooterSecond = ({ siteTitle, siteUrl }) => {
         }}
       >
         {collections.map((c) => (
-          <FooterLink key={c.id} to={`/${c._rawSlug[language].current}`}>
-            {t("x_in_breton", { x: c._rawTitle[language] })}
+          <FooterLink key={c.id} to={`/${c.slug.current}`}>
+            {t("x_in_breton", { x: c.title })}
           </FooterLink>
         ))}
       </Grid>
@@ -56,8 +66,11 @@ export const FooterSecond = ({ siteTitle, siteUrl }) => {
       >
         <FooterLink to="/">{t("home")}</FooterLink>
         <FooterLink to={`/${t("blog:slug")}`}>Blog</FooterLink>
-        <FooterLink to="/cgv">{t("conditions")}</FooterLink>
-        <FooterLink to="/mentions-legales">{t("mentions")}</FooterLink>
+        {pages.map((p) => (
+          <FooterLink key={p.id} to={`/${p.slug.current}`}>
+            {p.title}
+          </FooterLink>
+        ))}
         <div sx={{ mx: 1 }} />© {new Date().getFullYear()}
         {` `}
         <a href={siteUrl} sx={{ variant: "links.nav" }}>
