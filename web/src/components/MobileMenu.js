@@ -47,7 +47,7 @@ export const MobileMenu = () => {
       customBurgerIcon={false}
       isOpen={ctx.isMenuOpen}
       onStateChange={(state) => ctx.stateChangeHandler(state)}
-      pageWrapId={`page-wrap`}
+      pageWrapId={`app`}
     >
       <MenuLink to="/">{t("home")}</MenuLink>
       {categories.map((c) => (

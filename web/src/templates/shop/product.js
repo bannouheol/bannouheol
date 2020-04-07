@@ -27,7 +27,7 @@ const ProductPage = ({ data, errors, ...props }) => {
       {product && <Product {...product} />}
       {sameCollectionProductNodes && sameCollectionProductNodes.length > 0 && (
         <Box mt={3}>
-          <Styled.h4>Dans la même collection</Styled.h4>
+          <Styled.h4>Dans la collection {product.collection.title}</Styled.h4>
           <Products nodes={sameCollectionProductNodes} />
         </Box>
       )}

@@ -6,6 +6,7 @@ import { Header } from "./Header/Header"
 import { FooterFirst } from "./FooterFirst"
 import { FooterSecond } from "./FooterSecond"
 import { MobileMenu } from "./MobileMenu"
+import SimpleReactLightbox from "simple-react-lightbox"
 
 export const MenuContext = React.createContext(false)
 
@@ -40,7 +41,7 @@ export const Layout = ({ children, pageContext: { language, alternateLinks, ...p
     >
       <MobileMenu />
       <div
-        id={`page-wrap`}
+        id={`app`}
         sx={{
           display: "flex",
           flexDirection: "column",
@@ -48,25 +49,27 @@ export const Layout = ({ children, pageContext: { language, alternateLinks, ...p
           variant: "layout.root",
         }}
       >
-        <Header {...siteMetadata} {...pageContext} language={language} alternateLink={alternateLink} />
+        <SimpleReactLightbox>
+          <Header {...siteMetadata} {...pageContext} language={language} alternateLink={alternateLink} />
 
-        <main
-          sx={{
-            width: "100%",
-            variant: "layout.main",
-            p: mainP,
-          }}
-        >
-          {children}
-        </main>
-        <footer
-          sx={{
-            variant: "layout.footerWrap",
-          }}
-        >
-          <FooterFirst />
-          <FooterSecond {...siteMetadata} />
-        </footer>
+          <main
+            sx={{
+              width: "100%",
+              variant: "layout.main",
+              p: mainP,
+            }}
+          >
+            {children}
+          </main>
+          <footer
+            sx={{
+              variant: "layout.footerWrap",
+            }}
+          >
+            <FooterFirst />
+            <FooterSecond {...siteMetadata} />
+          </footer>
+        </SimpleReactLightbox>
       </div>
     </MenuContext.Provider>
   )

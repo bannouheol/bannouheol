@@ -12,6 +12,7 @@ import { ProductFeature } from "./ProductFeature"
 import { ProfilePreview } from "./ProfilePreview"
 import { AddToCart } from "./AddToCart"
 import { FaFacebookSquare, FaTwitterSquare, FaPinterestSquare } from "react-icons/fa"
+import { SRLWrapper } from "simple-react-lightbox"
 import YouTube from "react-youtube"
 import getVideoId from "get-video-id"
 
@@ -59,7 +60,8 @@ export const Product = (product) => {
   } = translateRaw(product, language)
   const inStock = productFeature.inStock
 
-  const images = product.images.images.map((i) => i.asset.fluid)
+  const thumbs = product.images.images.map((i) => i.asset.fluid)
+  const image = thumbs.shift()
 
   const opts = {
     //height: "auto",
@@ -70,46 +72,27 @@ export const Product = (product) => {
     },
   }
 
-  const specs = (
-    <Box mt={2}>
-      {language === "fr" && <Text>Titre en breton : {product._rawTitle.br}</Text>}
-      {language === "br" && (
-        <Text>
-          {t("Titre original")} : {product._rawTitle.fr}
-        </Text>
-      )}
-      <ProductFeature {...productFeature} />
-      <BookFeature {...bookFeature} />
-      {traductors.length > 0 && (
-        <Box>
-          Traducteur(s) :{` `}
-          {traductors
-            .map((t) => <ProfilePreview key={t.id} {...t} showAvatar={false} />)
-            .reduce((acc, el) => {
-              return acc === null ? [el] : [...acc, ", ", el]
-            }, null)}
-        </Box>
-      )}
-
-      {releaseDate && <p>{t("shop:released_on", { date: new Date(releaseDate) })}</p>}
-    </Box>
-  )
-
   return (
     <article>
       <Grid gap={2} columns={[1, 2, "4fr 6fr 4fr", "4fr 6fr 3fr"]} className="boundary-element">
-        {images &&
-          images.map((i) => (
-            <Box sx={{ order: 0 }}>
-              <Img key={i.src} fluid={i} />
-              {youtubeVideos &&
-                youtubeVideos.length > 0 &&
-                youtubeVideos.map((video) => {
-                  const { id } = getVideoId(video.url)
-                  return id && <YouTube videoId={id} opts={opts} sx={{ mt: 3 }} />
-                })}
-            </Box>
-          ))}
+        <Box sx={{ order: 0 }}>
+          {image && <Img fluid={image} />}
+          {thumbs && (
+            <SRLWrapper>
+              <Grid gap={3} width={[64]}>
+                {thumbs.map((i) => (
+                  <Img key={i.src} fluid={i} data-attribute="SRL" />
+                ))}
+              </Grid>
+            </SRLWrapper>
+          )}
+          {youtubeVideos &&
+            youtubeVideos.length > 0 &&
+            youtubeVideos.map((video) => {
+              const { id } = getVideoId(video.url)
+              return id && <YouTube videoId={id} opts={opts} sx={{ mt: 3 }} />
+            })}
+        </Box>
         <Box
           sx={{
             p: 2,
@@ -149,7 +132,28 @@ export const Product = (product) => {
               <PortableText blocks={body} />
             </Box>
           )}
-          {specs}
+          <Box mt={2}>
+            {language === "fr" && <Text>Titre en breton : {product._rawTitle.br}</Text>}
+            {language === "br" && (
+              <Text>
+                {t("Titre original")} : {product._rawTitle.fr}
+              </Text>
+            )}
+            <ProductFeature {...productFeature} />
+            <BookFeature {...bookFeature} />
+            {traductors.length > 0 && (
+              <Box>
+                Traducteur(s) :{` `}
+                {traductors
+                  .map((t) => <ProfilePreview key={t.id} {...t} showAvatar={false} />)
+                  .reduce((acc, el) => {
+                    return acc === null ? [el] : [...acc, ", ", el]
+                  }, null)}
+              </Box>
+            )}
+
+            {releaseDate && <p>{t("shop:released_on", { date: new Date(releaseDate) })}</p>}
+          </Box>
         </Box>
         <Box sx={{ order: [2, 1, 2], mb: [4, 0] }}>
           <Box sx={{ variant: "boxes.important" }}>
