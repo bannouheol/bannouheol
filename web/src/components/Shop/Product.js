@@ -80,8 +80,6 @@ export const Product = (product) => {
       )}
       <ProductFeature {...productFeature} />
       <BookFeature {...bookFeature} />
-
-      {releaseDate && <p>{t("shop:released_on", { date: new Date(releaseDate) })}</p>}
       {traductors.length > 0 && (
         <Box>
           Traducteur(s) :{` `}
@@ -92,6 +90,8 @@ export const Product = (product) => {
             }, null)}
         </Box>
       )}
+
+      {releaseDate && <p>{t("shop:released_on", { date: new Date(releaseDate) })}</p>}
     </Box>
   )
 
