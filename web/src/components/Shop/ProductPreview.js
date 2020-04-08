@@ -27,7 +27,7 @@ export const ProductPreview = (product) => {
       images: defaultProductVariant {
         images {
           asset {
-            fluid(maxWidth: 800) {
+            fluid(maxWidth: 400) {
               ...GatsbySanityImageFluid_noBase64
             }
           }
