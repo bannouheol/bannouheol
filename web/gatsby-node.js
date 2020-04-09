@@ -55,6 +55,7 @@ exports.createPages = async ({ graphql, actions: { createPage, createRedirect } 
               id
               _rawSlug
               postLanguage: language
+              previousPath
             }
           }
         }
@@ -165,13 +166,12 @@ exports.createPages = async ({ graphql, actions: { createPage, createRedirect } 
   )
 
   /* BLOG POSTS */
-
   await buildI18nPosts(
     blogPosts.edges,
     ({ node }, postLanguage, i18n) => {
-      console.debug(node)
       return {
         path: `/${postLanguage}/${i18n.t("blog:slug")}/${node._rawSlug[postLanguage].current}`,
+        previousPath: node.previousPath && `/${node.previousPath}`,
         component: path.resolve(path.join(templates.baseDir, templates.blog.post)),
         context: { post: node.id },
       }
@@ -306,19 +306,31 @@ const buildI18nPosts = async (inputData, pageDefinitionCallback, namespaces, cre
           const res = pageDefinitionCallback(ipt, postLanguage, i18n) // (2)
           res.context.language = postLanguage
           res.context.i18nResources = i18n.services.resourceStore.data // (3)
+          res.context.availableLanguages = ipt.node.postLanguage
           return res
         })
       )
 
       definitions.map((d) => {
-        d.previousPath &&
-          d.context.language === "fr" &&
-          createRedirect({
-            fromPath: d.previousPath,
-            toPath: d.path,
-            isPermanent: true,
-            redirectInBrowser,
-          })
+        if (d.previousPath && d.context.availableLanguages) {
+          if (d.context.availableLanguages > 1 && d.context.language === "fr") {
+            // If both BR and FR posts exits, create only 1 redirection for the FR post.
+            createRedirect({
+              fromPath: d.previousPath,
+              toPath: d.path,
+              isPermanent: true,
+              redirectInBrowser,
+            })
+          } else {
+            // Only 1 language available, create the redirection for whatever lang it is
+            createRedirect({
+              fromPath: d.previousPath,
+              toPath: d.path,
+              isPermanent: true,
+              redirectInBrowser,
+            })
+          }
+        }
       })
 
       const alternateLinks = definitions.map((d) => ({

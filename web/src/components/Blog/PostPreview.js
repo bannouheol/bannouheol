@@ -38,7 +38,8 @@ export const PostPreview = (nonExtensiblePost) => {
 
   const { postLanguages } = post
   const postLanguage = postLanguages.includes(language) ? language : postLanguages[0]
-  const { title, slug, image, categories, publishedAt } = translateRaw(post, postLanguage)
+  const { title, slug, image, publishedAt } = translateRaw(post, postLanguage)
+  const { categories } = translateRaw(post, language)
   //console.log(translateRaw(post, postLanguage.includes(language) ? language : postLanguage[0]))
 
   return (
