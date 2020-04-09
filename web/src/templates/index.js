@@ -2,11 +2,10 @@ import React from "react"
 import { graphql } from "gatsby"
 import { Layout } from "../components/Layout"
 import { useTranslation } from "react-i18next"
-import { mapEdgesToNodes } from "../lib/helpers"
+import { mapEdgesToNodes, translateRaw } from "../lib/helpers"
 import { GraphQLErrorList } from "../components/GraphQLErrorList"
 import { Posts } from "../components/Blog/Posts"
 import PortableText from "../components/PortableText"
-import { translateRaw } from "../lib/helpers"
 
 const IndexPage = ({ data, errors, ...props }) => {
   const {
@@ -33,7 +32,7 @@ const IndexPage = ({ data, errors, ...props }) => {
 }
 
 export const query = graphql`
-  query IndexPageQuery($language: String) {
+  query IndexPageQuery {
     homePage: sanityPage(id: { eq: "2d680e01-f5d6-5dbc-889b-fcc595cbe961" }) {
       _rawTitle
       _rawContent
@@ -41,30 +40,7 @@ export const query = graphql`
     posts: allSanityBlogPost(sort: { fields: [publishedAt], order: DESC }, filter: { publishedAt: { ne: null } }) {
       edges {
         node {
-          id
-          publishedAt
-          slug {
-            translate(language: $language)
-          }
-          title {
-            translate(language: $language)
-          }
-          image {
-            asset {
-              fluid(maxWidth: 256) {
-                ...GatsbySanityImageFluid
-              }
-            }
-          }
-          categories {
-            id
-            slug {
-              translate(language: $language)
-            }
-            title {
-              translate(language: $language)
-            }
-          }
+          ...blogPostPreviewFields
         }
       }
     }

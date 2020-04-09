@@ -14,6 +14,7 @@ export default {
           { title: "Breton", value: "br" },
         ],
       },
+      validation: (Rule) => Rule.required(),
     },
     {
       name: "title",
@@ -24,6 +25,11 @@ export default {
       name: "slug",
       title: "Slug",
       type: "localeSlug",
+    },
+    {
+      name: "previousPath",
+      title: "Adresse ancien site",
+      type: "string",
     },
     {
       name: "categories",
@@ -72,6 +78,7 @@ export default {
     select: {
       title: "title.br",
       subtitle: "title.fr",
+      media: "image",
     },
     prepare(selection) {
       const { title, subtitle } = selection;

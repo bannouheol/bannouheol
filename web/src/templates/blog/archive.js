@@ -41,30 +41,7 @@ export const query = graphql`
     ) {
       edges {
         node {
-          id
-          publishedAt
-          slug {
-            translate(language: $language)
-          }
-          title {
-            translate(language: $language)
-          }
-          image {
-            asset {
-              fluid(maxWidth: 256) {
-                ...GatsbySanityImageFluid
-              }
-            }
-          }
-          categories {
-            id
-            slug {
-              translate(language: $language)
-            }
-            title {
-              translate(language: $language)
-            }
-          }
+          ...blogPostFields
         }
       }
     }

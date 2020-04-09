@@ -8,6 +8,8 @@ import { FooterSecond } from "./FooterSecond"
 import { MobileMenu } from "./MobileMenu"
 import SimpleReactLightbox from "simple-react-lightbox"
 
+const allLanguages = ["br", "fr"]
+
 export const MenuContext = React.createContext(false)
 
 export const Layout = ({ children, pageContext: { language, alternateLinks, ...pageContext }, mainP = 3 }) => {
@@ -25,12 +27,17 @@ export const Layout = ({ children, pageContext: { language, alternateLinks, ...p
   const {
     site: { siteMetadata },
   } = data
-  const alternateLink =
-    alternateLinks && alternateLinks.length > 0
-      ? alternateLinks.reduce((acc, el) => {
-          return el.language !== language ? el : acc
-        }, null)
-      : null
+  let alternateLink =
+    alternateLinks &&
+    alternateLinks.length > 0 &&
+    alternateLinks.reduce((acc, el) => {
+      return el.language !== language ? el : acc
+    }, null)
+  if (alternateLink === null)
+    alternateLink = allLanguages.reduce((acc, el) => {
+      return el !== language ? { language: el, path: `/${el}/` } : acc
+    }, null)
+
   return (
     <MenuContext.Provider
       value={{

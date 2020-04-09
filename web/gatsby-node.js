@@ -54,6 +54,7 @@ exports.createPages = async ({ graphql, actions: { createPage, createRedirect } 
             node {
               id
               _rawSlug
+              postLanguage: language
             }
           }
         }
@@ -164,13 +165,17 @@ exports.createPages = async ({ graphql, actions: { createPage, createRedirect } 
   )
 
   /* BLOG POSTS */
-  await buildI18nPages(
+
+  await buildI18nPosts(
     blogPosts.edges,
-    ({ node }, language, i18n) => ({
-      path: `/${language}/${i18n.t("blog:slug")}/${node._rawSlug[language].current}`,
-      component: path.resolve(path.join(templates.baseDir, templates.blog.post)),
-      context: { post: node.id },
-    }),
+    ({ node }, postLanguage, i18n) => {
+      console.debug(node)
+      return {
+        path: `/${postLanguage}/${i18n.t("blog:slug")}/${node._rawSlug[postLanguage].current}`,
+        component: path.resolve(path.join(templates.baseDir, templates.blog.post)),
+        context: { post: node.id },
+      }
+    },
     namespaces,
     createPage,
     createRedirect
@@ -267,7 +272,47 @@ const buildI18nPages = async (inputData, pageDefinitionCallback, namespaces, cre
 
       definitions.map((d) => {
         d.previousPath &&
-          d.context.language == "fr" &&
+          d.context.language === "fr" &&
+          createRedirect({
+            fromPath: d.previousPath,
+            toPath: d.path,
+            isPermanent: true,
+            redirectInBrowser,
+          })
+      })
+
+      const alternateLinks = definitions.map((d) => ({
+        // (4)
+        language: d.context.language,
+        path: d.path,
+      }))
+
+      definitions.forEach((d) => {
+        d.context.alternateLinks = alternateLinks
+        d.context.canonicalUrl = d.path
+        createPage(d) // (5)
+      })
+    })
+  )
+}
+
+const buildI18nPosts = async (inputData, pageDefinitionCallback, namespaces, createPage, createRedirect) => {
+  if (!Array.isArray(inputData)) inputData = [inputData]
+  await Promise.all(
+    inputData.map(async (ipt) => {
+      const definitions = await Promise.all(
+        ipt.node.postLanguage.map(async (postLanguage) => {
+          const i18n = await createI18nextInstance(postLanguage, namespaces) // (1)
+          const res = pageDefinitionCallback(ipt, postLanguage, i18n) // (2)
+          res.context.language = postLanguage
+          res.context.i18nResources = i18n.services.resourceStore.data // (3)
+          return res
+        })
+      )
+
+      definitions.map((d) => {
+        d.previousPath &&
+          d.context.language === "fr" &&
           createRedirect({
             fromPath: d.previousPath,
             toPath: d.path,

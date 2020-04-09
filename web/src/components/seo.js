@@ -35,7 +35,7 @@ function SEO({ description, meta, title, image }) {
 
   return (
     <Helmet
-      title={title.length <= 60 ? `${title} — ${site.siteMetadata.title}` : title}
+      title={title && title.length <= 60 ? `${title} — ${site.siteMetadata.title}` : title}
       //titleTemplate={`%s — ${site.siteMetadata.title}`}
       meta={[
         {
