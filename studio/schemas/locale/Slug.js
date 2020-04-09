@@ -1,17 +1,18 @@
-import { SUPPORTED_LANGUAGES } from './languages'
+import { SUPPORTED_LANGUAGES } from "./languages";
 
 export default {
-  type: 'object',
-  name: 'localeSlug',
-  fields: SUPPORTED_LANGUAGES.map(lang => ({
+  type: "object",
+  name: "localeSlug",
+  fields: SUPPORTED_LANGUAGES.map((lang) => ({
     name: lang.id,
-    type: 'slug',
+    type: "slug",
     title: lang.title,
     options: {
-      source: document => (document && document.title ? document.title[lang.id] : ''),
+      source: (document) =>
+        document && document.title ? document.title[lang.id] : "",
       maxLength: 96,
-      auto: true
+      auto: true,
     },
-    validation: Rule => Rule.required()
-  }))
-}
+    //validation: Rule => Rule.required()
+  })),
+};

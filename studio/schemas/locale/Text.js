@@ -1,8 +1,9 @@
-import { SUPPORTED_LANGUAGES } from './languages'
+import { SUPPORTED_LANGUAGES } from "./languages";
 
 export default {
-  name: 'localeText',
-  type: 'object',
+  name: "localeText",
+  type: "object",
+  /*
   fieldsets: [
     {
       title: 'Traductions',
@@ -10,10 +11,12 @@ export default {
       options: {collapsible: true}
     }
   ],
-  fields: SUPPORTED_LANGUAGES.map(lang => ({
+  */
+  fields: SUPPORTED_LANGUAGES.map((lang) => ({
     title: lang.title,
     name: lang.id,
-    type: 'text',
-    fieldset: lang.isDefault ? null : 'translations'
-  }))
-}
+    type: "text",
+    rows: 3,
+    //fieldset: lang.isDefault ? null : 'translations'
+  })),
+};
