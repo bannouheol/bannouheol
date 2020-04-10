@@ -1,10 +1,11 @@
+/** @jsx jsx */
+import { jsx, Box, Card, Text, Styled } from "theme-ui"
 import React from "react"
 import Img from "gatsby-image"
 import { graphql, Link } from "gatsby"
-import { Link as I18nLink } from "../Link"
-import { useTranslation } from "react-i18next"
+import { useTranslation, Trans } from "react-i18next"
 import { translateRaw } from "../../lib/helpers"
-import { Card, Text } from "theme-ui"
+import { CategoryPreview } from "./CategoryPreview"
 
 export const PostPreview = (nonExtensiblePost) => {
   const {
@@ -38,9 +39,19 @@ export const PostPreview = (nonExtensiblePost) => {
 
   const { postLanguages } = post
   const postLanguage = postLanguages.includes(language) ? language : postLanguages[0]
-  const { title, slug, image, publishedAt } = translateRaw(post, postLanguage)
+  const { title, excerpt, slug, image, publishedAt } = translateRaw(post, postLanguage)
   const { categories } = translateRaw(post, language)
   //console.log(translateRaw(post, postLanguage.includes(language) ? language : postLanguage[0]))
+
+  const CategoriesPreview = () => (
+    <React.Fragment>
+      {categories
+        .map((c) => <CategoryPreview key={c.id} {...c} />)
+        .reduce((acc, el) => {
+          return acc === null ? [el] : [...acc, ", ", el]
+        }, null)}
+    </React.Fragment>
+  )
 
   return (
     <Card
@@ -50,19 +61,16 @@ export const PostPreview = (nonExtensiblePost) => {
     >
       {image && <Img fluid={image.asset.fluid} />}
       <Text>
-        {postLanguage !== language && `[${t(postLanguage)}] `}
-        <Link to={`/${postLanguage}/${t("blog:slug")}/${slug.current}`}>{title}</Link>
-        {t("blog:posted_in")}
-        {categories
-          .map((c) => (
-            <I18nLink key={c.id} to={`/${t("blog:slug")}/${t("blog:category_slug")}/${c.slug.current}`}>
-              {c.title}
-            </I18nLink>
-          ))
-          .reduce((acc, el) => {
-            return acc === null ? [el] : [...acc, ", ", el]
-          }, null)}
-        {publishedAt}
+        <Styled.h3>
+          {postLanguage !== language && `[${t(postLanguage)}] `}
+          <Link to={`/${postLanguage}/${t("blog:slug")}/${slug.current}`}>{title}</Link>
+        </Styled.h3>
+        <Box>{excerpt}</Box>
+        {publishedAt && (
+          <Trans i18nKey="blog:posted_in_x_at_x">
+            Posté dans <CategoriesPreview /> le {{ date: new Date(publishedAt) }}
+          </Trans>
+        )}
       </Text>
     </Card>
   )

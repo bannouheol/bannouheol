@@ -1,4 +1,5 @@
-import React from "react"
+/** @jsx jsx */
+import { jsx, Styled } from "theme-ui"
 import { graphql } from "gatsby"
 import { Layout } from "../components/Layout"
 import { useTranslation } from "react-i18next"
@@ -24,9 +25,9 @@ const IndexPage = ({ data, errors, ...props }) => {
   return (
     <Layout {...props}>
       {homePage.content && <PortableText blocks={homePage.content} />}
-      <h2>{t(`Derniers posts`)}</h2>
+      <Styled.h2>{t(`Actualité`)}</Styled.h2>
       {postNodes && postNodes.length > 0 && <Posts nodes={postNodes} />}
-      <h2>{t(`Derniers produits`)}</h2>
+      <Styled.h2>{t(`Nouveautés`)}</Styled.h2>
     </Layout>
   )
 }

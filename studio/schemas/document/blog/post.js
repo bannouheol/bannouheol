@@ -46,6 +46,7 @@ export default {
       name: "publishedAt",
       title: "Date de publication",
       type: "date",
+      validation: (Rule) => Rule.required(),
     },
     {
       name: "image",

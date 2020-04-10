@@ -105,7 +105,7 @@ export const Product = (product) => {
           <Styled.h1>{title}</Styled.h1>
           <Box sx={{ lineHeight: 2 }}>
             Collection :{" "}
-            <h2 sx={{ display: "inline-block" }}>
+            <h2 sx={{ display: "inline-block", fontSize: 1, m: 0 }}>
               <Link sx={{ p: 1, bg: "light", borderRadius: 8 }} to={`/${collection.slug.current}`}>
                 {collection.title}
               </Link>
@@ -116,7 +116,7 @@ export const Product = (product) => {
                 .map((c) => {
                   c["path"] = path.join("/", c.parent === null ? `` : c.parent.slug.current, c.slug.current)
                   return (
-                    <h3 sx={{ display: "inline-block" }}>
+                    <h3 sx={{ display: "inline-block", fontSize: 1, m: 0 }}>
                       <Link key={c.id} to={c.path} sx={{ p: 1, bg: "light", borderRadius: 8 }}>
                         {c.title}
                       </Link>
@@ -127,11 +127,7 @@ export const Product = (product) => {
                   return acc === null ? [el] : [...acc, " - ", el]
                 }, null)}
           </Box>
-          {body && (
-            <Box sx={{ my: 4 }}>
-              <PortableText blocks={body} />
-            </Box>
-          )}
+          {body && <PortableText blocks={body} />}
           <Box mt={2}>
             {language === "fr" && <Text>Titre en breton : {product._rawTitle.br}</Text>}
             {language === "br" && (

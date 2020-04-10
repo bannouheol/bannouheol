@@ -42,7 +42,7 @@ export const ProductPreview = (product) => {
   return (
     <Card
       sx={{
-        maxWidth: 200,
+        maxWidth: 300,
       }}
     >
       <div>

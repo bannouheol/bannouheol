@@ -9,6 +9,7 @@ export const AlternateLinksContext = React.createContext([])
 export function wrapPageElement({ element, props }) {
   const i18n = i18next
     .createInstance({
+      debug: process.env.DEBUG,
       lng: props.pageContext.language,
       interpolation: {
         escapeValue: false,
