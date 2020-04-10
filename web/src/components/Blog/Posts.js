@@ -7,9 +7,8 @@ export const Posts = ({ nodes }) => {
     <Grid
       sx={{
         listStyle: "none",
-        gridGap: 3,
-        gridTemplateColumns: "repeat(auto-fit, minmax(256px, 1fr))",
-        m: 0,
+        gridGap: 1,
+        gridTemplateColumns: ["1fr 1fr", "repeat(auto-fit, minmax(256px, 1fr))"],
       }}
     >
       {nodes && nodes.map((post) => <PostPreview key={post.id} {...post} />)}

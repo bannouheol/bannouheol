@@ -1,28 +1,39 @@
+import { GiBookCover } from "react-icons/gi";
+import { parseISO, format } from "date-fns";
+
 export default {
   name: "product",
   title: "Produit",
   type: "document",
+  icon: GiBookCover,
   fields: [
     {
       name: "ref",
       title: "Référence",
-      type: "string"
+      type: "string",
     },
     {
       name: "title",
       title: "Titre",
       type: "localeString",
-      validation: Rule => Rule.required()
     },
     {
       name: "slug",
       title: "Slug",
-      type: "localeSlug"
+      type: "localeSlug",
+      validation: (Rule) =>
+        Rule.custom((slugs) => {
+          return slugs.br && slugs.br.current && slugs.fr && slugs.fr.current
+            ? true
+            : {
+                message: "Les deux slugs doivent être indiqués",
+              };
+        }),
     },
     {
       name: "previousPath",
       title: "Adresse ancien site",
-      type: "string"
+      type: "string",
     },
     {
       name: "categories",
@@ -31,21 +42,21 @@ export default {
       of: [
         {
           type: "reference",
-          to: { type: "category" }
-        }
-      ]
+          to: { type: "category" },
+        },
+      ],
     },
     {
       name: "collection",
       title: "Collection",
       type: "reference",
       to: { type: "collection" },
-      validation: Rule => Rule.required()
+      validation: (Rule) => Rule.required(),
     },
     {
       title: "Default variant",
       name: "defaultProductVariant",
-      type: "productVariant"
+      type: "productVariant",
     },
     {
       title: "Variants",
@@ -54,20 +65,20 @@ export default {
       of: [
         {
           title: "Variant",
-          type: "productVariant"
-        }
-      ]
+          type: "productVariant",
+        },
+      ],
     },
     {
       name: "vendor",
       title: "Editeur",
       type: "reference",
-      to: { type: "vendor" }
+      to: { type: "vendor" },
     },
     {
       name: "body",
       title: "Body",
-      type: "localeBlockContent"
+      type: "localeBlockContent",
     },
     {
       title: "Traducteur(s)",
@@ -76,29 +87,29 @@ export default {
       of: [
         {
           type: "reference",
-          to: { type: "profile" }
-        }
-      ]
+          to: { type: "profile" },
+        },
+      ],
     },
     {
       title: "Age minimum",
       name: "minimumAge",
-      type: "number"
+      type: "number",
     },
     {
       title: "Date de sortie",
       name: "releaseDate",
-      type: "date"
+      type: "date",
     },
     {
       title: "Caractéristiques du livre",
       name: "bookFeature",
-      type: "bookFeature"
+      type: "bookFeature",
     },
     {
       title: "Caractéristiques du DVD",
       name: "dvdFeature",
-      type: "dvdFeature"
+      type: "dvdFeature",
     },
     {
       title: "Vidéos YouTube",
@@ -107,10 +118,10 @@ export default {
       of: [
         {
           title: "Vidéo Youtube",
-          type: "youtube"
-        }
-      ]
-    }
+          type: "youtube",
+        },
+      ],
+    },
     /*
     {
       title: 'Tags',
@@ -129,10 +140,22 @@ export default {
   ],
   preview: {
     select: {
-      title: "title.br",
-      subtitle: "title.fr",
-      manufactor: "manufactor.title",
-      media: "defaultProductVariant.images[0]"
-    }
-  }
+      titleBr: "title.br",
+      titleFr: "title.fr",
+      collection: "collection.title.br",
+      media: "defaultProductVariant.images[0]",
+      date: "releaseDate",
+    },
+    prepare(selection) {
+      const { titleBr, titleFr, collection, date, media } = selection;
+      return {
+        title: titleBr,
+        subtitle: `${titleFr} / ${collection} / ${format(
+          parseISO(date),
+          "dd/MM/yyyy"
+        )}`,
+        media,
+      };
+    },
+  },
 };

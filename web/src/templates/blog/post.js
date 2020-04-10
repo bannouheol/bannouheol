@@ -7,7 +7,7 @@ import { GraphQLErrorList } from "../../components/GraphQLErrorList"
 import { Post } from "../../components/Blog/Post"
 import { Products } from "../../components/Shop/Products"
 import { useTranslation } from "react-i18next"
-import { toPlainText, translateRaw } from "../../lib/helpers"
+import { translateRaw } from "../../lib/helpers"
 
 const PostPage = ({ data, errors, ...props }) => {
   const {
@@ -18,10 +18,16 @@ const PostPage = ({ data, errors, ...props }) => {
   return (
     <Layout {...props}>
       {errors && <SEO title="GraphQL Error" />}
-      {post && <SEO title={post.title} description={toPlainText(post.body)} image={post.image.asset.fluid.src} />}
+      {post && (
+        <SEO
+          title={post.title}
+          description={post.excerpt && post.excerpt}
+          image={post.image && post.image.asset.fluid.src}
+        />
+      )}
       {errors && <GraphQLErrorList errors={errors} />}
       {post && <Post {...post} />}
-      {post && post.products && (
+      {post && post.products && post.products.length > 0 && (
         <Box
           sx={{
             maxWidth: 640,

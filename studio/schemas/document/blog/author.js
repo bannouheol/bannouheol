@@ -1,10 +1,10 @@
-import { GiFoldedPaper } from "react-icons/gi";
+import { GiNewspaper } from "react-icons/gi";
 
 export default {
-  name: "vendor",
-  title: "Editeur",
+  name: "blogAuthor",
+  title: "Journal, radio, ...",
   type: "document",
-  icon: GiFoldedPaper,
+  icon: GiNewspaper,
   fields: [
     {
       name: "title",
@@ -27,7 +27,7 @@ export default {
     },
     {
       name: "logo",
-      title: "Logo",
+      title: "logo",
       type: "image",
     },
   ],

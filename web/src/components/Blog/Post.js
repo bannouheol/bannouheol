@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx, Styled, Flex } from "theme-ui"
+import { jsx, Box, Styled, Flex } from "theme-ui"
 import React from "react"
 import PortableText from "../PortableText"
 import Img from "gatsby-image"
@@ -8,7 +8,9 @@ import { useTranslation } from "react-i18next"
 import { translateRaw } from "../../lib/helpers"
 import { CategoryPreview } from "./CategoryPreview"
 import { IoIosArrowDroprightCircle } from "react-icons/io"
-//import { Link } from "../Link"
+import { ProfilePreview } from "../Shop/ProfilePreview"
+import AudioPlayer from "react-h5-audio-player"
+import "react-h5-audio-player/lib/styles.css"
 
 export const Post = (nonExtensiblePost) => {
   const {
@@ -19,10 +21,26 @@ export const Post = (nonExtensiblePost) => {
     fragment blogPostFields on SanityBlogPost {
       ...blogPostPreviewFields
       _rawBody
+      author {
+        title
+      }
+      audio {
+        asset {
+          url
+        }
+      }
+      featuredProfiles {
+        ...profilePreviewFields
+      }
     }
   `
+
   const post = { ...nonExtensiblePost }
-  const { title, excerpt, image, body, publishedAt, categories } = translateRaw(post, language)
+  const { title, excerpt, image, body, author, audio, publishedAt, categories, featuredProfiles } = translateRaw(
+    post,
+    language
+  )
+
   return (
     <article
       sx={{
@@ -52,7 +70,23 @@ export const Post = (nonExtensiblePost) => {
           <Img fluid={image.asset.fluid} />
         </div>
       )}
+      {featuredProfiles.length > 0 && (
+        <Box>
+          Avec la participation de :{` `}
+          {featuredProfiles
+            .map((t) => t && <ProfilePreview key={t.id} {...t} showAvatar={false} />)
+            .reduce((acc, el) => {
+              return acc === null ? [el] : [...acc, ", ", el]
+            }, null)}
+        </Box>
+      )}
+      {audio && audio.asset && audio.asset.url && (
+        <Box mt={3}>
+          <AudioPlayer autoPlay src={audio.asset.url} />
+        </Box>
+      )}
       <div sx={{ mt: 3 }}>{body && <PortableText blocks={body} />}</div>
+      {author && <Box mt={3}>{author.title}</Box>}
     </article>
   )
 }

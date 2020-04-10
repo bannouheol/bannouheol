@@ -1,4 +1,4 @@
-import icon from "react-icons/lib/md/settings"
+import { IoIosSettings } from "react-icons/io";
 
 export default {
   name: "siteSettings",
@@ -6,7 +6,7 @@ export default {
   type: "document",
   liveEdit: false,
   __experimental_actions: ["update", "publish" /* 'create', 'delete' */],
-  icon,
+  icon: IoIosSettings,
   fields: [
     {
       name: "title",
@@ -19,4 +19,4 @@ export default {
       type: "localeString",
     },
   ],
-}
+};

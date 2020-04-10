@@ -9,6 +9,7 @@ const path = require("path")
 const i18next = require("i18next")
 const nodeFsBackend = require("i18next-node-fs-backend")
 const currency = require("currency.js")
+const { parseISO, format } = require("date-fns")
 
 const allLanguages = ["br", "fr"]
 
@@ -37,7 +38,7 @@ const templates = {
 
 const namespaces = ["common", "blog", "shop"]
 
-exports.createPages = async ({ graphql, actions: { createPage, createRedirect } }) => {
+exports.createPages = async ({ graphql, actions: { createPage, createRedirect }, reporter }) => {
   const startupQuery = await graphql(
     `
       query startupQuery {
@@ -54,6 +55,7 @@ exports.createPages = async ({ graphql, actions: { createPage, createRedirect } 
             node {
               id
               _rawSlug
+              publishedAt
               postLanguage: language
               previousPath
             }
@@ -155,11 +157,17 @@ exports.createPages = async ({ graphql, actions: { createPage, createRedirect } 
   /* BLOG CATEGORIES */
   await buildI18nPages(
     blogCategories.edges,
-    ({ node }, language, i18n) => ({
-      path: `/${language}/${i18n.t("blog:slug")}/${i18n.t("blog:category_slug")}/${node._rawSlug[language].current}`,
-      component: path.resolve(path.join(templates.baseDir, templates.blog.archive)),
-      context: { category: node.id },
-    }),
+    ({ node }, language, i18n) => {
+      const blogCategoryPath = `/${language}/${i18n.t("blog:slug")}/${i18n.t("blog:category_slug")}/${
+        node._rawSlug[language].current
+      }`
+      reporter.info(`Creating blog category page: ${blogCategoryPath}`)
+      return {
+        path: blogCategoryPath,
+        component: path.resolve(path.join(templates.baseDir, templates.blog.archive)),
+        context: { category: node.id },
+      }
+    },
     namespaces,
     createPage,
     createRedirect
@@ -169,8 +177,11 @@ exports.createPages = async ({ graphql, actions: { createPage, createRedirect } 
   await buildI18nPosts(
     blogPosts.edges,
     ({ node }, postLanguage, i18n) => {
+      const dateSegment = format(parseISO(node.publishedAt), "yyyy/MM/dd")
+      const postPath = `/${postLanguage}/${dateSegment}/${node._rawSlug[postLanguage].current}`
+      reporter.info(`Creating blog post page: ${postPath}`)
       return {
-        path: `/${postLanguage}/${i18n.t("blog:slug")}/${node._rawSlug[postLanguage].current}`,
+        path: postPath,
         previousPath: node.previousPath && `/${node.previousPath}`,
         component: path.resolve(path.join(templates.baseDir, templates.blog.post)),
         context: { post: node.id },
@@ -184,12 +195,16 @@ exports.createPages = async ({ graphql, actions: { createPage, createRedirect } 
   /* PRODUCTS */
   await buildI18nPages(
     products.edges,
-    ({ node }, language, _) => ({
-      path: `/${language}/${node.collection._rawSlug[language].current}/${node._rawSlug[language].current}`,
-      previousPath: node.previousPath && `/${node.previousPath}`,
-      component: path.resolve(path.join(templates.baseDir, templates.shop.product)),
-      context: { product: node.id, collection: node.collection.id },
-    }),
+    ({ node }, language, _) => {
+      const productPath = `/${language}/${node.collection._rawSlug[language].current}/${node._rawSlug[language].current}`
+      reporter.info(`Creating product page: ${productPath}`)
+      return {
+        path: productPath,
+        previousPath: node.previousPath && `/${node.previousPath}`,
+        component: path.resolve(path.join(templates.baseDir, templates.shop.product)),
+        context: { product: node.id, collection: node.collection.id },
+      }
+    },
     namespaces,
     createPage,
     createRedirect
@@ -198,14 +213,18 @@ exports.createPages = async ({ graphql, actions: { createPage, createRedirect } 
   /* CATEGORIES */
   await buildI18nPages(
     categories.edges,
-    ({ node }, language, _) => ({
-      path: `/${language}/${path.join(
+    ({ node }, language, _) => {
+      const productCategoryPath = `/${language}/${path.join(
         node.parent === null ? `` : node.parent._rawSlug[language].current,
         node._rawSlug[language].current
-      )}`,
-      component: path.resolve(path.join(templates.baseDir, templates.shop.category)),
-      context: { category: node.id },
-    }),
+      )}`
+      reporter.info(`Creating product category page: ${productCategoryPath}`)
+      return {
+        path: productCategoryPath,
+        component: path.resolve(path.join(templates.baseDir, templates.shop.category)),
+        context: { category: node.id },
+      }
+    },
     namespaces,
     createPage,
     createRedirect

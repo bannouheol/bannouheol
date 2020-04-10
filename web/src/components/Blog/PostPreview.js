@@ -6,6 +6,7 @@ import { graphql, Link } from "gatsby"
 import { useTranslation, Trans } from "react-i18next"
 import { translateRaw } from "../../lib/helpers"
 import { CategoryPreview } from "./CategoryPreview"
+import { parseISO, format } from "date-fns"
 
 export const PostPreview = (nonExtensiblePost) => {
   const {
@@ -22,7 +23,7 @@ export const PostPreview = (nonExtensiblePost) => {
       postLanguages: language
       image {
         asset {
-          fluid(maxWidth: 256) {
+          fluid(maxWidth: 640) {
             ...GatsbySanityImageFluid
           }
         }
@@ -52,6 +53,8 @@ export const PostPreview = (nonExtensiblePost) => {
         }, null)}
     </React.Fragment>
   )
+  const dateSegment = format(parseISO(publishedAt), "yyyy/MM/dd")
+  const postPath = `/${postLanguage}/${dateSegment}/${slug.current}`
 
   return (
     <Card
@@ -59,11 +62,15 @@ export const PostPreview = (nonExtensiblePost) => {
         maxWidth: 256,
       }}
     >
-      {image && <Img fluid={image.asset.fluid} />}
+      {image && (
+        <Link to={postPath}>
+          <Img fluid={image.asset.fluid} />
+        </Link>
+      )}
       <Text>
         <Styled.h3>
           {postLanguage !== language && `[${t(postLanguage)}] `}
-          <Link to={`/${postLanguage}/${t("blog:slug")}/${slug.current}`}>{title}</Link>
+          <Link to={postPath}>{title}</Link>
         </Styled.h3>
         <Box>{excerpt}</Box>
         {publishedAt && (

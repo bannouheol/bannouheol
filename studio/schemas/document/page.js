@@ -1,7 +1,9 @@
+import { MdContentPaste } from "react-icons/md";
 export default {
   name: "page",
   title: "Page",
   type: "document",
+  icon: MdContentPaste,
   fields: [
     {
       name: "title",

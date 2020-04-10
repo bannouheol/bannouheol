@@ -10,6 +10,7 @@ import vendor from "./document/vendor";
 import collection from "./document/collection";
 import page from "./document/page";
 import blogPost from "./document/blog/post";
+import blogAuthor from "./document/blog/author";
 import blogCategory from "./document/blog/category";
 import profile from "./document/profile";
 
@@ -45,6 +46,7 @@ export default createSchema({
     bookFeature,
     page,
     blogPost,
+    blogAuthor,
     blogCategory,
     // When added to this list, object types can be used as
     // { type: 'typename' } in other document schemas
@@ -56,6 +58,6 @@ export default createSchema({
     youtube,
     productVariant,
     price,
-    siteSettings
-  ])
+    siteSettings,
+  ]),
 });
