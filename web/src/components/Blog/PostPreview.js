@@ -60,6 +60,7 @@ export const PostPreview = (nonExtensiblePost) => {
     <Card
       sx={{
         maxWidth: 256,
+        bg: postLanguage !== language ? "light" : "transparent",
       }}
     >
       {image && (
@@ -67,7 +68,7 @@ export const PostPreview = (nonExtensiblePost) => {
           <Img fluid={image.asset.fluid} />
         </Link>
       )}
-      <Text>
+      <Text sx={{ px: 2 }}>
         <Styled.h3>
           {postLanguage !== language && `[${t(postLanguage)}] `}
           <Link to={postPath}>{title}</Link>

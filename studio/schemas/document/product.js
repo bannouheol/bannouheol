@@ -158,4 +158,11 @@ export default {
       };
     },
   },
+  orderings: [
+    {
+      title: "Date de sortie, nouveaux",
+      name: "releaseDateDesc",
+      by: [{ field: "releaseDate", direction: "desc" }],
+    },
+  ],
 };
