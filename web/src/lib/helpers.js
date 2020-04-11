@@ -103,21 +103,6 @@ const transformed = {
       }
     }
   }
-
-  /*
-  OLD VERSION
-  if (Array.isArray(input)) {
-    return input.map((r, i) =>
-      input[i] && input[i].hasOwnProperty(language) ? input[i][language] : null
-    )
-  } else if (typeof input === "object") {
-    const translated = {}
-    for (const key of Object.keys(input)) {
-      translated[key] = input[key][language]
-    }
-    return translated
-  }
-  */
 }
 
 export function filterOutDocsWithoutSlugs({ slug }) {
