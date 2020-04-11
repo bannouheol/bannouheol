@@ -6,7 +6,6 @@ import { graphql, Link } from "gatsby"
 import { useTranslation, Trans } from "react-i18next"
 import { translateRaw } from "../../lib/helpers"
 import { CategoryPreview } from "./CategoryPreview"
-import { parseISO, format } from "date-fns"
 
 export const PostPreview = (nonExtensiblePost) => {
   const {
@@ -52,8 +51,8 @@ export const PostPreview = (nonExtensiblePost) => {
         }, null)}
     </React.Fragment>
   )
-  const dateSegment = format(parseISO(publishedAt), "yyyy/MM/dd")
-  const postPath = `/${language}/${dateSegment}/${slug.current}`
+
+  const postPath = `/${language}/${slug.current}`
 
   return (
     <Card
