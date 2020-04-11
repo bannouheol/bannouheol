@@ -1,6 +1,5 @@
 import { SUPPORTED_LANGUAGES } from "./languages";
 import { format, parseISO } from "date-fns";
-//import slug from "slug";
 
 function slugify(text) {
   const a = "àáäâèéëêìíïîòóöôùúüûñçßÿœæŕśńṕẃǵǹḿǘẍźḧ·_,:;";
@@ -28,9 +27,9 @@ export default {
     title: lang.title,
     options: {
       source: (document) => {
-        const date =
-          document.publishedAt &&
-          format(parseISO(document.publishedAt), "yyyy/MM/");
+        const date = document.publishedAt
+          ? format(parseISO(document.publishedAt), "yyyy/MM/")
+          : "";
         const title = document.title && document.title[lang.id];
         return date + title;
       },

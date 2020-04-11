@@ -63,15 +63,6 @@ export const Product = (product) => {
   const thumbs = product.images.images.map((i) => i.asset.fluid)
   const image = thumbs.shift()
 
-  const opts = {
-    //height: "auto",
-    width: "100%",
-    playerVars: {
-      // https://developers.google.com/youtube/player_parameters
-      //autoplay: 1,
-    },
-  }
-
   return (
     <article>
       <Grid gap={2} columns={[1, 2, "4fr 6fr 4fr", "4fr 6fr 3fr"]} className="boundary-element">
@@ -90,7 +81,17 @@ export const Product = (product) => {
             youtubeVideos.length > 0 &&
             youtubeVideos.map((video) => {
               const { id } = getVideoId(video.url)
-              return id && <YouTube videoId={id} opts={opts} sx={{ mt: 3 }} />
+              return (
+                id && (
+                  <YouTube
+                    videoId={id}
+                    opts={{
+                      width: "100%",
+                    }}
+                    sx={{ mt: 3 }}
+                  />
+                )
+              )
             })}
         </Box>
         <Box

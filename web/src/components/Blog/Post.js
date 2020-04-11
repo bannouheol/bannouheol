@@ -11,6 +11,8 @@ import { IoIosArrowDroprightCircle } from "react-icons/io"
 import { ProfilePreview } from "../Shop/ProfilePreview"
 import AudioPlayer from "react-h5-audio-player"
 import "react-h5-audio-player/lib/styles.css"
+import YouTube from "react-youtube"
+import getVideoId from "get-video-id"
 
 export const Post = (nonExtensiblePost) => {
   const {
@@ -24,6 +26,9 @@ export const Post = (nonExtensiblePost) => {
       author {
         title
       }
+      video {
+        url
+      }
       audio {
         asset {
           url
@@ -36,11 +41,12 @@ export const Post = (nonExtensiblePost) => {
   `
 
   const post = { ...nonExtensiblePost }
-  const { title, excerpt, image, body, author, audio, publishedAt, categories, featuredProfiles } = translateRaw(
+  const { title, excerpt, image, body, author, video, audio, publishedAt, categories, featuredProfiles } = translateRaw(
     post,
     language
   )
-
+  const { id } = getVideoId(video.url)
+  const video_id = id
   return (
     <article
       sx={{
@@ -65,10 +71,19 @@ export const Post = (nonExtensiblePost) => {
       </Flex>
       <Styled.h1>{title}</Styled.h1>
       {excerpt && <div sx={{ fontSize: 3 }}>{excerpt}</div>}
-      {image && image.asset && (
+      {!video_id && image && image.asset && (
         <div>
           <Img fluid={image.asset.fluid} />
         </div>
+      )}
+      {video_id && (
+        <YouTube
+          videoId={video_id}
+          opts={{
+            width: "100%",
+          }}
+          sx={{ mt: 3 }}
+        />
       )}
       {featuredProfiles.length > 0 && (
         <Box>
