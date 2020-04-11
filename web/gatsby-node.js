@@ -176,9 +176,9 @@ exports.createPages = async ({ graphql, actions: { createPage, createRedirect },
   /* BLOG POSTS */
   await buildI18nPosts(
     blogPosts.edges,
-    ({ node }, postLanguage, i18n) => {
+    ({ node }, language, _) => {
       const dateSegment = format(parseISO(node.publishedAt), "yyyy/MM/dd")
-      const postPath = `/${postLanguage}/${dateSegment}/${node._rawSlug[postLanguage].current}`
+      const postPath = `/${language}/${dateSegment}/${node._rawSlug[language].current}`
       reporter.info(`Creating blog post page: ${postPath}`)
       return {
         path: postPath,
@@ -320,10 +320,10 @@ const buildI18nPosts = async (inputData, pageDefinitionCallback, namespaces, cre
   await Promise.all(
     inputData.map(async (ipt) => {
       const definitions = await Promise.all(
-        ipt.node.postLanguage.map(async (postLanguage) => {
-          const i18n = await createI18nextInstance(postLanguage, namespaces) // (1)
-          const res = pageDefinitionCallback(ipt, postLanguage, i18n) // (2)
-          res.context.language = postLanguage
+        allLanguages.map(async (lang) => {
+          const i18n = await createI18nextInstance(lang, namespaces) // (1)
+          const res = pageDefinitionCallback(ipt, lang, i18n) // (2)
+          res.context.language = lang
           res.context.i18nResources = i18n.services.resourceStore.data // (3)
           res.context.availableLanguages = ipt.node.postLanguage
           return res
@@ -332,7 +332,7 @@ const buildI18nPosts = async (inputData, pageDefinitionCallback, namespaces, cre
 
       definitions.map((d) => {
         if (d.previousPath && d.context.availableLanguages) {
-          if (d.context.availableLanguages > 1 && d.context.language === "fr") {
+          if (d.context.availableLanguages.length > 1 && d.context.language === "fr") {
             // If both BR and FR posts exits, create only 1 redirection for the FR post.
             createRedirect({
               fromPath: d.previousPath,
@@ -360,7 +360,15 @@ const buildI18nPosts = async (inputData, pageDefinitionCallback, namespaces, cre
 
       definitions.forEach((d) => {
         d.context.alternateLinks = alternateLinks
-        d.context.canonicalUrl = d.path
+        if (d.context.availableLanguages.length == 1 && d.context.language !== d.context.availableLanguages[0]) {
+          // Only available in 1 language, but the context language is not the only available language
+          // let's make a canonical to the only available language
+          const canonicalUrl = "/" + d.context.availableLanguages[0] + d.path.substring(3)
+          console.info(`Only 1 language available for ${d.path}, making a canonical URL to ${canonicalUrl}`)
+          d.context.canonicalUrl = canonicalUrl
+        } else {
+          d.context.canonicalUrl = d.path
+        }
         createPage(d) // (5)
       })
     })

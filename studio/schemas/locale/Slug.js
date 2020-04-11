@@ -13,6 +13,6 @@ export default {
       maxLength: 96,
       auto: true,
     },
-    //validation: Rule => Rule.required()
+    validation: (Rule) => Rule.required(),
   })),
 };

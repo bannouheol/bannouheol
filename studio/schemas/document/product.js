@@ -21,6 +21,7 @@ export default {
       name: "slug",
       title: "Slug",
       type: "localeSlug",
+      /*
       validation: (Rule) =>
         Rule.custom((slugs) => {
           return slugs.br && slugs.br.current && slugs.fr && slugs.fr.current
@@ -29,6 +30,7 @@ export default {
                 message: "Les deux slugs doivent être indiqués",
               };
         }),
+        */
     },
     {
       name: "previousPath",

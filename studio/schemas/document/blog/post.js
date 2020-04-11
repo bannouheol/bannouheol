@@ -14,8 +14,8 @@ export default {
       of: [{ type: "string" }],
       options: {
         list: [
-          { title: "Français", value: "fr" },
           { title: "Breton", value: "br" },
+          { title: "Français", value: "fr" },
         ],
       },
       validation: (Rule) => Rule.required(),
@@ -108,22 +108,19 @@ export default {
   ],
   preview: {
     select: {
+      language: "language",
       titleBr: "title.br",
       titleFr: "title.fr",
       media: "image",
       date: "publishedAt",
     },
     prepare(selection) {
-      const { titleFr, titleBr, media, date } = selection;
+      const { language, titleFr, titleBr, media, date } = selection;
+      const formattedDate =
+        typeof date !== "undefined" ? format(parseISO(date), "dd/MM/yyyy") : "";
       return {
-        title: typeof titleBr === "undefined" ? titleFr : titleBr,
-        subtitle:
-          format(parseISO(date), "dd/MM/yyyy") +
-          (typeof titleBr === "undefined"
-            ? ""
-            : typeof titleFr === "undefined"
-            ? ""
-            : " / " + titleFr),
+        title: language[0] === "br" ? titleBr : titleFr,
+        subtitle: formattedDate,
         media,
       };
     },

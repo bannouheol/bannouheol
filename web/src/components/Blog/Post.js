@@ -82,7 +82,7 @@ export const Post = (nonExtensiblePost) => {
       )}
       {audio && audio.asset && audio.asset.url && (
         <Box mt={3}>
-          <AudioPlayer autoPlay src={audio.asset.url} />
+          <AudioPlayer src={audio.asset.url} />
         </Box>
       )}
       <div sx={{ mt: 3 }}>{body && <PortableText blocks={body} />}</div>

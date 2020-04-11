@@ -40,9 +40,8 @@ export const PostPreview = (nonExtensiblePost) => {
 
   const { postLanguages } = post
   const postLanguage = postLanguages.includes(language) ? language : postLanguages[0]
-  const { title, excerpt, slug, image, publishedAt } = translateRaw(post, postLanguage)
+  const { title, excerpt, slug, image, publishedAt } = translateRaw(post, language)
   const { categories } = translateRaw(post, language)
-  //console.log(translateRaw(post, postLanguage.includes(language) ? language : postLanguage[0]))
 
   const CategoriesPreview = () => (
     <React.Fragment>
@@ -54,13 +53,12 @@ export const PostPreview = (nonExtensiblePost) => {
     </React.Fragment>
   )
   const dateSegment = format(parseISO(publishedAt), "yyyy/MM/dd")
-  const postPath = `/${postLanguage}/${dateSegment}/${slug.current}`
+  const postPath = `/${language}/${dateSegment}/${slug.current}`
 
   return (
     <Card
       sx={{
         maxWidth: 256,
-        bg: postLanguage !== language ? "light" : "transparent",
       }}
     >
       {image && (
