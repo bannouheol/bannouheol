@@ -9,7 +9,7 @@ const path = require("path")
 const i18next = require("i18next")
 const nodeFsBackend = require("i18next-node-fs-backend")
 const currency = require("currency.js")
-const { parseISO, format } = require("date-fns")
+//const { parseISO, format } = require("date-fns")
 
 const allLanguages = ["br", "fr"]
 
@@ -55,7 +55,6 @@ exports.createPages = async ({ graphql, actions: { createPage, createRedirect },
             node {
               id
               _rawSlug
-              publishedAt
               postLanguage: language
               previousPath
             }
@@ -177,8 +176,9 @@ exports.createPages = async ({ graphql, actions: { createPage, createRedirect },
   await buildI18nPosts(
     blogPosts.edges,
     ({ node }, language, _) => {
-      const dateSegment = format(parseISO(node.publishedAt), "yyyy/MM/dd")
-      const postPath = `/${language}/${dateSegment}/${node._rawSlug[language].current}`
+      //const dateSegment = format(parseISO(node.publishedAt), "yyyy/MM/dd")
+      //const postPath = `/${language}/${dateSegment}/${node._rawSlug[language].current}`
+      const postPath = `/${language}/${node._rawSlug[language].current}`
       reporter.info(`Creating blog post page: ${postPath}`)
       return {
         path: postPath,

@@ -21,6 +21,12 @@ export default {
       validation: (Rule) => Rule.required(),
     },
     {
+      name: "publishedAt",
+      title: "Date de publication",
+      type: "date",
+      validation: (Rule) => Rule.required(),
+    },
+    {
       name: "title",
       title: "Titre du post",
       type: "localeString",
@@ -40,12 +46,6 @@ export default {
           to: { type: "blogCategory" },
         },
       ],
-    },
-    {
-      name: "publishedAt",
-      title: "Date de publication",
-      type: "date",
-      validation: (Rule) => Rule.required(),
     },
     {
       name: "image",
