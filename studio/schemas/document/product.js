@@ -152,7 +152,7 @@ export default {
       const { titleBr, titleFr, collection, date, media } = selection;
       return {
         title: titleBr,
-        subtitle: `${titleFr} / ${collection} / ${format(
+        subtitle: `${titleFr}, ${collection}, ${format(
           parseISO(date),
           "dd/MM/yyyy"
         )}`,
