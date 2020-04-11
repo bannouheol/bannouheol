@@ -60,7 +60,7 @@
     "develop": "gatsby develop -H 192.168.1.10",
     "dev": "yarn develop",
     "start": "npm run serve",
-    "serve": "gatsby serve",
+    "serve": "gatsby serve -H 192.168.1.10",
     "clean": "gatsby clean",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1",
     "format": "prettier '**/*.{js,jsx,json,css}' --write",
