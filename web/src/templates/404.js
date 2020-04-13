@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx, Styled } from "theme-ui"
 import { Layout } from "../components/Layout"
-import SEO from "../components/seo"
+import SEO from "../components/SEO"
 
 import { useTranslation } from "react-i18next"
 

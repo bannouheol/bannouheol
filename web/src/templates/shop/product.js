@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx, Box, Styled } from "theme-ui"
 import { Layout } from "../../components/Layout"
-import SEO from "../../components/seo"
+import SEO from "../../components/SEO"
 import { graphql } from "gatsby"
 import { GraphQLErrorList } from "../../components/GraphQLErrorList"
 import { Product } from "../../components/Shop/Product"

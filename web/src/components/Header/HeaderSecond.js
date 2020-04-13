@@ -50,7 +50,7 @@ export const HeaderSecond = ({alternateLink}) => {
           order: [2, 2, 2, 0],
         }}
       >
-
+        <Search collapse indices={searchIndices} />
       </Box>
       <button
         className="snipcart-checkout"

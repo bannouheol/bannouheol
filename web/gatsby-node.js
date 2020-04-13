@@ -9,7 +9,6 @@ const path = require("path")
 const i18next = require("i18next")
 const nodeFsBackend = require("i18next-node-fs-backend")
 const currency = require("currency.js")
-//const { parseISO, format } = require("date-fns")
 
 const allLanguages = ["br", "fr"]
 
