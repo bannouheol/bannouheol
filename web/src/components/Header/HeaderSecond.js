@@ -1,11 +1,28 @@
 /** @jsx jsx */
-import { jsx, Box, Grid, Flex, Text, Badge, Input } from "theme-ui"
-import { useTranslation } from "react-i18next"
-import { Link } from "../Link"
-import { IoMdBasket, IoMdSearch } from "react-icons/io"
-import { FaLanguage } from "react-icons/fa"
+import {jsx, Box, Grid, Flex, Text, Badge, Input} from "theme-ui"
+import {useTranslation} from "react-i18next"
+import {Link} from "../Link"
+import {IoMdBasket, IoMdSearch} from "react-icons/io"
+import {FaLanguage} from "react-icons/fa"
 
-export const HeaderSecond = ({ alternateLink }) => {
+import Search from "../Search"
+const searchIndices = [
+  //{ name: `Pages`, title: `Pages`, hitComp: `PageHit` },
+  {name: `Products`, title: `Products`, hitComp: `ProductHit`},
+]
+
+/*
+
+        <IoMdSearch size={32} />
+        <Input
+          type="search"
+          placeholder={t("search")}
+          autocomplete="off"
+          sx={{ variant: "inputs.shadow", width: "full" }}
+        />
+*/
+
+export const HeaderSecond = ({alternateLink}) => {
   const {
     t,
     //i18n: { language },
@@ -33,13 +50,7 @@ export const HeaderSecond = ({ alternateLink }) => {
           order: [2, 2, 2, 0],
         }}
       >
-        <IoMdSearch size={32} />
-        <Input
-          type="search"
-          placeholder={t("search")}
-          autocomplete="off"
-          sx={{ variant: "inputs.shadow", width: "full" }}
-        />
+
       </Box>
       <button
         className="snipcart-checkout"
@@ -67,7 +78,7 @@ export const HeaderSecond = ({ alternateLink }) => {
         </Box>
         <Text>{t("shop:my_cart")}</Text>
       </button>
-      <Flex sx={{ alignItems: "center", order: [0, 0, 0, 2] }}>
+      <Flex sx={{alignItems: "center", order: [0, 0, 0, 2]}}>
         <Flex pr={1}>
           <FaLanguage size={32} />
         </Flex>

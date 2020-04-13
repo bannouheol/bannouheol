@@ -1,4 +1,7 @@
-require("dotenv").config()
+require("dotenv").config({
+  path: `.env.${process.env.NODE_ENV}`,
+})
+const queries = require("./src/lib/algolia")
 
 module.exports = {
   siteMetadata: {
@@ -62,6 +65,16 @@ module.exports = {
         icon: `src/assets/images/icon.png`, // This path is relative to the root of the site.
       },
     },
+    {
+      resolve: `gatsby-plugin-algolia`,
+      options: {
+        appId: process.env.GATSBY_ALGOLIA_APP_ID,
+        apiKey: process.env.ALGOLIA_API_KEY,
+        queries,
+        //chunkSize: 1000, // default: 1000
+      },
+    },
+    `gatsby-plugin-styled-components`,
     `gatsby-plugin-catch-links`,
     `gatsby-plugin-nprogress`,
     // this (optional) plugin enables Progressive Web App + Offline functionality

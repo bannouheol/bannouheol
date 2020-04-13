@@ -45,8 +45,10 @@ export const Post = (nonExtensiblePost) => {
     post,
     language
   )
-  const { id } = getVideoId(video.url)
-  const video_id = id
+
+  const videoParsed = video && video.url && getVideoId(video.url)
+  const video_id = videoParsed && videoParsed.id
+
   return (
     <article
       sx={{
