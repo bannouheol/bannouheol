@@ -3,10 +3,8 @@ import { jsx } from "theme-ui"
 import { useState, useEffect, useCallback, useRef } from "react"
 import { useTranslation } from "react-i18next"
 import algoliasearch from "algoliasearch/lite"
-import { InstantSearch, Index, Hits, SearchBox, connectStateResults } from "react-instantsearch-dom"
-
-//import Input from "./Input"
-import { FaAlgolia as Algolia } from "react-icons/fa"
+import { InstantSearch, Configure, Index, InfiniteHits, connectStateResults } from "react-instantsearch-dom"
+import { SearchBox } from "./SearchBox"
 import * as hitComps from "./hitComps"
 
 const Results = connectStateResults(({ searchState: state, searchResults: res, children }) =>
@@ -76,6 +74,7 @@ export default function Search({ indices, collapse }) {
         indexName={indices[0].name}
         onSearchStateChange={({ query }) => setQuery(query)}
       >
+        <Configure hitsPerPage={4} />
         <SearchBox onFocus={() => setFocus(true)} {...{ collapse, focus }} />
         <div
           //show={query && query.length > 0 && focus}
@@ -84,6 +83,7 @@ export default function Search({ indices, collapse }) {
             display: query && query.length > 0 && focus ? "grid" : "none",
             maxHeight: "80vh",
             overflow: "scroll",
+            overflowX: "hidden",
             zIndex: 2,
             ":-webkit-overflow-scrolling": "touch",
             boxShadow: "0px 10px 10px rgba(0, 0, 0, .225)",
@@ -117,7 +117,13 @@ export default function Search({ indices, collapse }) {
                 <Stats />
               </header>
               <Results>
-                <Hits hitComponent={hitComps[hitComp](() => setFocus(false), language)} />
+                <InfiniteHits
+                  hitComponent={hitComps[hitComp](() => setFocus(false), language)}
+                  translations={{
+                    loadPrevious: "Résultats précédents",
+                    loadMore: "Résultats suivants",
+                  }}
+                />
               </Results>
             </Index>
           ))}
@@ -129,10 +135,8 @@ export default function Search({ indices, collapse }) {
 }
 
 const PoweredBy = () => (
-  <span>
-    Powered by{` `}
-    <a href="https://algolia.com">
-      <Algolia size="1em" /> Algolia
-    </a>
+  <span sx={{ display: "inline-block", textAlign: "right" }}>
+    Recherche propulsée par {` `}
+    <a href="https://algolia.com">Algolia</a>
   </span>
 )

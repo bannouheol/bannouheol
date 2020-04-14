@@ -36,7 +36,7 @@ export const ProductPreview = (product) => {
       ...productFeatureFields
     }
   `
-  const { id, title, slug, collection, images, productFeature, reference } = translateRaw(product, language)
+  const { id, title, slug, collection, images, productFeature } = translateRaw(product, language)
   const productLink = `/${collection.slug.current}/${slug.current}`
   const inStock = productFeature && productFeature.inStock
   return (

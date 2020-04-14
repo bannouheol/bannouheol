@@ -53,7 +53,6 @@ export const Product = (product) => {
     categories,
     traductors,
     bookFeature,
-    reference,
     productFeature,
     releaseDate,
     youtubeVideos,

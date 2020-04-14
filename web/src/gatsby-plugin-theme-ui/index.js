@@ -50,6 +50,23 @@ export default {
         color: "white",
         textDecoration: "none",
       },
+      "form + div": {
+        m: 2,
+        a: {
+          color: "text",
+          "&:hover": {
+            color: "secondary",
+          },
+        },
+        button: {
+          bg: "secondary",
+          color: "white",
+          p: 2,
+          borderRadius: 4,
+          border: 0,
+          fontSize: 1,
+        },
+      },
     },
     mobileMenu: {
       bg: "secondary",

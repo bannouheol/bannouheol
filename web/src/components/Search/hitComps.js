@@ -7,7 +7,6 @@ import Img from "gatsby-image"
 import { translateRaw } from "../../lib/helpers"
 
 export const ProductHit = (clickHandler, language) => ({ hit }) => {
-  const allLanguages = ["br", "fr"]
   const {
     slug: { current: slug },
     collection,
@@ -15,18 +14,18 @@ export const ProductHit = (clickHandler, language) => ({ hit }) => {
       price: { formatted: price },
     },
   } = translateRaw(hit, language)
+  //const allLanguages = ["br", "fr"]
+  //const otherLanguage = allLanguages.filter((lang) => lang !== language)[0]
 
-  const otherLanguage = allLanguages.filter((lang) => lang !== language)[0]
+  /*
+   */
   const productPath = `/${collection.slug.current}/${slug}`
   const collectionPath = `/${collection.slug.current}`
   return (
     <Grid gap={2} columns={["120px auto"]} m={2}>
       <Box>
         <Link to={productPath} onClick={clickHandler}>
-          <Img
-            fluid={hit.defaultProductVariant.images[0].asset.fluid}
-            sx={{ variant: "images.card", maxWidth: "120px" }}
-          />
+          <Img fixed={hit.defaultProductVariant.images[0].asset.fixed} sx={{ variant: "images.card" }} />
         </Link>
       </Box>
       <Box sx={{ fontSize: 1 }}>
@@ -35,11 +34,6 @@ export const ProductHit = (clickHandler, language) => ({ hit }) => {
             <Highlight attribute={`_rawTitle.${language}`} hit={hit} tagName="mark" />
           </h4>
         </Link>
-        <Text>
-          <Link to={productPath} onClick={clickHandler}>
-            <Highlight attribute={`_rawTitle.${otherLanguage}`} hit={hit} tagName="mark" />
-          </Link>
-        </Text>
         <Text>
           <Link to={collectionPath} onClick={clickHandler}>
             <Highlight attribute={`collection._rawTitle.${language}`} hit={hit} tagName="mark" />

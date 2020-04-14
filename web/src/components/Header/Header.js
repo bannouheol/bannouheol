@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx, Box } from "theme-ui"
+import { jsx } from "theme-ui"
 //import { useTranslation } from "react-i18next"
 import { HeaderLogo } from "./HeaderLogo"
 import { HeaderMenu } from "./HeaderMenu"

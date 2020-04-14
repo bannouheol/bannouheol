@@ -14,8 +14,9 @@ const productQuery = `
           defaultProductVariant {
             images {
               asset {
-                fluid(maxWidth: 240) {
-                  sizes
+                fixed(width: 120) {
+                  width
+                  height
                   aspectRatio
                   base64
                   src
