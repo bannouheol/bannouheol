@@ -68,7 +68,7 @@ export const ProductPreview = (product) => {
               title={title}
               price={productFeature.price.value}
               url={`/${language}/${collection.slug.current}/${slug.current}`}
-              description={`${collection.title} - ${reference}`}
+              description={collection.title}
               image={product.images.images && product.images.images[0].asset.fluid.src}
               discrete="true"
             />

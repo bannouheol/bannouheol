@@ -2,8 +2,8 @@
   "private": true,
   "name": "bannouheol",
   "workspaces": [
-    "bannouheol-web",
-    "bannouheol-studio"
+    "web",
+    "studio"
   ],
   "version": "2.0",
   "scripts": {

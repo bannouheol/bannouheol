@@ -1,4 +1,3 @@
 {
-  "packages": ["bannouheol-web", "bannouheol-studio"],
-  "version": "1.0.0"
+    "packages": ["web", "studio"]
 }
