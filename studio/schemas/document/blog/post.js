@@ -53,16 +53,6 @@ export default {
       title: "Image",
     },
     {
-      title: "Audio",
-      name: "audio",
-      type: "file",
-    },
-    {
-      title: "Vidéo YouTube",
-      name: "video",
-      type: "youtube",
-    },
-    {
       title: "Profile(s) relié(s)",
       name: "featuredProfiles",
       type: "array",
@@ -72,6 +62,16 @@ export default {
           to: { type: "profile" },
         },
       ],
+    },
+    {
+      title: "Audio",
+      name: "audio",
+      type: "file",
+    },
+    {
+      title: "Vidéo YouTube",
+      name: "video",
+      type: "youtube",
     },
     {
       name: "excerpt",
