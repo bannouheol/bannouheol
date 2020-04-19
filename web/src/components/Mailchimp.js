@@ -15,7 +15,7 @@ export const Mailchimp = () => {
     e.preventDefault()
     addToMailchimp(email)
       .then((data) => {
-        alert(data.result)
+        alert(t("mailing_subscribed"))
       })
       .catch((error) => {
         alert(error)
