@@ -2,7 +2,7 @@
 import { jsx, Box, Styled, Text, Input, Button } from "theme-ui"
 import { useState } from "react"
 import { useTranslation } from "react-i18next"
-//import addToMailchimp from "gatsby-plugin-mailchimp"
+import addToMailchimp from "gatsby-plugin-mailchimp"
 
 export const Mailchimp = () => {
   const {
@@ -13,17 +13,15 @@ export const Mailchimp = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    alert(email)
-    /*
     addToMailchimp(email)
       .then((data) => {
         alert(data.result)
       })
       .catch((error) => {
+        alert(error)
         // Errors in here are client side
         // Mailchimp always returns a 200
       })
-      */
   }
 
   const handleEmailChange = (e) => {
