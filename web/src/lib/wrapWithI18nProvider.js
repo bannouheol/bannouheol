@@ -28,7 +28,7 @@ export function wrapPageElement({ element, props }) {
     <ReactI18next.I18nextProvider i18n={i18n}>
       <AlternateLinksContext.Provider value={props.pageContext && props.pageContext.alternateLinks}>
         {
-          <Helmet htmlAttributes={{ lang: props.pageContext.language }}>
+          <Helmet htmlAttributes={{ lang: `${props.pageContext.language}-FR` }}>
             {props.pageContext &&
               props.pageContext.alternateLinks &&
               props.pageContext.alternateLinks.map((link) => (
@@ -48,6 +48,8 @@ export function wrapPageElement({ element, props }) {
                   <meta key={link.language} property="og:locale:alternate" content={`${link.language}_FR`} />
                 ) : null
               })}
+            <link rel="dns-prefetch" href="//cdn.sanity.io/" />
+            <link ref="dns-prefetch" href="https://www.youtube.com/" />
           </Helmet>
         }
         {element}
