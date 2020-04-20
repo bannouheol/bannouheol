@@ -35,6 +35,8 @@ const templates = {
   },
 }
 
+const postsPerPage = 14
+
 const namespaces = ["common", "blog", "shop"]
 
 exports.createPages = async ({ graphql, actions: { createPage, createRedirect }, reporter }) => {
@@ -49,7 +51,10 @@ exports.createPages = async ({ graphql, actions: { createPage, createRedirect },
             }
           }
         }
-        blogPosts: allSanityBlogPost {
+        blogPosts: allSanityBlogPost(
+          sort: { fields: [publishedAt], order: DESC }
+          filter: { publishedAt: { ne: null } }
+        ) {
           edges {
             node {
               id
@@ -139,37 +144,71 @@ exports.createPages = async ({ graphql, actions: { createPage, createRedirect },
     createRedirect
   )
 
-  /* BLOG PAGE */
-  await buildI18nPages(
-    null,
-    (_, language, i18n) => ({
-      path: `/${language}/${i18n.t("blog:slug")}`, // (1)
-      component: path.resolve(path.join(templates.baseDir, templates.blog.archive)),
-      context: {},
-    }),
-    namespaces,
-    createPage,
-    createRedirect
-  )
+  /* BLOG PAGES */
+  const numPages = Math.ceil(blogPosts.edges.length / postsPerPage)
+  Array.from({ length: numPages }).forEach(async (_, i) => {
+    await buildI18nPages(
+      null,
+      (_, language, i18n) => {
+        const blogPagePath = `/${language}/${i18n.t("blog:slug")}${i > 0 ? `/${i + 1}` : ``}`
+        reporter.info(`Creating blog page: ${blogPagePath}`)
+        return {
+          path: blogPagePath, // (1)
+          component: path.resolve(path.join(templates.baseDir, templates.blog.archive)),
+          context: {
+            limit: postsPerPage,
+            skip: i * postsPerPage,
+            numPages,
+            currentPage: i + 1,
+          },
+        }
+      },
+      namespaces,
+      createPage,
+      createRedirect
+    )
+  })
 
   /* BLOG CATEGORIES */
-  await buildI18nPages(
-    blogCategories.edges,
-    ({ node }, language, i18n) => {
-      const blogCategoryPath = `/${language}/${i18n.t("blog:slug")}/${i18n.t("blog:category_slug")}/${
-        node._rawSlug[language].current
-      }`
-      reporter.info(`Creating blog category page: ${blogCategoryPath}`)
-      return {
-        path: blogCategoryPath,
-        component: path.resolve(path.join(templates.baseDir, templates.blog.archive)),
-        context: { category: node.id },
+  blogCategories.edges.map(async ({ node: { id, _rawSlug } }) => {
+    categoryQuery = await graphql(`{
+      blogCategoriesPosts: allSanityBlogPost(filter: {publishedAt: {ne: null} categories: {elemMatch: {id: {eq: "${id.toString()}"}}}}) {
+        edges {
+          node {
+            id
+          }
+        }
       }
-    },
-    namespaces,
-    createPage,
-    createRedirect
-  )
+    }
+    `)
+    const { blogCategoriesPosts } = categoryQuery.data
+    const numPages = Math.ceil(blogCategoriesPosts.edges.length / postsPerPage)
+    Array.from({ length: numPages }).forEach(async (_, i) => {
+      await buildI18nPages(
+        null,
+        (_, language, i18n) => {
+          const blogCategoryPath = `/${language}/${i18n.t("blog:slug")}/${_rawSlug[language].current}${
+            i > 0 ? `/${i + 1}` : ``
+          }`
+          reporter.info(`Creating blog page: ${blogCategoryPath}`)
+          return {
+            path: blogCategoryPath,
+            component: path.resolve(path.join(templates.baseDir, templates.blog.archive)),
+            context: {
+              category: id,
+              limit: postsPerPage,
+              skip: i * postsPerPage,
+              numPages,
+              currentPage: i + 1,
+            },
+          }
+        },
+        namespaces,
+        createPage,
+        createRedirect
+      )
+    })
+  })
 
   /* BLOG POSTS */
   await buildI18nPosts(

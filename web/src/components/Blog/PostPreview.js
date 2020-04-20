@@ -72,9 +72,11 @@ export const PostPreview = (nonExtensiblePost) => {
         </Styled.h3>
         <Box>{excerpt}</Box>
         {publishedAt && (
-          <Trans i18nKey="blog:posted_in_x_at_x">
-            Posté dans <CategoriesPreview /> le {{ date: new Date(publishedAt) }}
-          </Trans>
+          <Box sx={{ mt: 2, fontSize: 0 }}>
+            <Trans i18nKey="blog:posted_in_x_at_x">
+              Posté dans <CategoriesPreview /> le {{ date: new Date(publishedAt) }}
+            </Trans>
+          </Box>
         )}
       </Text>
     </Card>

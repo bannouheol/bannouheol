@@ -38,7 +38,11 @@ export const query = graphql`
       _rawTitle
       _rawContent
     }
-    posts: allSanityBlogPost(sort: { fields: [publishedAt], order: DESC }, filter: { publishedAt: { ne: null } }) {
+    posts: allSanityBlogPost(
+      sort: { fields: [publishedAt], order: DESC }
+      filter: { publishedAt: { ne: null } }
+      limit: 7
+    ) {
       edges {
         node {
           ...blogPostPreviewFields

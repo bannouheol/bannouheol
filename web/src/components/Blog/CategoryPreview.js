@@ -21,5 +21,5 @@ export const CategoryPreview = (data) => {
 
   const { title, slug } = translateRaw(data, language)
 
-  return <Link to={`/${t("blog:slug")}/${t("blog:category_slug")}/${slug.current}`}>{title}</Link>
+  return <Link to={`/${t("blog:slug")}/${slug.current}`}>{title}</Link>
 }
