@@ -8,7 +8,7 @@ export const Posts = ({ nodes }) => {
       sx={{
         listStyle: "none",
         gridGap: 1,
-        gridTemplateColumns: ["1fr 1fr", "repeat(auto-fit, minmax(256px, 1fr))"],
+        gridTemplateColumns: ["1fr 1fr", " repeat(7, 256px)"],
       }}
     >
       {nodes && nodes.map((post) => <PostPreview key={post.id} {...post} />)}

@@ -101,7 +101,7 @@ export const query = graphql`
     ) {
       edges {
         node {
-          ...blogPostFields
+          ...blogPostPreviewFields
         }
       }
     }

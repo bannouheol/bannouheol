@@ -22,8 +22,8 @@ export const PostPreview = (nonExtensiblePost) => {
       postLanguages: language
       image {
         asset {
-          fluid(maxWidth: 640) {
-            ...GatsbySanityImageFluid
+          fixed(width: 350, height: 200) {
+            ...GatsbySanityImageFixed
           }
         }
       }
@@ -62,7 +62,7 @@ export const PostPreview = (nonExtensiblePost) => {
     >
       {image && (
         <Link to={postPath}>
-          <Img fluid={image.asset.fluid} />
+          <Img fixed={image.asset.fixed} sx={{ maxWidth: "100%" }} />
         </Link>
       )}
       <Text sx={{ px: 2 }}>

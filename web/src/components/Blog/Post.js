@@ -21,7 +21,24 @@ export const Post = (nonExtensiblePost) => {
   } = useTranslation()
   graphql`
     fragment blogPostFields on SanityBlogPost {
-      ...blogPostPreviewFields
+      id
+      publishedAt
+      _rawSlug
+      _rawTitle
+      _rawExcerpt
+      postLanguages: language
+      image {
+        asset {
+          fluid(maxWidth: 640) {
+            ...GatsbySanityImageFluid
+          }
+        }
+      }
+      categories {
+        id
+        _rawTitle
+        _rawSlug
+      }
       _rawBody
       author {
         title
