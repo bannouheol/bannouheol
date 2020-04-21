@@ -1,23 +1,23 @@
 {
   "title": "Bannoù-heol",
-  "subtitle": "Ty d'édition en breton depuis 1999",
+  "subtitle": "Ti-embann e brezhoneg abaoe 1999",
   "br": "Brezhoneg",
-  "fr": "Français",
-  "language": "Language",
+  "fr": "Galleg",
+  "language": "Yezh",
   "search": "Klask",
   "home": "Degemer",
-  "news": "Actualité",
+  "news": "Keleier",
   "error": {
-    "notFound": "Page introuvable",
-    "notFoundMessage": "Cette page n'existe pas ou n'existe plus. Nous vous prions de nous excuser pour la gêne occasionnée."
+    "notFound": "Pajenn varv",
+    "notFoundMessage": "N'eus ket eus ur bajenn-mañ pe n'eus ket diouti ken. Hon digarezit evit se."
   },
   "x_in_breton": "{{x}} e brezhoneg",
-  "mailing_subscribe": "Inscrivez-vous à la newsletter",
-  "mailing_receive_offers": "et recevez nos offres en exclusivité !",
-  "mailing_your_mail": "Votre adresse email ?",
-  "mailing_submit": "Je m'inscris",
-  "mailing_subscribed": "Vous êtes bien enregistré dans notre mailing list, merci !",
-  "follow_us": "Suivez-nous sur les réseaux sociaux",
+  "mailing_subscribe": "Lakait ho anv evit degemer al lizher-kelaouiñ",
+  "mailing_receive_offers": "ha resevit hor c'hinnigoù !",
+  "mailing_your_mail": "Ho postel ?",
+  "mailing_submit": "Lakaat a ran ma anv",
+  "mailing_subscribed": "Enrollet mat oc'h en hor roll skignañ, trugarez !",
+  "follow_us": "Heulhit ac'hanomp war ar rouedadoù sokial",
   "conditions": "Divizoù gwerzhañ hollek",
   "mentions": "Menegoù lezennel"
 }
