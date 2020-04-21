@@ -1,10 +1,10 @@
 {
-  "released_on": "Paru le {{date, DD/MM/YYYY}}",
+  "released_on": "Deuet er-maez d'ar {{date, DD/MM/YYYY}}",
   "buy": "Prenañ",
-  "add_to_cart": "Ajouter au panier",
+  "add_to_cart": "Ouzhpennañ er baner",
   "my_cart": "Ma fanerad",
   "in_stock": "Er stok",
-  "out_of_stock": "Stok peurwerzhet",
+  "out_of_stock": "Stok diviet",
   "profile_slug": "profil",
-  "involvement": "Participations"
+  "involvement": "Gant perzhioù"
 }
