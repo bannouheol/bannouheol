@@ -68,7 +68,7 @@ export default function Search({ indices, collapse }) {
   useClickOutside(ref, () => setFocus(false))
   useEscKey(() => setFocus(false))
   return (
-    <div ref={ref}>
+    <div ref={ref} sx={{ width: "full", mt: [0, 0, 0, 2] }}>
       <InstantSearch
         searchClient={searchClient}
         indexName={indices[0].name}
