@@ -5,18 +5,19 @@
  * See: https://www.gatsbyjs.org/docs/use-static-query/
  */
 
-import React from "react"
-import PropTypes from "prop-types"
-import { Helmet } from "react-helmet"
-import { useStaticQuery, graphql } from "gatsby"
-import { truncateString } from "../lib/helpers"
-//import { useTranslation } from "react-i18next"
+import React from 'react'
+import PropTypes from 'prop-types'
+import { Helmet } from 'react-helmet'
+import { useLocation } from '@reach/router'
+import { useStaticQuery, graphql } from 'gatsby'
+import { truncateString } from '../lib/helpers'
+import { useTranslation } from 'react-i18next'
 
-function SEO({ description, meta, title, image }) {
-  /*const {
-    t,
+const SEO = ({ title, description, image, product, article }) => {
+  const {
+    //t,
     i18n: { language },
-  } = useTranslation()*/
+  } = useTranslation()
   const {
     site: { siteMetadata },
   } = useStaticQuery(
@@ -33,65 +34,56 @@ function SEO({ description, meta, title, image }) {
       }
     `
   )
+  const { pathname } = useLocation()
 
-  const metaDescription = truncateString(description || siteMetadata.description, 147)
+  const seo = {
+    title: title && (title.length <= 60 ? `${title} — ${siteMetadata.title}` : title),
+    description: truncateString(description || siteMetadata.description, 147),
+    image: image ? image : `${siteMetadata.url}/bannouheol.png`,
+    url: pathname && `${siteMetadata.url}${pathname}`,
+  }
 
   return (
-    <Helmet
-      title={title && title.length <= 60 ? `${title} — ${siteMetadata.title}` : title}
-      //titleTemplate={`%s — ${site.siteMetadata.title}`}
-      meta={[
-        {
-          name: `description`,
-          content: metaDescription,
-        },
-        {
-          property: `og:title`,
-          content: title,
-        },
-        {
-          property: `og:image`,
-          content: image,
-        },
-        {
-          property: `og:description`,
-          content: metaDescription,
-        },
-        {
-          property: `og:type`,
-          content: `website`,
-        },
-        {
-          name: `twitter:card`,
-          content: `summary`,
-        },
-        {
-          name: `twitter:creator`,
-          content: siteMetadata.author,
-        },
-        {
-          name: `twitter:title`,
-          content: title,
-        },
-        {
-          name: `twitter:description`,
-          content: metaDescription,
-        },
-      ].concat(meta)}
-    />
+    <Helmet>
+      {seo.title && (
+        <title itemProp="name" lang={`${language}-FR`}>
+          {seo.title}
+        </title>
+      )}
+      {seo.title && <meta property="og:title" content={seo.title} />}
+      {seo.title && <meta name="twitter:title" content={seo.title} />}
+      {seo.description && <meta name="description" content={seo.description} />}
+      {seo.description && <meta property="og:description" content={seo.description} />}
+      {seo.description && <meta name="twitter:description" content={seo.description} />}
+      {seo.image && <meta name="image" content={seo.image} />}
+      {seo.image && <meta property="og:image" content={seo.image} />}
+      {seo.image && <meta name="twitter:image" content={seo.image} />}
+      )}
+      <meta name="twitter:card" content="summary_large_image" />
+      {seo.url && <meta property="og:url" content={seo.url} />}
+      {(article ? true : null) && <meta property="og:type" content="article" />}
+      {(product ? true : null) && <meta property="og:type" content="product" />}
+      {!product && !article && <meta property="og:type" content="website" />}
+      {siteMetadata.author && <meta name="twitter:creator" content={siteMetadata.author} />}
+    </Helmet>
   )
 }
 
 SEO.defaultProps = {
-  meta: [],
-  description: ``,
+  title: null,
+  description: null,
+  image: null,
+  article: false,
+  product: false,
 }
 
 SEO.propTypes = {
-  description: PropTypes.string,
-  lang: PropTypes.string,
-  meta: PropTypes.arrayOf(PropTypes.object),
   title: PropTypes.string.isRequired,
+  description: PropTypes.string,
+  image: PropTypes.string,
+  lang: PropTypes.string,
+  article: PropTypes.bool,
+  product: PropTypes.bool,
 }
 
 export default SEO

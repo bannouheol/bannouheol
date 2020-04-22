@@ -1,7 +1,7 @@
-require("dotenv").config({
+require('dotenv').config({
   path: `.env.${process.env.NODE_ENV}`,
 })
-const queries = require("./src/lib/algolia")
+const queries = require('./src/lib/algolia')
 
 module.exports = {
   siteMetadata: {
@@ -22,17 +22,17 @@ module.exports = {
     `gatsby-plugin-preact`,
     `gatsby-plugin-theme-ui`,
     {
-      resolve: "gatsby-source-sanity",
+      resolve: 'gatsby-source-sanity',
       options: {
         projectId: process.env.SANITY_PROJECT_ID,
         dataset: process.env.SANITY_DATASET,
         token: process.env.SANITY_TOKEN,
-        watchMode: process.env.NODE_ENV === "development" ? true : false,
+        watchMode: process.env.NODE_ENV === 'development' ? true : false,
         overlayDrafts: true,
       },
     },
     {
-      resolve: "gatsby-plugin-react-svg",
+      resolve: 'gatsby-plugin-react-svg',
       options: {
         rule: {
           include: /assets/,
@@ -40,13 +40,13 @@ module.exports = {
       },
     },
     {
-      resolve: "gatsby-plugin-mailchimp",
+      resolve: 'gatsby-plugin-mailchimp',
       options: {
         endpoint: process.env.MAILCHIMP_ENDPOINT,
       },
     },
     {
-      resolve: "gatsby-plugin-snipcartv3",
+      resolve: 'gatsby-plugin-snipcartv3',
       options: {
         apiKey: process.env.SNIPCART_APIKEY,
         js: `/snipcart.3.0.11.js`,
