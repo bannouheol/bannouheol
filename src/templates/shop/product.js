@@ -25,21 +25,22 @@ const ProductPage = ({ data, errors, ...props }) => {
       siteMetadata: { siteUrl },
     },
   } = translateRaw(data, language)
+  const { title, images, body, collection, slug, categories, productFeature } = product
   const sameCollectionProductNodes = mapEdgesToNodes(sameCollectionProducts)
   const blogPostsNodes = mapEdgesToNodes(blogPosts)
-  const fullTitle = [product.title, t('x_in_breton', { x: product.collection.title })].join(`, `)
-  const image = product.images.images && product.images.images[0] && product.images.images[0].asset.fluid.src
-  const excerpt = product.body && toPlainText(product.body)
-  const productPath = `/${language}/${product.collection.slug.current}/${product.slug.current}`
-  const categories =
-    product.categories &&
-    product.categories.length > 0 &&
-    product.categories
+  const fullTitle = [title, t('x_in_breton', { x: collection.title })].join(`, `)
+  const image = images.images && images.images[0] && images.images[0].asset.fluid.src
+  const excerpt = body && toPlainText(body)
+  const productPath = `/${language}/${collection.slug.current}/${slug.current}`
+  const categoriesReduced =
+    categories &&
+    categories.length > 0 &&
+    categories
       .map((c) => c.title)
       .reduce((acc, el) => {
         return acc === null ? el : acc + ' > ' + el
       }, null)
-  const inStock = product.productFeature.inStock
+  const inStock = productFeature.inStock
   return (
     <Layout {...props}>
       {errors && <SEO title="GraphQL Error" />}
@@ -54,12 +55,12 @@ const ProductPage = ({ data, errors, ...props }) => {
             url: siteUrl + productPath,
             image,
             description: excerpt,
-            gtin: product.productFeature.barcode.barcode && product.productFeature.barcode.barcode,
-            categories,
+            gtin13: productFeature.barcode && productFeature.barcode.barcode,
+            categories: categoriesReduced,
             offers: {
               '@type': 'Offer',
               priceCurrency: 'EUR',
-              price: product.productFeature.price.value,
+              price: productFeature.price.value,
               itemCondition: 'https://schema.org/NewCondition',
               availability: inStock ? 'http://schema.org/InStock' : 'https://schema.org/OutOfStock',
             },
