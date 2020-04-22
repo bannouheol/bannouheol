@@ -78,9 +78,7 @@ function SEO({ description, meta, title, image }) {
           content: metaDescription,
         },
       ].concat(meta)}
-    >
-      <base href={siteMetadata.url} />
-    </Helmet>
+    />
   )
 }
 
