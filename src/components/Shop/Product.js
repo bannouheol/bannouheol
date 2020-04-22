@@ -1,27 +1,31 @@
 /** @jsx jsx */
-import { jsx, Grid, Flex, Styled, Text, Box, Divider } from "theme-ui"
-import PortableText from "../PortableText"
-import Img from "gatsby-image"
-import { graphql, useStaticQuery } from "gatsby"
-import path from "path"
-import { useTranslation, Trans } from "react-i18next"
-import { Link } from "../Link"
-import { translateRaw } from "../../lib/helpers"
-import { BookFeature } from "./BookFeature"
-import { ProductFeature } from "./ProductFeature"
-import { ProfilePreview } from "./ProfilePreview"
-import { AddToCart } from "./AddToCart"
-import { FaFacebookSquare, FaTwitterSquare, FaPinterestSquare } from "react-icons/fa"
-import { SRLWrapper } from "simple-react-lightbox"
-import YouTube from "react-youtube"
-import getVideoId from "get-video-id"
+import { jsx, Grid, Flex, Styled, Text, Box, Divider } from 'theme-ui'
+import PortableText from '../PortableText'
+import Img from 'gatsby-image'
+import { graphql, useStaticQuery } from 'gatsby'
+import path from 'path'
+import { useTranslation, Trans } from 'react-i18next'
+import { Link } from '../Link'
+//import { translateRaw } from '../../lib/helpers'
+import { BookFeature } from './BookFeature'
+import { ProductFeature } from './ProductFeature'
+import { ProfilePreview } from './ProfilePreview'
+import { AddToCart } from './AddToCart'
+import { FaFacebookSquare, FaTwitterSquare, FaPinterestSquare } from 'react-icons/fa'
+import { SRLWrapper } from 'simple-react-lightbox'
+import YouTube from 'react-youtube'
+import getVideoId from 'get-video-id'
 
 export const Product = (product) => {
   const {
     t,
     i18n: { language },
-  } = useTranslation("common")
-  const data = useStaticQuery(graphql`
+  } = useTranslation('common')
+  const {
+    site: {
+      siteMetadata: { siteUrl },
+    },
+  } = useStaticQuery(graphql`
     {
       site {
         siteMetadata {
@@ -30,11 +34,6 @@ export const Product = (product) => {
       }
     }
   `)
-  const {
-    site: {
-      siteMetadata: { siteUrl },
-    },
-  } = data
   graphql`
     fragment productFields on SanityProduct {
       ...productPreviewFields
@@ -72,7 +71,7 @@ export const Product = (product) => {
     releaseDate,
     minimumAge,
     youtubeVideos,
-  } = translateRaw(product, language)
+  } = product
   const inStock = productFeature.inStock
 
   const thumbs = product.images.images.map((i) => i.asset.fluid)
@@ -82,9 +81,16 @@ export const Product = (product) => {
 
   return (
     <article>
-      <Grid gap={2} columns={[1, 2, "4fr 6fr 4fr", "4fr 6fr 3fr"]} className="boundary-element">
+      <Grid gap={2} columns={[1, 2, '4fr 6fr 4fr', '4fr 6fr 3fr']} className="boundary-element">
         <Box sx={{ order: 0 }}>
-          {image && <Img fluid={image} />}
+          {image && (
+            <Img
+              fluid={image}
+              sx={{
+                boxShadow: '0px 10px 10px rgba(0, 0, 0, .225)',
+              }}
+            />
+          )}
           {thumbs && (
             <SRLWrapper>
               <Grid gap={3} width={[64]}>
@@ -103,7 +109,7 @@ export const Product = (product) => {
                   <YouTube
                     videoId={id}
                     opts={{
-                      width: "100%",
+                      width: '100%',
                     }}
                     sx={{ mt: 3 }}
                   />
@@ -116,71 +122,71 @@ export const Product = (product) => {
             p: 2,
             mb: 2,
             order: [1, 2, 1],
-            gridColumnStart: ["auto", 1, "auto"],
-            gridColumnEnd: ["auto", 4, "auto"],
+            gridColumnStart: ['auto', 1, 'auto'],
+            gridColumnEnd: ['auto', 4, 'auto'],
           }}
         >
           <Styled.h1>{title}</Styled.h1>
           <Box sx={{ lineHeight: 2 }}>
-            {t("shop:collection")} :{" "}
-            <h2 sx={{ display: "inline-block", fontSize: 1, m: 0 }}>
-              <Link sx={{ p: 1, bg: "light", borderRadius: 8 }} to={`/${collection.slug.current}`}>
+            {t('shop:collection')} :{' '}
+            <h2 sx={{ display: 'inline-block', fontSize: 1, m: 0 }}>
+              <Link sx={{ p: 1, bg: 'light', borderRadius: 8 }} to={`/${collection.slug.current}`}>
                 {collection.title}
               </Link>
-            </h2>{" "}
-            {t("shop:categories")} :{" "}
+            </h2>{' '}
+            {t('shop:categories')} :{' '}
             {categories &&
               categories
                 .map((c) => {
-                  c["path"] = path.join("/", c.parent === null ? `` : c.parent.slug.current, c.slug.current)
+                  c['path'] = path.join('/', c.parent === null ? `` : c.parent.slug.current, c.slug.current)
                   return (
-                    <h3 sx={{ display: "inline-block", fontSize: 1, m: 0 }}>
-                      <Link key={c.id} to={c.path} sx={{ p: 1, bg: "light", borderRadius: 8 }}>
+                    <h3 sx={{ display: 'inline-block', fontSize: 1, m: 0 }}>
+                      <Link key={c.id} to={c.path} sx={{ p: 1, bg: 'light', borderRadius: 8 }}>
                         {c.title}
                       </Link>
                     </h3>
                   )
                 })
                 .reduce((acc, el) => {
-                  return acc === null ? [el] : [...acc, " - ", el]
+                  return acc === null ? [el] : [...acc, ' - ', el]
                 }, null)}
           </Box>
           {body && <PortableText blocks={body} />}
           <Box mt={2}>
-            {language === "fr" && (
+            {language === 'fr' && (
               <Text>
-                {t("shop:title_in_brezhoneg")} : {product._rawTitle.br}
+                {t('shop:title_in_brezhoneg')} : {product._rawTitle.br}
               </Text>
             )}
-            {language === "br" && (
+            {language === 'br' && (
               <Text>
-                {t("shop:original_title")} : {product._rawTitle.fr}
+                {t('shop:original_title')} : {product._rawTitle.fr}
               </Text>
             )}
             <ProductFeature {...productFeature} />
             <BookFeature {...bookFeature} />
             {traductors.length > 0 && (
               <Box>
-                {t("shop:traductors")} :{` `}
+                {t('shop:traductors')} :{` `}
                 {traductors
                   .map((t) => <ProfilePreview key={t.id} {...t} showAvatar={false} />)
                   .reduce((acc, el) => {
-                    return acc === null ? [el] : [...acc, ", ", el]
+                    return acc === null ? [el] : [...acc, ', ', el]
                   }, null)}
               </Box>
             )}
 
-            {releaseDate && <p>{t("shop:released_on", { date: new Date(releaseDate) })}</p>}
-            {minimumAge && <p>{t("shop:minimum_age", { minimum_age: minimumAge })}</p>}
+            {releaseDate && <p>{t('shop:released_on', { date: new Date(releaseDate) })}</p>}
+            {minimumAge && <p>{t('shop:minimum_age', { minimum_age: minimumAge })}</p>}
           </Box>
         </Box>
         <Box sx={{ order: [2, 1, 2], mb: [4, 0] }}>
-          <Box sx={{ variant: "boxes.important" }}>
-            <Grid gap={2} columns={["1fr 2fr", 1]} sx={{ alignItems: "center", justifyContent: "center" }}>
+          <Box sx={{ variant: 'boxes.important' }}>
+            <Grid gap={2} columns={['1fr 2fr', 1]} sx={{ alignItems: 'center', justifyContent: 'center' }}>
               <Box>
                 {inStock && <div sx={{ mb: 1, fontSize: 3 }}>{productFeature.price.formatted}</div>}
-                <div sx={{ mb: [0, 3], fontSize: 1, color: inStock ? "secondary" : "tomato" }}>
-                  {inStock ? t("shop:in_stock") : t("shop:out_of_stock")}
+                <div sx={{ mb: [0, 3], fontSize: 1, color: inStock ? 'secondary' : 'tomato' }}>
+                  {inStock ? t('shop:in_stock') : t('shop:out_of_stock')}
                 </div>
               </Box>
               {inStock && (
@@ -196,35 +202,35 @@ export const Product = (product) => {
             </Grid>
             <Text sx={{ fontSize: 1, mt: 2 }}>
               <Trans i18nKey="shop:free_shipping_message">
-                <span sx={{ color: "tomato" }}>Livraison offerte</span> à partir de 10€, en 3 jours chez vous
+                <span sx={{ color: 'tomato' }}>Livraison offerte</span> à partir de 10€, en 3 jours chez vous
               </Trans>
             </Text>
             <Divider sx={{ my: 3 }} />
-            <Flex sx={{ alignItems: "center", color: "textMuted" }}>
-              {t("share_on")} :{" "}
+            <Flex sx={{ alignItems: 'center', color: 'textMuted' }}>
+              {t('share_on')} :{' '}
               <a
                 href={`https://www.facebook.com/sharer/sharer.php?u=${siteUrl}${productPath}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                sx={{ display: "flex" }}
+                sx={{ display: 'flex' }}
               >
-                <FaFacebookSquare size={24} sx={{ ml: 1, color: "light" }} />
-              </a>{" "}
+                <FaFacebookSquare size={24} sx={{ ml: 1, color: 'light' }} />
+              </a>{' '}
               <a
                 href={`https://twitter.com/intent/tweet?text=${siteUrl}${productPath}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                sx={{ display: "flex" }}
+                sx={{ display: 'flex' }}
               >
-                <FaTwitterSquare size={24} sx={{ ml: 1, color: "light" }} />
-              </a>{" "}
+                <FaTwitterSquare size={24} sx={{ ml: 1, color: 'light' }} />
+              </a>{' '}
               <a
                 href={`https://pinterest.com/pin/create/button/?url=${siteUrl}${productPath}&media=&description=`}
                 target="_blank"
                 rel="noopener noreferrer"
-                sx={{ display: "flex" }}
+                sx={{ display: 'flex' }}
               >
-                <FaPinterestSquare size={24} sx={{ ml: 1, color: "light" }} />
+                <FaPinterestSquare size={24} sx={{ ml: 1, color: 'light' }} />
               </a>
             </Flex>
           </Box>

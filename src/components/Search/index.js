@@ -1,11 +1,11 @@
 /** @jsx jsx */
-import { jsx } from "theme-ui"
-import { useState, useEffect, useCallback, useRef } from "react"
-import { useTranslation } from "react-i18next"
-import algoliasearch from "algoliasearch/lite"
-import { InstantSearch, Configure, Index, InfiniteHits, connectStateResults } from "react-instantsearch-dom"
-import { SearchBox } from "./SearchBox"
-import * as hitComps from "./hitComps"
+import { jsx } from 'theme-ui'
+import { useState, useEffect, useCallback, useRef } from 'react'
+import { useTranslation } from 'react-i18next'
+import algoliasearch from 'algoliasearch/lite'
+import { InstantSearch, Configure, Index, InfiniteHits, connectStateResults } from 'react-instantsearch-dom'
+import { SearchBox } from './SearchBox'
+import * as hitComps from './hitComps'
 
 const Results = connectStateResults(({ searchState: state, searchResults: res, children }) =>
   res && res.nbHits > 0 ? children : state.query ? `No results for '${state.query}'` : null
@@ -44,7 +44,7 @@ export default function Search({ indices, collapse }) {
   const {
     //t,
     i18n: { language },
-  } = useTranslation("common")
+  } = useTranslation('common')
   const ref = useRef()
   const [query, setQuery] = useState(``)
   const [focus, setFocus] = useState(false)
@@ -61,14 +61,13 @@ export default function Search({ indices, collapse }) {
           })),
         })
       }
-
       return algoliaClient.search(requests)
     },
   }
   useClickOutside(ref, () => setFocus(false))
   useEscKey(() => setFocus(false))
   return (
-    <div ref={ref} sx={{ width: "full", mt: [0, 0, 0, 2] }}>
+    <div ref={ref} sx={{ width: 'full', mt: [0, 0, 0, 2] }}>
       <InstantSearch
         searchClient={searchClient}
         indexName={indices[0].name}
@@ -80,32 +79,32 @@ export default function Search({ indices, collapse }) {
           //show={query && query.length > 0 && focus}
           //asGrid={hitsAsGrid}
           sx={{
-            display: query && query.length > 0 && focus ? "grid" : "none",
-            maxHeight: "80vh",
-            overflow: "scroll",
-            overflowX: "hidden",
+            display: query && query.length > 0 && focus ? 'grid' : 'none',
+            maxHeight: '80vh',
+            overflow: 'scroll',
+            overflowX: 'hidden',
             zIndex: 2,
-            ":-webkit-overflow-scrolling": "touch",
-            boxShadow: "0px 10px 10px rgba(0, 0, 0, .225)",
+            ':-webkit-overflow-scrolling': 'touch',
+            boxShadow: '0px 10px 10px rgba(0, 0, 0, .225)',
             borderRadius: 3,
-            position: "absolute",
-            right: "2rem",
-            top: "2rem",
-            width: "80vw",
-            maxWidth: "30em",
+            position: 'absolute',
+            right: '2rem',
+            top: '2rem',
+            width: '80vw',
+            maxWidth: '30em',
             padding: 2,
-            color: "text",
-            bg: "white",
+            color: 'text',
+            bg: 'white',
             ul: {
-              listStyle: "none",
+              listStyle: 'none',
             },
             mark: {
-              color: "white",
-              bg: "secondary",
+              color: 'white',
+              bg: 'secondary',
             },
             header: {
-              display: "flex",
-              justifyContent: "space-between",
+              display: 'flex',
+              justifyContent: 'space-between',
               mb: 1,
             },
           }}
@@ -120,8 +119,8 @@ export default function Search({ indices, collapse }) {
                 <InfiniteHits
                   hitComponent={hitComps[hitComp](() => setFocus(false), language)}
                   translations={{
-                    loadPrevious: "Résultats précédents",
-                    loadMore: "Résultats suivants",
+                    loadPrevious: 'Résultats précédents',
+                    loadMore: 'Résultats suivants',
                   }}
                 />
               </Results>
@@ -135,7 +134,7 @@ export default function Search({ indices, collapse }) {
 }
 
 const PoweredBy = () => (
-  <span sx={{ display: "inline-block", textAlign: "right" }}>
+  <span sx={{ display: 'inline-block', textAlign: 'right' }}>
     Recherche propulsée par {` `}
     <a href="https://algolia.com">Algolia</a>
   </span>

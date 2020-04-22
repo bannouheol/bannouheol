@@ -1,18 +1,19 @@
 /** @jsx jsx */
-import { jsx, Text } from "theme-ui"
-import { graphql } from "gatsby"
-import { useTranslation } from "react-i18next"
+import { Fragment } from 'react'
+import { jsx, Text } from 'theme-ui'
+import { graphql } from 'gatsby'
+import { useTranslation } from 'react-i18next'
 
 export const ProductFeature = ({
   //price,
   weight,
   dimensions,
-  barcode,
+  barcode: { barcode },
 }) => {
   const {
     t,
     //i18n: { language },
-  } = useTranslation("common")
+  } = useTranslation('common')
   graphql`
     fragment productFeatureFields on SanityProduct {
       productFeature: defaultProductVariant {
@@ -30,22 +31,22 @@ export const ProductFeature = ({
     }
   `
   return (
-    <div>
+    <Fragment>
       {weight && (
         <Text>
-          {t("shop:weight")} : {weight}g
+          {t('shop:weight')} : {weight}g
         </Text>
       )}
       {dimensions && (
         <Text>
-          {t("shop:dimensions")} : {dimensions}
+          {t('shop:dimensions')} : {dimensions}
         </Text>
       )}
       {barcode && (
         <Text>
-          {t("shop:isbn")} : {barcode.barcode}
+          {t('shop:isbn')} : {barcode}
         </Text>
       )}
-    </div>
+    </Fragment>
   )
 }
