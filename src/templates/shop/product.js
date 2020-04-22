@@ -55,7 +55,7 @@ const ProductPage = ({ data, errors, ...props }) => {
             url: siteUrl + productPath,
             image,
             description: excerpt,
-            gtin13: productFeature.barcode && productFeature.barcode.barcode,
+            gtin13: productFeature && productFeature.barcode && productFeature.barcode.barcode,
             categories: categoriesReduced,
             offers: {
               '@type': 'Offer',
@@ -63,6 +63,10 @@ const ProductPage = ({ data, errors, ...props }) => {
               price: productFeature.price.value,
               itemCondition: 'https://schema.org/NewCondition',
               availability: inStock ? 'http://schema.org/InStock' : 'https://schema.org/OutOfStock',
+            },
+            brand: {
+              '@type': 'Brand',
+              name: collection.title,
             },
           }}
         />

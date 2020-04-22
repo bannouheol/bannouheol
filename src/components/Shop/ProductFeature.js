@@ -8,7 +8,7 @@ export const ProductFeature = ({
   //price,
   weight,
   dimensions,
-  barcode: { barcode },
+  barcode,
 }) => {
   const {
     t,
@@ -44,7 +44,7 @@ export const ProductFeature = ({
       )}
       {barcode && (
         <Text>
-          {t('shop:isbn')} : {barcode}
+          {t('shop:isbn')} : {barcode.barcode}
         </Text>
       )}
     </Fragment>
