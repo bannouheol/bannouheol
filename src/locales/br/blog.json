@@ -4,5 +4,6 @@
   "posted_in": "{{post}} postet e {{categories}}",
   "posted_in_x_at_x": "Postet e <1 /> d'ar {{date, DD/MM/YYYY}}",
   "discussed_on_blog": "On en parle sur le blog",
-  "previous_page": "Page précédente"
+  "previous_page": "Page précédente",
+  "next_page": "Page suivante"
 }

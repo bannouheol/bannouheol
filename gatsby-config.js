@@ -7,6 +7,7 @@ module.exports = {
   siteMetadata: {
     title: `Bannoù-heol`,
     url: `https://bannouheol.com`,
+    siteUrl: `https://bannouheol.com`,
     description: `Bannoù-heol est une maison d'édition en langue bretonne qui publie des bandes dessinées et des ouvrages pour enfants.`,
     author: `@bannouheol`,
   },
