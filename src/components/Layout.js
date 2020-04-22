@@ -1,16 +1,16 @@
 /** @jsx jsx */
-import { jsx } from "theme-ui"
-import React, { useState } from "react"
-import { useStaticQuery, graphql } from "gatsby"
-import { Helmet } from "react-helmet"
-import { Header } from "./Header/Header"
-import { FooterFirst } from "./FooterFirst"
-import { FooterSecond } from "./FooterSecond"
-import { MobileMenu } from "./MobileMenu"
-import { TopMessage } from "./TopMessage"
-import SimpleReactLightbox from "simple-react-lightbox"
+import { jsx } from 'theme-ui'
+import React, { useState } from 'react'
+import { useStaticQuery, graphql } from 'gatsby'
+import { Helmet } from 'react-helmet'
+import { Header } from './Header/Header'
+import { FooterFirst } from './FooterFirst'
+import { FooterSecond } from './FooterSecond'
+import { MobileMenu } from './MobileMenu'
+import { TopMessage } from './TopMessage'
+import SimpleReactLightbox from 'simple-react-lightbox'
 
-const allLanguages = ["br", "fr"]
+const allLanguages = ['br', 'fr']
 
 export const MenuContext = React.createContext(false)
 
@@ -56,10 +56,10 @@ export const Layout = ({ children, pageContext: { language, alternateLinks, ...p
       <div
         id={`app`}
         sx={{
-          display: "flex",
-          flexDirection: "column",
-          minHeight: "100vh",
-          variant: "layout.root",
+          display: 'flex',
+          flexDirection: 'column',
+          minHeight: '100vh',
+          variant: 'layout.root',
         }}
       >
         <SimpleReactLightbox>
@@ -68,8 +68,8 @@ export const Layout = ({ children, pageContext: { language, alternateLinks, ...p
 
           <main
             sx={{
-              width: "100%",
-              variant: "layout.main",
+              width: '100%',
+              variant: 'layout.main',
               p: mainP,
             }}
           >
@@ -77,7 +77,7 @@ export const Layout = ({ children, pageContext: { language, alternateLinks, ...p
           </main>
           <footer
             sx={{
-              variant: "layout.footerWrap",
+              variant: 'layout.footerWrap',
             }}
           >
             <FooterFirst />

@@ -1,10 +1,10 @@
 /** @jsx jsx */
 
-import { jsx, Grid, Flex } from "theme-ui"
-import { Link } from "./Link"
-import { useTranslation } from "react-i18next"
-import { useStaticQuery, graphql } from "gatsby"
-import { mapEdgesToNodes, translateRaw } from "../lib/helpers"
+import { jsx, Grid, Flex } from 'theme-ui'
+import { Link } from './Link'
+import { useTranslation } from 'react-i18next'
+import { useStaticQuery, graphql } from 'gatsby'
+import { mapEdgesToNodes, translateRaw } from '../lib/helpers'
 
 const FooterLink = (props) => <Link sxVariant="links.footer" {...props} />
 
@@ -12,7 +12,7 @@ export const FooterSecond = ({ siteTitle, siteUrl }) => {
   const {
     t,
     i18n: { language },
-  } = useTranslation("common")
+  } = useTranslation('common')
   const data = useStaticQuery(graphql`
     query FooterSecondQuery {
       collections: allSanityCollection(filter: { linkedInFooter: { eq: true } }) {
@@ -40,42 +40,63 @@ export const FooterSecond = ({ siteTitle, siteUrl }) => {
   return (
     <div
       sx={{
-        variant: "layout.footerSecond",
+        variant: 'layout.footerSecond',
       }}
     >
       <Grid
         sx={{
           //gridTemplateRows: "repeat(4, 32px)",
-          gridTemplateColumns: ["repeat(2, 1fr)", "repeat(2, 1fr)", "repeat(3, 1fr)"],
-          gridAutoFlow: "row",
+          gridTemplateColumns: ['repeat(2, 1fr)', 'repeat(2, 1fr)', 'repeat(3, 1fr)'],
+          gridAutoFlow: 'row',
           gap: 2,
-          width: "full",
+          width: 'full',
         }}
       >
         {collections.map((c) => (
           <FooterLink key={c.id} to={`/${c.slug.current}`}>
-            {t("x_in_breton", { x: c.title })}
+            {t('x_in_breton', { x: c.title })}
           </FooterLink>
         ))}
       </Grid>
       <Flex
         sx={{
-          justifyContent: "space-between",
           mt: 4,
+          width: 'full',
         }}
       >
-        <FooterLink to="/">{t("home")}</FooterLink>
-        <FooterLink to={`/${t("blog:slug")}`}>Blog</FooterLink>
+        <FooterLink to="/">{t('home')}</FooterLink>
+        <a href={`https://kanarbed.bzh`} sx={{ variant: 'links.footer' }}>
+          Kan ar Bed
+        </a>
+        <FooterLink to={`/${t('blog:slug')}`}>Blog</FooterLink>
         {pages.map((p) => (
           <FooterLink key={p.id} to={`/${p.slug.current}`}>
             {p.title}
           </FooterLink>
         ))}
-        <div sx={{ mx: 1 }} />© {new Date().getFullYear()}
-        {` `}
-        <a href={siteUrl} sx={{ variant: "links.nav" }}>
-          {siteTitle}
-        </a>
+        <div>
+          © {new Date().getFullYear()}
+          {` `}
+          <a href={siteUrl} sx={{ variant: 'links.footer' }}>
+            {siteTitle}
+          </a>
+        </div>
+        <div>
+          {` ◘ `}
+          {t('powered_by')}{' '}
+          <a
+            href="https://www.gatsbyjs.org/"
+            sx={{ variant: 'links.footer', p: 0 }}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Gatsby
+          </a>{' '}
+          (open-source) &amp;{' '}
+          <a href="https://www.sanity.io/" sx={{ variant: 'links.footer' }} target="_blank" rel="noopener noreferrer">
+            Sanity.io
+          </a>
+        </div>
       </Flex>
     </div>
   )
