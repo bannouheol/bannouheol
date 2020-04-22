@@ -4,18 +4,18 @@
  * See: https://www.gatsbyjs.org/docs/node-apis/
  */
 
-const fs = require("fs")
-const path = require("path")
-const i18next = require("i18next")
-const nodeFsBackend = require("i18next-node-fs-backend")
-const currency = require("currency.js")
+const fs = require('fs')
+const path = require('path')
+const i18next = require('i18next')
+const nodeFsBackend = require('i18next-node-fs-backend')
+const currency = require('currency.js')
 
-const allLanguages = ["br", "fr"]
+const allLanguages = ['br', 'fr']
 
 const appDirectory = fs.realpathSync(process.cwd())
 const resolveApp = (relativePath) => path.resolve(appDirectory, relativePath)
-const srcPath = resolveApp("src")
-const redirectInBrowser = true
+const srcPath = resolveApp('src')
+const redirectInBrowser = false
 
 /* TEMPLATES */
 const templates = {
@@ -37,7 +37,7 @@ const templates = {
 
 const postsPerPage = 14
 
-const namespaces = ["common", "blog", "shop"]
+const namespaces = ['common', 'blog', 'shop']
 
 exports.createPages = async ({ graphql, actions: { createPage, createRedirect }, reporter }) => {
   const startupQuery = await graphql(
@@ -150,7 +150,7 @@ exports.createPages = async ({ graphql, actions: { createPage, createRedirect },
     await buildI18nPages(
       null,
       (_, language, i18n) => {
-        const blogPagePath = `/${language}/${i18n.t("blog:slug")}${i > 0 ? `/${i + 1}` : ``}`
+        const blogPagePath = `/${language}/${i18n.t('blog:slug')}${i > 0 ? `/${i + 1}` : ``}`
         reporter.info(`Creating blog page: ${blogPagePath}`)
         return {
           path: blogPagePath, // (1)
@@ -187,7 +187,7 @@ exports.createPages = async ({ graphql, actions: { createPage, createRedirect },
       await buildI18nPages(
         null,
         (_, language, i18n) => {
-          const blogCategoryPath = `/${language}/${i18n.t("blog:slug")}/${_rawSlug[language].current}${
+          const blogCategoryPath = `/${language}/${i18n.t('blog:slug')}/${_rawSlug[language].current}${
             i > 0 ? `/${i + 1}` : ``
           }`
           reporter.info(`Creating blog page: ${blogCategoryPath}`)
@@ -285,7 +285,7 @@ exports.createPages = async ({ graphql, actions: { createPage, createRedirect },
   await buildI18nPages(
     profiles.edges,
     ({ node }, language, i18n) => ({
-      path: `/${language}/${i18n.t("shop:profile_slug")}/${node._rawSlug[language].current}`,
+      path: `/${language}/${i18n.t('shop:profile_slug')}/${node._rawSlug[language].current}`,
       component: path.resolve(path.join(templates.baseDir, templates.shop.profile)),
       context: { profile: node.id },
     }),
@@ -297,8 +297,8 @@ exports.createPages = async ({ graphql, actions: { createPage, createRedirect },
   await build404Pages(createPage)
 
   createRedirect({
-    fromPath: "/",
-    toPath: "/fr/",
+    fromPath: '/',
+    toPath: '/fr/',
     isPermanent: true,
     redirectInBrowser,
   })
@@ -310,7 +310,7 @@ exports.createPages = async ({ graphql, actions: { createPage, createRedirect },
       statusCode: 404,
     })
   )
-  createRedirect({ fromPath: "/*", toPath: "/404", statusCode: 404 })
+  createRedirect({ fromPath: '/*', toPath: '/404', statusCode: 404 })
 }
 
 const buildI18nPages = async (inputData, pageDefinitionCallback, namespaces, createPage, createRedirect) => {
@@ -329,7 +329,7 @@ const buildI18nPages = async (inputData, pageDefinitionCallback, namespaces, cre
 
       definitions.map((d) => {
         d.previousPath &&
-          d.context.language === "fr" &&
+          d.context.language === 'fr' &&
           createRedirect({
             fromPath: d.previousPath,
             toPath: d.path,
@@ -370,7 +370,7 @@ const buildI18nPosts = async (inputData, pageDefinitionCallback, namespaces, cre
 
       definitions.map((d) => {
         if (d.previousPath && d.context.availableLanguages) {
-          if (d.context.availableLanguages.length > 1 && d.context.language === "fr") {
+          if (d.context.availableLanguages.length > 1 && d.context.language === 'fr') {
             // If both BR and FR posts exits, create only 1 redirection for the FR post.
             createRedirect({
               fromPath: d.previousPath,
@@ -401,7 +401,7 @@ const buildI18nPosts = async (inputData, pageDefinitionCallback, namespaces, cre
         if (d.context.availableLanguages.length == 1 && d.context.language !== d.context.availableLanguages[0]) {
           // Only available in 1 language, but the context language is not the only available language
           // let's make a canonical to the only available language
-          const canonicalUrl = "/" + d.context.availableLanguages[0] + d.path.substring(3)
+          const canonicalUrl = '/' + d.context.availableLanguages[0] + d.path.substring(3)
           console.info(`Only 1 language available for ${d.path}, making a canonical URL to ${canonicalUrl}`)
           d.context.canonicalUrl = canonicalUrl
         } else {
@@ -416,9 +416,9 @@ const buildI18nPosts = async (inputData, pageDefinitionCallback, namespaces, cre
 const build404Pages = async (createPage) => {
   await Promise.all(
     allLanguages.map(async (language, index) => {
-      const i18n = await createI18nextInstance(language, ["common", 404])
+      const i18n = await createI18nextInstance(language, ['common', 404])
       const res = {
-        path: "/" + language + "/404",
+        path: '/' + language + '/404',
         component: path.resolve(path.join(templates.baseDir, templates.error)),
         context: {},
       }
@@ -426,7 +426,7 @@ const build404Pages = async (createPage) => {
       res.context.i18nResources = i18n.services.resourceStore.data
       createPage(res)
       if (index === 0) {
-        res.path = "/404"
+        res.path = '/404'
         createPage(res)
       }
     })
@@ -442,7 +442,7 @@ const createI18nextInstance = async (language, namespaces) => {
         lng: language,
         fallbackLng: language,
         ns: namespaces,
-        defaultNS: "common",
+        defaultNS: 'common',
         interpolation: { escapeValue: false },
         backend: { loadPath: `${srcPath}/locales/{{lng}}/{{ns}}.json` },
         debug: false,
@@ -458,16 +458,16 @@ exports.createResolvers = ({ createResolvers }) => {
     SanityLocaleString: {
       translate: {
         type: `String!`,
-        args: { language: { type: "String" } },
+        args: { language: { type: 'String' } },
         resolve: (source, args) => {
-          return source[args.language] || source["br"]
+          return source[args.language] || source['br']
         },
       },
     },
     SanityLocaleSlug: {
       translate: {
         type: `String!`,
-        args: { language: { type: "String" } },
+        args: { language: { type: 'String' } },
         resolve: (source, args) => {
           return (source[args.language].current && source[args.language].current) || source.br.current
         },
@@ -477,7 +477,7 @@ exports.createResolvers = ({ createResolvers }) => {
       formatted: {
         type: `String!`,
         resolve: (source) => {
-          return currency(source.value, { decimal: "," }).format() + " €"
+          return currency(source.value, { decimal: ',' }).format() + ' €'
         },
       },
     },
