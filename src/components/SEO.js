@@ -37,7 +37,9 @@ const SEO = ({ title, description, image, product, article }) => {
   const { pathname } = useLocation()
 
   const seo = {
-    title: title && (title.length <= 60 ? `${title} — ${siteMetadata.title}` : title),
+    title:
+      title &&
+      (title.length <= 60 ? (title.includes(siteMetadata.title) ? title : `${title} — ${siteMetadata.title}`) : title),
     description: truncateString(description || siteMetadata.description, 147),
     image: image ? image : `${siteMetadata.url}/bannouheol.png`,
     url: pathname && `${siteMetadata.url}${pathname}`,
