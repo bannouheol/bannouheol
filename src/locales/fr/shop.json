@@ -20,5 +20,6 @@
   "scriptwriters": "Scénariste(s)",
   "in_collection": "Dans la collection {{collection_title}}",
   "minimum_age": "Dès l'âge de {{minimum_age}} ans",
-  "free_shipping_message": "<0>Livraison offerte</0> à partir de 10€, en 3 jours chez vous"
+  "free_shipping_message": "<0>Livraison offerte</0> à partir de 10€, en 3 jours chez vous",
+  "latest_products": "Nouveautés"
 }

@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next'
 import { mapEdgesToNodes, translateRaw } from '../lib/helpers'
 import { GraphQLErrorList } from '../components/GraphQLErrorList'
 import { Posts } from '../components/Blog/Posts'
+import { Products } from '../components/Shop/Products'
 import SEO from '../components/SEO'
 import PortableText from '../components/PortableText'
 
@@ -21,15 +22,17 @@ const IndexPage = ({ data, errors, ...props }) => {
       </Layout>
     )
   }
-  const { homePage } = translateRaw(data, language)
-  const postNodes = data && data.posts && mapEdgesToNodes(data.posts)
+  const { homePage, posts, products } = translateRaw(data, language)
+  const postNodes = posts && mapEdgesToNodes(data.posts)
+  const productNodes = products && mapEdgesToNodes(products)
   return (
     <Layout {...props}>
       <SEO title={homePage.title} />
       {homePage.content && <PortableText blocks={homePage.content} />}
+      <Styled.h2>{t(`shop:latest_products`)}</Styled.h2>
+      {productNodes && productNodes.length > 0 && <Products nodes={productNodes} sx={{ mt: 3 }} />}
       <Styled.h2>{t(`news`)}</Styled.h2>
       {postNodes && postNodes.length > 0 && <Posts nodes={postNodes} />}
-      <Styled.h2>{t(`Nouveautés`)}</Styled.h2>
     </Layout>
   )
 }
@@ -43,11 +46,21 @@ export const query = graphql`
     posts: allSanityBlogPost(
       sort: { fields: [publishedAt], order: DESC }
       filter: { publishedAt: { ne: null } }
-      limit: 7
+      limit: 4
     ) {
       edges {
         node {
           ...blogPostPreviewFields
+        }
+      }
+    }
+    products: allSanityProduct(
+      sort: { order: [DESC, DESC], fields: [defaultProductVariant___inStock, releaseDate] }
+      limit: 6
+    ) {
+      edges {
+        node {
+          ...productPreviewFields
         }
       }
     }

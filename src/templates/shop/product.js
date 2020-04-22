@@ -53,7 +53,6 @@ const ProductPage = ({ data, errors, ...props }) => {
             '@context': 'https://schema.org',
             '@type': 'Product',
             name: title,
-            category: '',
             url: siteUrl + productPath,
             image,
             description: excerpt ? excerpt : fullTitle,
