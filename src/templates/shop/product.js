@@ -10,6 +10,7 @@ import { Posts } from '../../components/Blog/Posts'
 import { useTranslation } from 'react-i18next'
 import { mapEdgesToNodes, toPlainText, translateRaw } from '../../lib/helpers'
 import { JsonLd } from 'react-schemaorg'
+import { add, format } from 'date-fns'
 
 const ProductPage = ({ data, errors, ...props }) => {
   const {
@@ -25,7 +26,7 @@ const ProductPage = ({ data, errors, ...props }) => {
       siteMetadata: { siteUrl },
     },
   } = translateRaw(data, language)
-  const { title, images, body, collection, slug, categories, productFeature } = product
+  const { title, images, body, collection, slug, categories, productFeature, releaseDate } = product
   const sameCollectionProductNodes = mapEdgesToNodes(sameCollectionProducts)
   const blogPostsNodes = mapEdgesToNodes(blogPosts)
   const fullTitle = [title, t('x_in_breton', { x: collection.title })].join(`, `)
@@ -41,6 +42,7 @@ const ProductPage = ({ data, errors, ...props }) => {
         return acc === null ? el : acc + ' > ' + el
       }, null)
   const inStock = productFeature.inStock
+  console.log(categoriesReduced)
   return (
     <Layout {...props}>
       {errors && <SEO title="GraphQL Error" />}
@@ -50,24 +52,28 @@ const ProductPage = ({ data, errors, ...props }) => {
           item={{
             '@context': 'https://schema.org',
             '@type': 'Product',
-            name: fullTitle,
+            name: title,
             category: '',
             url: siteUrl + productPath,
             image,
-            description: excerpt,
+            description: excerpt ? excerpt : fullTitle,
             gtin13: productFeature && productFeature.barcode && productFeature.barcode.barcode,
-            categories: categoriesReduced,
+            category: categoriesReduced,
+            releaseDate,
             offers: {
               '@type': 'Offer',
               priceCurrency: 'EUR',
+              priceValidUntil: format(add(new Date(), { years: 1 }), 'yyyy-MM-dd'),
               price: productFeature.price.value,
               itemCondition: 'https://schema.org/NewCondition',
               availability: inStock ? 'http://schema.org/InStock' : 'https://schema.org/OutOfStock',
+              url: siteUrl + productPath,
             },
             brand: {
               '@type': 'Brand',
               name: collection.title,
             },
+            sku: inStock ? 10 : 0,
           }}
         />
       )}
