@@ -2,10 +2,12 @@
 import { jsx } from "theme-ui"
 import React, { useState } from "react"
 import { useStaticQuery, graphql } from "gatsby"
+import { Helmet } from "react-helmet"
 import { Header } from "./Header/Header"
 import { FooterFirst } from "./FooterFirst"
 import { FooterSecond } from "./FooterSecond"
 import { MobileMenu } from "./MobileMenu"
+import { TopMessage } from "./TopMessage"
 import SimpleReactLightbox from "simple-react-lightbox"
 
 const allLanguages = ["br", "fr"]
@@ -46,6 +48,10 @@ export const Layout = ({ children, pageContext: { language, alternateLinks, ...p
         stateChangeHandler: (newState) => setMenuOpenState(newState.isOpen),
       }}
     >
+      <Helmet>
+        <link rel="dns-prefetch" href="//cdn.sanity.io/" />
+        <link ref="dns-prefetch" href="https://www.youtube.com/" />
+      </Helmet>
       <MobileMenu />
       <div
         id={`app`}
@@ -57,6 +63,7 @@ export const Layout = ({ children, pageContext: { language, alternateLinks, ...p
         }}
       >
         <SimpleReactLightbox>
+          <TopMessage />
           <Header {...siteMetadata} {...pageContext} language={language} alternateLink={alternateLink} />
 
           <main

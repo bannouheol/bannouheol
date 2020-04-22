@@ -48,8 +48,6 @@ export function wrapPageElement({ element, props }) {
                   <meta key={link.language} property="og:locale:alternate" content={`${link.language}_FR`} />
                 ) : null
               })}
-            <link rel="dns-prefetch" href="//cdn.sanity.io/" />
-            <link ref="dns-prefetch" href="https://www.youtube.com/" />
           </Helmet>
         }
         {element}

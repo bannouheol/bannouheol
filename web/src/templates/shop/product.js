@@ -29,13 +29,13 @@ const ProductPage = ({ data, errors, ...props }) => {
       {product && <Product {...product} />}
       {sameCollectionProductNodes && sameCollectionProductNodes.length > 0 && (
         <Box mt={3}>
-          <Styled.h4>Dans la collection {product.collection.title}</Styled.h4>
+          <Styled.h4>{t("shop:in_collection", { collection_title: product.collection.title })}</Styled.h4>
           <Products nodes={sameCollectionProductNodes} />
         </Box>
       )}
       {blogPostsNodes && blogPostsNodes.length > 0 && (
         <Box mt={3}>
-          <Styled.h4>On en parle sur le blog</Styled.h4>
+          <Styled.h4>{t("blog:discussed_on_blog")}</Styled.h4>
           <Posts nodes={blogPostsNodes} />
         </Box>
       )}

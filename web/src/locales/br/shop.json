@@ -6,5 +6,19 @@
   "in_stock": "Er stok",
   "out_of_stock": "Stok diviet",
   "profile_slug": "profil",
-  "involvement": "Gant perzhioù"
+  "involvement": "Gant perzhioù",
+  "collection": "Dastumad",
+  "categories": "Catégories",
+  "title_in_brezhoneg": "Titre en breton",
+  "original_title": "Titl-orin",
+  "weight": "Pouez",
+  "dimensions": "Mentoù",
+  "number_of_pages": "Niver a bajennoù",
+  "isbn": "ISBN",
+  "traductors": "Traducteur(s)",
+  "authors": "Auteur(s)",
+  "scriptwriters": "Scénariste(s)",
+  "in_collection": "Dans la collection {{collection_title}}",
+  "minimum_age": "Adalek {{minimum_age}} vloaz",
+  "free_shipping_message": "<0>Livraison offerte (breton)</0> à partir de 10€, en 3 jours chez vous"
 }

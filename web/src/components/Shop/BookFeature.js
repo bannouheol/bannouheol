@@ -3,8 +3,13 @@
 import { jsx, Text } from "theme-ui"
 import { graphql } from "gatsby"
 import { ProfilePreview } from "./ProfilePreview"
+import { useTranslation } from "react-i18next"
 
 export const BookFeature = ({ numberOfPages, illustrators, authors, scriptwriters }) => {
+  const {
+    t,
+    //i18n: { language },
+  } = useTranslation("common")
   graphql`
     fragment bookFeatureFields on SanityProduct {
       bookFeature {
@@ -23,10 +28,26 @@ export const BookFeature = ({ numberOfPages, illustrators, authors, scriptwriter
   `
   return (
     <div>
-      {numberOfPages && <Text>Nombre de pages : {numberOfPages}</Text>}
-      {illustrators && illustrators.length > 0 && <Text>Illustrateur(s) : {profilesPreviewer(illustrators)}</Text>}
-      {authors && authors.length > 0 && <Text>Auteur(s) : {profilesPreviewer(authors)}</Text>}
-      {scriptwriters && scriptwriters.length > 0 && <Text>Scénariste(s) : {profilesPreviewer(scriptwriters)}</Text>}
+      {numberOfPages && (
+        <Text>
+          {t("shop:number_of_pages")} : {numberOfPages}
+        </Text>
+      )}
+      {illustrators && illustrators.length > 0 && (
+        <Text>
+          {t("shop:traductors")} : {profilesPreviewer(illustrators)}
+        </Text>
+      )}
+      {authors && authors.length > 0 && (
+        <Text>
+          {t("shop:authors")} : {profilesPreviewer(authors)}
+        </Text>
+      )}
+      {scriptwriters && scriptwriters.length > 0 && (
+        <Text>
+          {t("shop:scriptwriters")} : {profilesPreviewer(scriptwriters)}
+        </Text>
+      )}
     </div>
   )
 }
@@ -38,13 +59,3 @@ const profilesPreviewer = (profiles) =>
     .reduce((acc, el) => {
       return acc === null ? [el] : [...acc, ", ", el]
     }, null)
-
-/*
-const profileLinkReducer = (profile) => {
-  return profile
-    .map((p) => <Link to={`/${p.slug.current}`}>{p.title}</Link>)
-    .reduce((acc, el) => {
-      return acc === null ? [el] : [...acc, " / ", el]
-    }, null)
-}
-*/

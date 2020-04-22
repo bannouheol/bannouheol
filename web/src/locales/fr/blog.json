@@ -2,5 +2,6 @@
   "slug": "blog",
   "posted_at": "Posté le {{date, DD/MM/YYYY}}",
   "posted_in": "{{post}} posté dans {{categories}}",
-  "posted_in_x_at_x": "Posté dans <1 /> le {{date, DD/MM/YYYY}}"
+  "posted_in_x_at_x": "Posté dans <1 /> le {{date, DD/MM/YYYY}}",
+  "discussed_on_blog": "On en parle sur le blog"
 }

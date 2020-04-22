@@ -2,11 +2,13 @@
   "title": "Bannoù-heol",
   "subtitle": "Ti-embann e brezhoneg abaoe 1999",
   "br": "Brezhoneg",
-  "fr": "Galleg",
+  "fr": "Français",
   "language": "Yezh",
   "search": "Klask",
   "home": "Degemer",
   "news": "Keleier",
+  "share_on": "Partager sur",
+  "covid_message": "Bannoù-heol expédie vos commandes pendant la période de confinement.",
   "error": {
     "notFound": "Pajenn varv",
     "notFoundMessage": "N'eus ket eus ur bajenn-mañ pe n'eus ket diouti ken. Hon digarezit evit se."

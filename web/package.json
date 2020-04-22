@@ -59,7 +59,7 @@
   "scripts": {
     "build": "gatsby build",
     "develop": "gatsby develop -H 192.168.1.21",
-    "dev": "yarn develop",
+    "dev": "yarn clean && yarn develop",
     "start": "npm run serve",
     "serve": "gatsby serve -H 192.168.1.21",
     "clean": "gatsby clean",

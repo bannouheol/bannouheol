@@ -2,9 +2,9 @@
 import { jsx, Grid, Flex, Styled, Text, Box, Divider } from "theme-ui"
 import PortableText from "../PortableText"
 import Img from "gatsby-image"
-import { graphql } from "gatsby"
+import { graphql, useStaticQuery } from "gatsby"
 import path from "path"
-import { useTranslation } from "react-i18next"
+import { useTranslation, Trans } from "react-i18next"
 import { Link } from "../Link"
 import { translateRaw } from "../../lib/helpers"
 import { BookFeature } from "./BookFeature"
@@ -21,6 +21,20 @@ export const Product = (product) => {
     t,
     i18n: { language },
   } = useTranslation("common")
+  const data = useStaticQuery(graphql`
+    {
+      site {
+        siteMetadata {
+          siteUrl: url
+        }
+      }
+    }
+  `)
+  const {
+    site: {
+      siteMetadata: { siteUrl },
+    },
+  } = data
   graphql`
     fragment productFields on SanityProduct {
       ...productPreviewFields
@@ -39,6 +53,7 @@ export const Product = (product) => {
       }
       ...bookFeatureFields
       releaseDate
+      minimumAge
       youtubeVideos {
         url
       }
@@ -55,12 +70,15 @@ export const Product = (product) => {
     bookFeature,
     productFeature,
     releaseDate,
+    minimumAge,
     youtubeVideos,
   } = translateRaw(product, language)
   const inStock = productFeature.inStock
 
   const thumbs = product.images.images.map((i) => i.asset.fluid)
   const image = thumbs.shift()
+
+  const productPath = `/${language}/${collection.slug.current}/${slug.current}`
 
   return (
     <article>
@@ -104,13 +122,13 @@ export const Product = (product) => {
         >
           <Styled.h1>{title}</Styled.h1>
           <Box sx={{ lineHeight: 2 }}>
-            Collection :{" "}
+            {t("shop:collection")} :{" "}
             <h2 sx={{ display: "inline-block", fontSize: 1, m: 0 }}>
               <Link sx={{ p: 1, bg: "light", borderRadius: 8 }} to={`/${collection.slug.current}`}>
                 {collection.title}
               </Link>
             </h2>{" "}
-            Catégories :{" "}
+            {t("shop:categories")} :{" "}
             {categories &&
               categories
                 .map((c) => {
@@ -129,17 +147,21 @@ export const Product = (product) => {
           </Box>
           {body && <PortableText blocks={body} />}
           <Box mt={2}>
-            {language === "fr" && <Text>Titre en breton : {product._rawTitle.br}</Text>}
+            {language === "fr" && (
+              <Text>
+                {t("shop:title_in_brezhoneg")} : {product._rawTitle.br}
+              </Text>
+            )}
             {language === "br" && (
               <Text>
-                {t("Titre original")} : {product._rawTitle.fr}
+                {t("shop:original_title")} : {product._rawTitle.fr}
               </Text>
             )}
             <ProductFeature {...productFeature} />
             <BookFeature {...bookFeature} />
             {traductors.length > 0 && (
               <Box>
-                Traducteur(s) :{` `}
+                {t("shop:traductors")} :{` `}
                 {traductors
                   .map((t) => <ProfilePreview key={t.id} {...t} showAvatar={false} />)
                   .reduce((acc, el) => {
@@ -149,6 +171,7 @@ export const Product = (product) => {
             )}
 
             {releaseDate && <p>{t("shop:released_on", { date: new Date(releaseDate) })}</p>}
+            {minimumAge && <p>{t("shop:minimum_age", { minimum_age: minimumAge })}</p>}
           </Box>
         </Box>
         <Box sx={{ order: [2, 1, 2], mb: [4, 0] }}>
@@ -165,20 +188,41 @@ export const Product = (product) => {
                   id={id}
                   title={title}
                   price={productFeature.price.value}
-                  url={`/${language}/${collection.slug.current}/${slug.current}`}
+                  url={productPath}
                   description={collection.title}
                   image={product.images.images && product.images.images[0].asset.fluid.src}
                 />
               )}
             </Grid>
             <Text sx={{ fontSize: 1, mt: 2 }}>
-              <span sx={{ color: "tomato" }}>Livraison offerte</span> à partir de 10€, en 3 jours chez vous
+              <Trans i18nKey="shop:free_shipping_message">
+                <span sx={{ color: "tomato" }}>Livraison offerte</span> à partir de 10€, en 3 jours chez vous
+              </Trans>
             </Text>
             <Divider sx={{ my: 3 }} />
             <Flex sx={{ alignItems: "center", color: "textMuted" }}>
-              Partager sur : <FaFacebookSquare size={24} sx={{ ml: 1, color: "light" }} />{" "}
-              <FaTwitterSquare size={24} sx={{ ml: 1, color: "light" }} />{" "}
-              <FaPinterestSquare size={24} sx={{ ml: 1, color: "light" }} />
+              {t("share_on")} :{" "}
+              <a
+                href={`https://www.facebook.com/sharer/sharer.php?u=${siteUrl}${productPath}`}
+                target="_blank"
+                sx={{ display: "flex" }}
+              >
+                <FaFacebookSquare size={24} sx={{ ml: 1, color: "light" }} />
+              </a>{" "}
+              <a
+                href={`https://twitter.com/intent/tweet?text=${siteUrl}${productPath}`}
+                target="_blank"
+                sx={{ display: "flex" }}
+              >
+                <FaTwitterSquare size={24} sx={{ ml: 1, color: "light" }} />
+              </a>{" "}
+              <a
+                href={`https://pinterest.com/pin/create/button/?url=${siteUrl}${productPath}&media=&description=`}
+                target="_blank"
+                sx={{ display: "flex" }}
+              >
+                <FaPinterestSquare size={24} sx={{ ml: 1, color: "light" }} />
+              </a>
             </Flex>
           </Box>
         </Box>

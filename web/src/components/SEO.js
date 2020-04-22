@@ -17,7 +17,9 @@ function SEO({ description, meta, title, image }) {
     t,
     i18n: { language },
   } = useTranslation()*/
-  const { site } = useStaticQuery(
+  const {
+    site: { siteMetadata },
+  } = useStaticQuery(
     graphql`
       query {
         site {
@@ -25,17 +27,18 @@ function SEO({ description, meta, title, image }) {
             title
             description
             author
+            url
           }
         }
       }
     `
   )
 
-  const metaDescription = truncateString(description || site.siteMetadata.description, 147)
+  const metaDescription = truncateString(description || siteMetadata.description, 147)
 
   return (
     <Helmet
-      title={title && title.length <= 60 ? `${title} — ${site.siteMetadata.title}` : title}
+      title={title && title.length <= 60 ? `${title} — ${siteMetadata.title}` : title}
       //titleTemplate={`%s — ${site.siteMetadata.title}`}
       meta={[
         {
@@ -64,7 +67,7 @@ function SEO({ description, meta, title, image }) {
         },
         {
           name: `twitter:creator`,
-          content: site.siteMetadata.author,
+          content: siteMetadata.author,
         },
         {
           name: `twitter:title`,
@@ -75,7 +78,9 @@ function SEO({ description, meta, title, image }) {
           content: metaDescription,
         },
       ].concat(meta)}
-    />
+    >
+      <base href={siteMetadata.url} />
+    </Helmet>
   )
 }
 

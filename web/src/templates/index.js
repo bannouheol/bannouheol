@@ -25,7 +25,7 @@ const IndexPage = ({ data, errors, ...props }) => {
   return (
     <Layout {...props}>
       {homePage.content && <PortableText blocks={homePage.content} />}
-      <Styled.h2>{t(`Actualité`)}</Styled.h2>
+      <Styled.h2>{t(`news`)}</Styled.h2>
       {postNodes && postNodes.length > 0 && <Posts nodes={postNodes} />}
       <Styled.h2>{t(`Nouveautés`)}</Styled.h2>
     </Layout>

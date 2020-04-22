@@ -6,5 +6,19 @@
   "in_stock": "En stock",
   "out_of_stock": "Stock épuisé",
   "profile_slug": "profil",
-  "involvement": "Participations"
+  "involvement": "Participations",
+  "collection": "Collection",
+  "categories": "Catégories",
+  "title_in_brezhoneg": "Titre en breton",
+  "original_title": "Titre original",
+  "weight": "Poids",
+  "dimensions": "Dimensions",
+  "number_of_pages": "Nombre de pages",
+  "isbn": "ISBN",
+  "traductors": "Traducteur(s)",
+  "authors": "Auteur(s)",
+  "scriptwriters": "Scénariste(s)",
+  "in_collection": "Dans la collection {{collection_title}}",
+  "minimum_age": "Dès l'âge de {{minimum_age}} ans",
+  "free_shipping_message": "<0>Livraison offerte</0> à partir de 10€, en 3 jours chez vous"
 }
