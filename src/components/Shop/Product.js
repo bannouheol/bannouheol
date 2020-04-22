@@ -205,6 +205,7 @@ export const Product = (product) => {
               <a
                 href={`https://www.facebook.com/sharer/sharer.php?u=${siteUrl}${productPath}`}
                 target="_blank"
+                rel="noopener noreferrer"
                 sx={{ display: "flex" }}
               >
                 <FaFacebookSquare size={24} sx={{ ml: 1, color: "light" }} />
@@ -212,6 +213,7 @@ export const Product = (product) => {
               <a
                 href={`https://twitter.com/intent/tweet?text=${siteUrl}${productPath}`}
                 target="_blank"
+                rel="noopener noreferrer"
                 sx={{ display: "flex" }}
               >
                 <FaTwitterSquare size={24} sx={{ ml: 1, color: "light" }} />
@@ -219,6 +221,7 @@ export const Product = (product) => {
               <a
                 href={`https://pinterest.com/pin/create/button/?url=${siteUrl}${productPath}&media=&description=`}
                 target="_blank"
+                rel="noopener noreferrer"
                 sx={{ display: "flex" }}
               >
                 <FaPinterestSquare size={24} sx={{ ml: 1, color: "light" }} />
