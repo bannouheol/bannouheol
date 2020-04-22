@@ -28,7 +28,7 @@ export function wrapPageElement({ element, props }) {
     <ReactI18next.I18nextProvider i18n={i18n}>
       <AlternateLinksContext.Provider value={props.pageContext && props.pageContext.alternateLinks}>
         {
-          <Helmet htmlAttributes={{ lang: `${props.pageContext && `${props.pageContext.language}-FR`}` }}>
+          <Helmet htmlAttributes={{ lang: `${props.pageContext ? `${props.pageContext.language}-FR` : ""}` }}>
             {props.pageContext &&
               props.pageContext.alternateLinks &&
               props.pageContext.alternateLinks.map((link) => (
