@@ -7,11 +7,11 @@
   "search": "Klask",
   "home": "Degemer",
   "news": "Keleier",
-  "share_on": "Partager sur",
-  "covid_message": "Bannoù-heol expédie vos commandes pendant la période de confinement.",
+  "share_on": "Rannañ e",
+  "covid_message": "Kenderc'hel da gas hoc'h urzhiadoù a ra Bannoù-heol e-pad prantad ar c'henfinañ.",
   "error": {
     "notFound": "Pajenn varv",
-    "notFoundMessage": "N'eus ket eus ur bajenn-mañ pe n'eus ket diouti ken. Hon digarezit evit se."
+    "notFoundMessage": "N'eus ket eus ar bajenn-mañ pe n'eus ket diouti ken. Hon digarezit evit se."
   },
   "x_in_breton": "{{x}} e brezhoneg",
   "mailing_subscribe": "Lakait ho anv evit degemer al lizher-kelaouiñ",
@@ -22,5 +22,5 @@
   "follow_us": "Heulhit ac'hanomp war ar rouedadoù sokial",
   "conditions": "Divizoù gwerzhañ hollek",
   "mentions": "Menegoù lezennel",
-  "powered_by": "Propulsé par"
+  "powered_by": "Poulzet gant"
 }
