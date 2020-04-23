@@ -378,7 +378,7 @@ const buildI18nPosts = async (inputData, pageDefinitionCallback, namespaces, cre
               isPermanent: true,
               redirectInBrowser,
             })
-          } else {
+          } else if (d.context.availableLanguages[0] == d.context.language) {
             // Only 1 language available, create the redirection for whatever lang it is
             createRedirect({
               fromPath: d.previousPath,
@@ -396,6 +396,7 @@ const buildI18nPosts = async (inputData, pageDefinitionCallback, namespaces, cre
         path: d.path,
       }))
 
+      // CANONICAL
       definitions.forEach((d) => {
         d.context.alternateLinks = alternateLinks
         if (d.context.availableLanguages.length == 1 && d.context.language !== d.context.availableLanguages[0]) {
