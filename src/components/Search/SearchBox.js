@@ -11,11 +11,19 @@ export const SearchBox = connectSearchBox(({ refine, ...opts }) => (
       borderRadius: 4,
       width: 'full',
       maxWidth: '320px',
+      touchAction: 'none',
     }}
   >
     <label
       htmlFor="search"
-      sx={{ display: 'flex', flexDirection: 'row-reverse', alignItems: 'center', pl: 2, width: 'full' }}
+      sx={{
+        display: 'flex',
+        flexDirection: 'row-reverse',
+        alignItems: 'center',
+        pl: 2,
+        width: 'full',
+        touchAction: 'none',
+      }}
     >
       <Input
         name="search"
@@ -24,8 +32,8 @@ export const SearchBox = connectSearchBox(({ refine, ...opts }) => (
         placeholder="Rechercher"
         aria-label="Rechercher"
         onChange={(e) => refine(e.target.value)}
-        autocomplete="off"
-        sx={{ bg: 'white', border: 0, color: 'text' }}
+        autocomplete="nope"
+        sx={{ bg: 'white', border: 0, color: 'text', fontSize: '16px', touchAction: 'none' }}
         {...opts}
       />
       <IoMdSearch size={32} sx={{ color: 'text' }} />

@@ -60,6 +60,7 @@ export const Layout = ({ children, pageContext: { language, alternateLinks, ...p
           flexDirection: 'column',
           minHeight: '100vh',
           variant: 'layout.root',
+          overflowX: 'hidden',
         }}
       >
         <SimpleReactLightbox>

@@ -6,6 +6,7 @@ import algoliasearch from 'algoliasearch/lite'
 import { InstantSearch, Configure, Index, InfiniteHits, connectStateResults } from 'react-instantsearch-dom'
 import { SearchBox } from './SearchBox'
 import * as hitComps from './hitComps'
+import onClickOutside from 'react-onclickoutside'
 
 const Results = connectStateResults(({ searchState: state, searchResults: res, children }) =>
   res && res.nbHits > 0 ? children : state.query ? `No results for '${state.query}'` : null
@@ -13,12 +14,6 @@ const Results = connectStateResults(({ searchState: state, searchResults: res, c
 const Stats = connectStateResults(
   ({ searchResults: res }) => res && res.nbHits > 0 && `${res.nbHits} result${res.nbHits > 1 ? `s` : ``}`
 )
-const useClickOutside = (ref, handler, events) => {
-  if (!events) events = [`mousedown`, `touchstart`]
-  const detectClickOutside = (event) => ref.current && !ref.current.contains(event.target) && handler()
-  useListenerOn(events, detectClickOutside)
-}
-
 const useEscKey = (handler) => {
   const detectEscKey = useCallback(
     (event) => {
@@ -40,7 +35,7 @@ const useListenerOn = (events, detection) => {
   })
 }
 
-export default function Search({ indices, collapse }) {
+function Search({ indices, collapse }) {
   const {
     //t,
     i18n: { language },
@@ -64,7 +59,7 @@ export default function Search({ indices, collapse }) {
       return algoliaClient.search(requests)
     },
   }
-  useClickOutside(ref, () => setFocus(false))
+  Search.handleClickOutside = () => setFocus(false)
   useEscKey(() => setFocus(false))
   return (
     <div ref={ref} sx={{ width: 'full', mt: [0, 0, 0, 2] }}>
@@ -139,3 +134,9 @@ const PoweredBy = () => (
     <a href="https://algolia.com">Algolia</a>
   </span>
 )
+
+const clickOutsideConfig = {
+  handleClickOutside: () => Search.handleClickOutside,
+}
+
+export default onClickOutside(Search, clickOutsideConfig)

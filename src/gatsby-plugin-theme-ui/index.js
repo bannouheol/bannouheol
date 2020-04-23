@@ -1,6 +1,7 @@
 //import { tailwind as base } from "@theme-ui/presets"
 import '../assets/css/reset.css'
 import '../assets/css/fonts.css'
+import '../assets/css/zoomFix.css'
 
 export default {
   borderWidths: {
