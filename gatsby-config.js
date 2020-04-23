@@ -79,10 +79,14 @@ module.exports = {
     },
     `gatsby-plugin-catch-links`,
     `gatsby-plugin-nprogress`,
-    // this (optional) plugin enables Progressive Web App + Offline functionality
-    // To learn more, visit: https://gatsby.dev/offline
     `gatsby-plugin-offline`,
     `gatsby-plugin-zeit-now`,
     `gatsby-plugin-sitemap`,
+    {
+      resolve: `gatsby-plugin-google-analytics`,
+      options: {
+        trackingId: 'UA-126206970-3',
+      },
+    },
   ],
 }
