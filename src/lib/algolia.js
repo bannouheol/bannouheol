@@ -36,6 +36,7 @@ const productQuery = `
     }
   }  
 `
+/*
 const blogPostQuery = `
 {
     blogPosts: allSanityBlogPost {
@@ -95,9 +96,9 @@ const profileQuery = `
         }
       }
     }
-  }
-  
+  } 
 `
+*/
 const flatten = (arr) =>
   arr.map(({ node: { frontmatter, ...rest } }) => ({
     ...frontmatter,
@@ -111,6 +112,7 @@ const queries = [
     indexName: `Products`,
     settings,
   },
+  /*
   {
     query: blogPostQuery,
     transformer: ({ data }) => flatten(data.blogPosts.edges),
@@ -123,5 +125,6 @@ const queries = [
     indexName: `Profiles`,
     settings,
   },
+  */
 ]
 module.exports = queries
