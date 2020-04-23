@@ -303,6 +303,111 @@ exports.createPages = async ({ graphql, actions: { createPage, createRedirect },
     redirectInBrowser,
   })
 
+  createRedirect({
+    fromPath: '/catalogue/',
+    toPath: '/fr/',
+    isPermanent: true,
+    redirectInBrowser,
+  })
+
+  createRedirect({
+    fromPath: '/presse',
+    toPath: '/fr/blog',
+    isPermanent: true,
+    redirectInBrowser,
+  })
+
+  createRedirect({
+    fromPath: '/Furchal',
+    toPath: '/fr/kididoc',
+    isPermanent: true,
+    redirectInBrowser,
+  })
+
+  createRedirect({
+    fromPath: '/Olivu',
+    toPath: '/fr/olivu',
+    isPermanent: true,
+    redirectInBrowser,
+  })
+
+  createRedirect({
+    fromPath: '/Arzhig+Du',
+    toPath: '/fr/petit-ours-brun',
+    isPermanent: true,
+    redirectInBrowser,
+  })
+
+  createRedirect({
+    fromPath: '/arzhig-du-petit-ours-brun-c9',
+    toPath: '/fr/petit-ours-brun',
+    isPermanent: true,
+    redirectInBrowser,
+  })
+
+  createRedirect({
+    fromPath: '/Thorgal',
+    toPath: '/fr/thorgal',
+    isPermanent: true,
+    redirectInBrowser,
+  })
+
+  createRedirect({
+    fromPath: '/thorgal-c7',
+    toPath: '/fr/thorgal',
+    isPermanent: true,
+    redirectInBrowser,
+  })
+
+  createRedirect({
+    fromPath: '/contacts',
+    toPath: '/fr/contact',
+    isPermanent: true,
+    redirectInBrowser,
+  })
+
+  createRedirect({
+    fromPath: '/Leo+ha+Popi',
+    toPath: '/fr/leo-et-popi',
+    isPermanent: true,
+    redirectInBrowser,
+  })
+
+  createRedirect({
+    fromPath: '/Boulig+&+Billig',
+    toPath: '/fr/boule-et-bill',
+    isPermanent: true,
+    redirectInBrowser,
+  })
+
+  createRedirect({
+    fromPath: '/boulig-billig-boule-bill-c6',
+    toPath: '/fr/boule-et-bill',
+    isPermanent: true,
+    redirectInBrowser,
+  })
+
+  createRedirect({
+    fromPath: '/Tom-Tom+ha+Nana',
+    toPath: '/fr/tom-tom-ha-nana',
+    isPermanent: true,
+    redirectInBrowser,
+  })
+
+  createRedirect({
+    fromPath: '/Titeuf',
+    toPath: '/fr/titeuf',
+    isPermanent: true,
+    redirectInBrowser,
+  })
+
+  createRedirect({
+    fromPath: '/bannou-treset-bandes-dessinees-c1',
+    toPath: '/fr/bandes-dessinees',
+    isPermanent: true,
+    redirectInBrowser,
+  })
+
   allLanguages.forEach((language) =>
     createRedirect({
       fromPath: `/${language}/*`,
@@ -310,7 +415,7 @@ exports.createPages = async ({ graphql, actions: { createPage, createRedirect },
       statusCode: 404,
     })
   )
-  createRedirect({ fromPath: '/*', toPath: '/404', statusCode: 404 })
+  createRedirect({ fromPath: '/*', toPath: '/fr/404', statusCode: 404 })
 }
 
 const buildI18nPages = async (inputData, pageDefinitionCallback, namespaces, createPage, createRedirect) => {
