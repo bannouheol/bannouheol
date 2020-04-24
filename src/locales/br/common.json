@@ -17,11 +17,15 @@
   "x_in_breton": "{{x}} e brezhoneg",
   "mailing_subscribe": "Lakait ho anv evit degemer al lizher-kelaouiñ",
   "mailing_receive_offers": "ha resevit hor c'hinnigoù !",
-  "mailing_your_mail": "Ho postel ?",
+  "your_mail": "Ho postel",
   "mailing_submit": "Lakaat a ran ma anv",
   "mailing_subscribed": "Enrollet mat oc'h en hor roll skignañ, trugarez !",
   "follow_us": "Heulhit ac'hanomp war ar rouedadoù sokial",
   "conditions": "Divizoù gwerzhañ hollek",
   "mentions": "Menegoù lezennel",
-  "powered_by": "Poulzet gant"
+  "powered_by": "Poulzet gant",
+  "contact_form": "Formulaire de contact",
+  "contact_form_success": "Merci de nous avoir contacté ! Nous vous répondrons dans les meilleurs délais.",
+  "your_message": "Votre message",
+  "write_us": "Ecrivez-nous"
 }

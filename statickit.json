@@ -1,0 +1,16 @@
+{
+  "forms": {
+    "contact": {
+      "name": "Contact Form",
+      "fields": {
+        "email": { "type": "email", "required": true },
+        "message": { "type": "text", "required": true }
+      },
+      "actions": [
+        { "type": "email", "to": "contact@bannouheol.com" },
+        { "type": "email", "to": "joris@saidani.org" }
+      ],
+      "allowExtraFields": false
+    }
+  }
+}

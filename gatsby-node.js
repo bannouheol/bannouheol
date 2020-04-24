@@ -16,12 +16,14 @@ const appDirectory = fs.realpathSync(process.cwd())
 const resolveApp = (relativePath) => path.resolve(appDirectory, relativePath)
 const srcPath = resolveApp('src')
 const redirectInBrowser = false
+const contactPageNodeId = '773b60a0-b3b5-5352-8c6d-bf4265860015'
 
 /* TEMPLATES */
 const templates = {
   baseDir: `src/templates`,
   home: `index.js`,
   page: `page.js`,
+  contact: `contact.js`,
   error: `404.js`,
   blog: {
     post: `blog/post.js`,
@@ -134,11 +136,14 @@ exports.createPages = async ({ graphql, actions: { createPage, createRedirect },
   /* PAGES */
   await buildI18nPages(
     pages.edges,
-    ({ node }, language, i18n) => ({
-      path: `/${language}/${node._rawSlug[language].current}`,
-      component: path.resolve(path.join(templates.baseDir, templates.page)),
-      context: { page: node.id },
-    }),
+    ({ node }, language, i18n) => {
+      const template = node.id === contactPageNodeId ? templates.contact : templates.page
+      return {
+        path: `/${language}/${node._rawSlug[language].current}`,
+        component: path.resolve(path.join(templates.baseDir, template)),
+        context: { page: node.id },
+      }
+    },
     namespaces,
     createPage,
     createRedirect

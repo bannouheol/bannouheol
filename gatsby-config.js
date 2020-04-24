@@ -88,5 +88,11 @@ module.exports = {
         trackingId: 'UA-126206970-3',
       },
     },
+    {
+      resolve: `gatsby-plugin-statickit`,
+      options: {
+        siteId: '72acca42236b',
+      },
+    },
   ],
 }
