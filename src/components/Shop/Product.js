@@ -53,6 +53,7 @@ export const Product = (product) => {
           }
         }
       }
+      ...productFeatureFields
       _rawBody
       reference: ref
       categories {

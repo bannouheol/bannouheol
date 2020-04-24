@@ -41,8 +41,7 @@ const ProductPage = ({ data, errors, ...props }) => {
       .reduce((acc, el) => {
         return acc === null ? el : acc + ' > ' + el
       }, null)
-  const inStock = productFeature.inStock
-  console.log(categoriesReduced)
+  const inStock = productFeature && productFeature.inStock
   return (
     <Layout {...props}>
       {errors && <SEO title="GraphQL Error" />}
