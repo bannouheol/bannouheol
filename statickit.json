@@ -6,11 +6,14 @@
         "email": { "type": "email", "required": true },
         "message": { "type": "text", "required": true }
       },
-      "actions": [
-        { "type": "email", "to": "contact@bannouheol.com" },
-        { "type": "email", "to": "joris@saidani.org" }
-      ],
+      "actions": [{ "type": "email", "to": "contact@bannouheol.com" }],
       "allowExtraFields": false
+    }
+  },
+  "functions": {
+    "sendContactEmail": {
+      "type": "sendNotification",
+      "to": "contact@bannouheol.com"
     }
   }
 }

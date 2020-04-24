@@ -6,6 +6,7 @@
   "author": "Bannoù-heol <contact@b-heol.com>",
   "dependencies": {
     "@sanity/block-content-to-react": "^2.0.7",
+    "@statickit/functions": "github:unstacked/statickit-functions#a04a2636-916b-4e2c-a8ae-a36dfe66006b",
     "@statickit/react": "^2.1.1",
     "@theme-ui/presets": "^0.3.0",
     "@types/youtube": "^0.0.38",
@@ -64,7 +65,7 @@
   ],
   "license": "MIT",
   "scripts": {
-    "build": "gatsby build",
+    "build": "deploy -k b686900e37371701b49c26870dbead4d && gatsby build",
     "develop": "gatsby develop -H 192.168.1.21",
     "dev": "yarn clean && yarn develop",
     "start": "npm run serve",

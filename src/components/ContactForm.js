@@ -2,6 +2,7 @@
 import { jsx, Styled, Alert, Box, Label, Input, Textarea, Button } from 'theme-ui'
 import { useForm, ValidationError } from '@statickit/react'
 import { useTranslation } from 'react-i18next'
+import { createClient, sendContactEmail } from '@statickit/functions'
 
 export const ContactForm = () => {
   const {
@@ -12,9 +13,24 @@ export const ContactForm = () => {
   if (state.succeeded) {
     return <Alert bg={'secondary'}>{t('contact_form_success')}</Alert>
   }
+  // send email notification
+  const client = createClient({ site: process.env.STATICKIT_SITEID })
+  const form = document.getElementById('contactForm')
+  if (state.submitting) {
+    let data = new FormData(form)
+    sendContactEmail(client, {
+      subject: 'Message depuis le formulaire de contact sur bannouheol.com',
+      fields: {
+        email: data.get('email'),
+        message: data.get('message'),
+      },
+    })
+  }
+
   return (
     <Box
       as="form"
+      id="contactForm"
       onSubmit={handleSubmit}
       sx={{
         width: ['100%', '80%', '60%', '35%'],

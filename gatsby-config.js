@@ -85,13 +85,13 @@ module.exports = {
     {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
-        trackingId: 'UA-126206970-3',
+        trackingId: process.env.GOOGLE_ANALYTICS,
       },
     },
     {
       resolve: `gatsby-plugin-statickit`,
       options: {
-        siteId: '72acca42236b',
+        siteId: process.env.STATICKIT_SITEID,
       },
     },
   ],
