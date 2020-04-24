@@ -48,7 +48,7 @@ export const Layout = ({ children, pageContext: { language, alternateLinks, ...p
         stateChangeHandler: (newState) => setMenuOpenState(newState.isOpen),
       }}
     >
-      <Helmet>
+      <Helmet htmlAttributes={{ lang: `${language ? `${language}-FR` : ''}` }}>
         <link rel="dns-prefetch" href="//cdn.sanity.io/" />
         <link ref="dns-prefetch" href="https://www.youtube.com/" />
       </Helmet>

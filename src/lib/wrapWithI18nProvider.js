@@ -1,8 +1,8 @@
-import React from "react"
-import i18next from "i18next"
-import * as ReactI18next from "react-i18next"
-import { Helmet } from "react-helmet"
-import * as moment from "moment"
+import React from 'react'
+import i18next from 'i18next'
+import * as ReactI18next from 'react-i18next'
+import { Helmet } from 'react-helmet'
+import * as moment from 'moment'
 
 export const AlternateLinksContext = React.createContext([])
 
@@ -28,7 +28,7 @@ export function wrapPageElement({ element, props }) {
     <ReactI18next.I18nextProvider i18n={i18n}>
       <AlternateLinksContext.Provider value={props.pageContext && props.pageContext.alternateLinks}>
         {
-          <Helmet htmlAttributes={{ lang: `${props.pageContext ? `${props.pageContext.language}-FR` : ""}` }}>
+          <Helmet>
             {props.pageContext &&
               props.pageContext.alternateLinks &&
               props.pageContext.alternateLinks.map((link) => (
