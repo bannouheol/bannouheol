@@ -36,7 +36,23 @@ export const Product = (product) => {
   `)
   graphql`
     fragment productFields on SanityProduct {
-      ...productPreviewFields
+      id
+      _rawTitle
+      _rawSlug
+      reference: ref
+      collection {
+        _rawTitle
+        _rawSlug
+      }
+      images: defaultProductVariant {
+        images {
+          asset {
+            fluid(maxWidth: 800) {
+              ...GatsbySanityImageFluid_noBase64
+            }
+          }
+        }
+      }
       _rawBody
       reference: ref
       categories {
