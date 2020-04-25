@@ -13,7 +13,7 @@ import { useStaticQuery, graphql } from 'gatsby'
 import { truncateString } from '../lib/helpers'
 import { useTranslation } from 'react-i18next'
 
-const SEO = ({ title, description, image, product, article }) => {
+const SEO = ({ title, description, image, product, article, noIndex = false }) => {
   const {
     //t,
     i18n: { language },
@@ -67,6 +67,7 @@ const SEO = ({ title, description, image, product, article }) => {
       {(product ? true : null) && <meta property="og:type" content="product" />}
       {!product && !article && <meta property="og:type" content="website" />}
       {siteMetadata.author && <meta name="twitter:creator" content={siteMetadata.author} />}
+      {noIndex && <meta name="robots" content="noindex" />}
     </Helmet>
   )
 }
