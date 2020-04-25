@@ -65,7 +65,7 @@
   ],
   "license": "MIT",
   "scripts": {
-    "build": "deploy -k b686900e37371701b49c26870dbead4d && gatsby build",
+    "build": "gatsby build",
     "develop": "gatsby develop -H 192.168.1.21",
     "dev": "yarn clean && yarn develop",
     "start": "npm run serve",
