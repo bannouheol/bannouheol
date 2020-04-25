@@ -35,7 +35,7 @@ export const FooterFirst = () => {
           <a href="https://facebook.com/bannouheol" target="_blank" rel="noopener noreferrer">
             <FaFacebook size={48} />
           </a>
-          <a href="https://instagram.com/kanarbed" target="_blank" rel="noopener noreferrer">
+          <a href="https://instagram.com/bannouheol" target="_blank" rel="noopener noreferrer">
             <FaInstagram size={48} />
           </a>
         </Box>
