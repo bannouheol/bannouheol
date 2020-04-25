@@ -2,7 +2,7 @@
 import { jsx, Styled, Alert, Box, Label, Input, Textarea, Button } from 'theme-ui'
 import { useForm, ValidationError } from '@statickit/react'
 import { useTranslation } from 'react-i18next'
-import { createClient, sendContactEmail } from '@statickit/functions'
+//import { createClient, sendContactEmail } from '@statickit/functions'
 
 export const ContactForm = () => {
   const {
@@ -14,6 +14,7 @@ export const ContactForm = () => {
     return <Alert bg={'secondary'}>{t('contact_form_success')}</Alert>
   }
   // send email notification
+  /*
   const client = createClient({ site: process.env.STATICKIT_SITEID })
   const form = document.getElementById('contactForm')
   if (state.submitting) {
@@ -26,6 +27,7 @@ export const ContactForm = () => {
       },
     })
   }
+  */
 
   return (
     <Box
