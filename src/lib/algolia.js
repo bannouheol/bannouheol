@@ -17,8 +17,6 @@ const productQuery = `
                 fixed(width: 120) {
                   width
                   height
-                  aspectRatio
-                  base64
                   src
                   srcWebp
                   srcSet
@@ -28,7 +26,6 @@ const productQuery = `
             }
             price {
               formatted
-              value
             }
           }
         }
