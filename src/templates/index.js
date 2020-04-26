@@ -46,7 +46,7 @@ export const query = graphql`
     posts: allSanityBlogPost(
       sort: { fields: [publishedAt], order: DESC }
       filter: { publishedAt: { ne: null } }
-      limit: 4
+      limit: 7
     ) {
       edges {
         node {
