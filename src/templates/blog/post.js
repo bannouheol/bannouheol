@@ -1,19 +1,19 @@
 /** @jsx jsx */
-import { jsx, Box } from "theme-ui"
-import { Layout } from "../../components/Layout"
-import SEO from "../../components/SEO"
-import { graphql } from "gatsby"
-import { GraphQLErrorList } from "../../components/GraphQLErrorList"
-import { Post } from "../../components/Blog/Post"
-import { Products } from "../../components/Shop/Products"
-import { useTranslation } from "react-i18next"
-import { translateRaw } from "../../lib/helpers"
+import { jsx, Box } from 'theme-ui'
+import { Layout } from '../../components/Layout'
+import SEO from '../../components/SEO'
+import { graphql } from 'gatsby'
+import { GraphQLErrorList } from '../../components/GraphQLErrorList'
+import { Post } from '../../components/Blog/Post'
+import { Products } from '../../components/Shop/Products'
+import { useTranslation } from 'react-i18next'
+import { translateRaw } from '../../lib/helpers'
 
 const PostPage = ({ data, errors, ...props }) => {
   const {
-    //t,
+    t,
     i18n: { language },
-  } = useTranslation()
+  } = useTranslation('common')
   const { post } = translateRaw(data, language)
   return (
     <Layout {...props}>
@@ -31,10 +31,10 @@ const PostPage = ({ data, errors, ...props }) => {
         <Box
           sx={{
             maxWidth: 640,
-            mx: "auto",
+            mx: 'auto',
           }}
         >
-          <h3>Articles en lien avec cet article :</h3>
+          <h3>{t('blog:linked_products')} :</h3>
           <Products nodes={post.products} />
         </Box>
       )}

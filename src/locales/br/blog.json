@@ -5,5 +5,6 @@
   "posted_in_x_at_x": "Postet e <1 /> d'ar {{date, DD/MM/YYYY}}",
   "discussed_on_blog": "Komz a reer eus se er blog",
   "previous_page": "Pajenn a-raok",
-  "next_page": "Pajenn da-heul"
+  "next_page": "Pajenn da-heul",
+  "linked_products": "Articles en lien avec ce post"
 }
