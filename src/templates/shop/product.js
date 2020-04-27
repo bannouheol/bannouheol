@@ -110,7 +110,10 @@ export const query = graphql`
         }
       }
     }
-    blogPosts: allSanityBlogPost(filter: { products: { elemMatch: { id: { eq: $product } } } }) {
+    blogPosts: allSanityBlogPost(
+      sort: { fields: [publishedAt], order: DESC }
+      filter: { products: { elemMatch: { id: { eq: $product } } } }
+    ) {
       edges {
         node {
           ...blogPostPreviewFields
