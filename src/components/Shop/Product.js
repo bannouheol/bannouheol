@@ -226,7 +226,7 @@ export const Product = (product) => {
             <Text sx={{ fontSize: 1, mt: 2 }}>
               <Trans i18nKey="shop:order_form_message">
                 Vous ne souhaitez pas commander en ligne ? Pas de problème, remplissez ce
-                <a href="/bon_de_commande.pdf" sx={{ color: 'tomato' }}>
+                <a href="/bon_de_commande.pdf" sx={{ color: 'tomato' }} target="_blank" rel="noopener noreferrer">
                   bon de commande
                 </a>
                 et renvoyez-le nous !
