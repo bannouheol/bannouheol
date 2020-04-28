@@ -223,6 +223,16 @@ export const Product = (product) => {
               </Trans>
             </Text>
             <Divider sx={{ my: 3 }} />
+            <Text sx={{ fontSize: 1, mt: 2 }}>
+              <Trans i18nKey="shop:order_form_message">
+                Vous ne souhaitez pas commander en ligne ? Pas de problème, remplissez ce
+                <a href="/bon_de_commande.pdf" sx={{ color: 'tomato' }}>
+                  bon de commande
+                </a>
+                et renvoyez-le nous !
+              </Trans>
+            </Text>
+            <Divider sx={{ my: 3 }} />
             <Flex sx={{ alignItems: 'center', color: 'textMuted' }}>
               {t('share_on')} :{' '}
               <a
