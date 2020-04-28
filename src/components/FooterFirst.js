@@ -1,6 +1,6 @@
 /** @jsx jsx */
 
-import { jsx, Link, Flex, Box, Styled } from 'theme-ui'
+import { jsx, Flex, Box, Styled } from 'theme-ui'
 //import { Link } from "./Link"
 import { useTranslation } from 'react-i18next'
 //import { useStaticQuery, graphql } from "gatsby"

@@ -26,7 +26,7 @@ const ProductPage = ({ data, errors, ...props }) => {
       siteMetadata: { siteUrl },
     },
   } = translateRaw(data, language)
-  const { title, images, body, collection, slug, categories, productFeature, releaseDate } = product
+  const { title, images, body, collection, slug, categories, productFeature, releaseDate, reference } = product
   const sameCollectionProductNodes = mapEdgesToNodes(sameCollectionProducts)
   const blogPostsNodes = mapEdgesToNodes(blogPosts)
   const fullTitle = [title, t('x_in_breton', { x: collection.title })].join(`, `)
@@ -56,6 +56,7 @@ const ProductPage = ({ data, errors, ...props }) => {
             image,
             description: excerpt ? excerpt : fullTitle,
             gtin13: productFeature && productFeature.barcode && productFeature.barcode.barcode,
+            mpn: reference,
             category: categoriesReduced,
             releaseDate,
             offers: {
