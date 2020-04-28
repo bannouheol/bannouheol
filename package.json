@@ -55,7 +55,8 @@
     "react-schemaorg": "^1.0.1",
     "react-youtube": "^7.11.2",
     "simple-react-lightbox": "^2.7.3",
-    "theme-ui": "0.4.0-alpha.0"
+    "theme-ui": "0.4.0-alpha.0",
+    "video-react": "^0.14.1"
   },
   "devDependencies": {
     "@types/react": "^16.9.34",

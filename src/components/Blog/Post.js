@@ -1,18 +1,20 @@
 /** @jsx jsx */
-import { jsx, Box, Styled, Flex } from "theme-ui"
-import React from "react"
-import PortableText from "../PortableText"
-import Img from "gatsby-image"
-import { graphql } from "gatsby"
-import { useTranslation } from "react-i18next"
-import { translateRaw } from "../../lib/helpers"
-import { CategoryPreview } from "./CategoryPreview"
-import { IoIosArrowDroprightCircle } from "react-icons/io"
-import { ProfilePreview } from "../Shop/ProfilePreview"
-import AudioPlayer from "react-h5-audio-player"
-import "react-h5-audio-player/lib/styles.css"
-import YouTube from "react-youtube"
-import getVideoId from "get-video-id"
+import { jsx, Box, Styled, Flex } from 'theme-ui'
+import React from 'react'
+import PortableText from '../PortableText'
+import Img from 'gatsby-image'
+import { graphql } from 'gatsby'
+import { useTranslation } from 'react-i18next'
+import { translateRaw } from '../../lib/helpers'
+import { CategoryPreview } from './CategoryPreview'
+import { IoIosArrowDroprightCircle } from 'react-icons/io'
+import { ProfilePreview } from '../Shop/ProfilePreview'
+import AudioPlayer from 'react-h5-audio-player'
+import 'react-h5-audio-player/lib/styles.css'
+import 'video-react/dist/video-react.css'
+import YouTube from 'react-youtube'
+import getVideoId from 'get-video-id'
+import { Player } from 'video-react'
 
 export const Post = (nonExtensiblePost) => {
   const {
@@ -46,6 +48,11 @@ export const Post = (nonExtensiblePost) => {
       video {
         url
       }
+      videoFile {
+        asset {
+          url
+        }
+      }
       audio {
         asset {
           url
@@ -58,10 +65,19 @@ export const Post = (nonExtensiblePost) => {
   `
 
   const post = { ...nonExtensiblePost }
-  const { title, excerpt, image, body, author, video, audio, publishedAt, categories, featuredProfiles } = translateRaw(
-    post,
-    language
-  )
+  const {
+    title,
+    excerpt,
+    image,
+    body,
+    author,
+    video,
+    videoFile,
+    audio,
+    publishedAt,
+    categories,
+    featuredProfiles,
+  } = translateRaw(post, language)
 
   const videoParsed = video && video.url && getVideoId(video.url)
   const video_id = videoParsed && videoParsed.id
@@ -70,22 +86,22 @@ export const Post = (nonExtensiblePost) => {
     <article
       sx={{
         maxWidth: 640,
-        mx: "auto",
+        mx: 'auto',
       }}
     >
       <Flex
         sx={{
-          alignItems: "center",
+          alignItems: 'center',
           fontSize: 0,
         }}
       >
-        {publishedAt && <React.Fragment>{t("blog:posted_at", { date: new Date(publishedAt) })}</React.Fragment>}
+        {publishedAt && <React.Fragment>{t('blog:posted_at', { date: new Date(publishedAt) })}</React.Fragment>}
         <IoIosArrowDroprightCircle />
         {` `}
         {categories
           .map((c) => <CategoryPreview key={c.id} {...c} />)
           .reduce((acc, el) => {
-            return acc === null ? [el] : [...acc, ", ", el]
+            return acc === null ? [el] : [...acc, ', ', el]
           }, null)}
       </Flex>
       <Styled.h1>{title}</Styled.h1>
@@ -99,10 +115,24 @@ export const Post = (nonExtensiblePost) => {
         <YouTube
           videoId={video_id}
           opts={{
-            width: "100%",
+            width: '100%',
           }}
           sx={{ mt: 3 }}
         />
+      )}
+      {videoFile && videoFile.asset && videoFile.asset.url && (
+        <Box mt={3}>
+          <Player
+            playsInline
+            //poster="/assets/poster.png"
+            src={videoFile.asset.url}
+          />
+        </Box>
+      )}
+      {audio && audio.asset && audio.asset.url && (
+        <Box mt={3}>
+          <AudioPlayer src={audio.asset.url} />
+        </Box>
       )}
       {featuredProfiles.length > 0 && (
         <Box>
@@ -110,13 +140,8 @@ export const Post = (nonExtensiblePost) => {
           {featuredProfiles
             .map((t) => t && <ProfilePreview key={t.id} {...t} showAvatar={false} />)
             .reduce((acc, el) => {
-              return acc === null ? [el] : [...acc, ", ", el]
+              return acc === null ? [el] : [...acc, ', ', el]
             }, null)}
-        </Box>
-      )}
-      {audio && audio.asset && audio.asset.url && (
-        <Box mt={3}>
-          <AudioPlayer src={audio.asset.url} />
         </Box>
       )}
       <div sx={{ mt: 3 }}>{body && <PortableText blocks={body} />}</div>
