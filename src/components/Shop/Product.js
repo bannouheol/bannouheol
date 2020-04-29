@@ -144,24 +144,36 @@ export const Product = (product) => {
           }}
         >
           <Styled.h1>{title}</Styled.h1>
+          {language === 'fr' && (
+            <Text>
+              {t('shop:title_in_brezhoneg')} :{' '}
+              <h2 sx={{ display: 'inline-block', fontSize: 1, m: 0 }}>{product._rawTitle.br}</h2>
+            </Text>
+          )}
+          {language === 'br' && (
+            <Text>
+              {t('shop:original_title')} :{' '}
+              <h2 sx={{ display: 'inline-block', fontSize: 1, m: 0 }}>{product._rawTitle.fr}</h2>
+            </Text>
+          )}
           <Box sx={{ lineHeight: 2 }}>
             {t('shop:collection')} :{' '}
-            <h2 sx={{ display: 'inline-block', fontSize: 1, m: 0 }}>
+            <h3 sx={{ display: 'inline-block', fontSize: 1, m: 0 }}>
               <Link sx={{ p: 1, bg: 'light', borderRadius: 8 }} to={`/${collection.slug.current}`}>
                 {collection.title}
               </Link>
-            </h2>{' '}
+            </h3>{' '}
             {t('shop:categories')} :{' '}
             {categories &&
               categories
                 .map((c) => {
                   c['path'] = path.join('/', c.parent === null ? `` : c.parent.slug.current, c.slug.current)
                   return (
-                    <h3 sx={{ display: 'inline-block', fontSize: 1, m: 0 }}>
+                    <h4 sx={{ display: 'inline-block', fontSize: 1, m: 0 }}>
                       <Link key={c.id} to={c.path} sx={{ p: 1, bg: 'light', borderRadius: 8 }}>
                         {c.title}
                       </Link>
-                    </h3>
+                    </h4>
                   )
                 })
                 .reduce((acc, el) => {
@@ -170,16 +182,6 @@ export const Product = (product) => {
           </Box>
           {body && <PortableText blocks={body} />}
           <Box mt={2}>
-            {language === 'fr' && (
-              <Text>
-                {t('shop:title_in_brezhoneg')} : {product._rawTitle.br}
-              </Text>
-            )}
-            {language === 'br' && (
-              <Text>
-                {t('shop:original_title')} : {product._rawTitle.fr}
-              </Text>
-            )}
             <ProductFeature {...productFeature} />
             <BookFeature {...bookFeature} />
             {traductors.length > 0 && (
