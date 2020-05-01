@@ -18,6 +18,7 @@ export const ProductFeature = ({
     fragment productFeatureFields on SanityProduct {
       productFeature: defaultProductVariant {
         inStock
+        resupplyingDate
         price {
           value
           formatted

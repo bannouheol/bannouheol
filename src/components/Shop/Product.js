@@ -1,20 +1,21 @@
 /** @jsx jsx */
-import { jsx, Grid, Flex, Styled, Text, Box, Divider } from 'theme-ui'
-import PortableText from '../PortableText'
-import Img from 'gatsby-image'
 import { graphql, useStaticQuery } from 'gatsby'
+import Img from 'gatsby-image'
+import getVideoId from 'get-video-id'
 import path from 'path'
-import { useTranslation, Trans } from 'react-i18next'
+import { Trans, useTranslation } from 'react-i18next'
+import { FaFacebookSquare, FaPinterestSquare, FaTwitterSquare } from 'react-icons/fa'
+import YouTube from 'react-youtube'
+import { SRLWrapper } from 'simple-react-lightbox'
+import { Box, Divider, Flex, Grid, jsx, Styled, Text } from 'theme-ui'
 import { Link } from '../Link'
+import PortableText from '../PortableText'
+import { AddToCart } from './AddToCart'
 //import { translateRaw } from '../../lib/helpers'
 import { BookFeature } from './BookFeature'
 import { ProductFeature } from './ProductFeature'
 import { ProfilePreview } from './ProfilePreview'
-import { AddToCart } from './AddToCart'
-import { FaFacebookSquare, FaTwitterSquare, FaPinterestSquare } from 'react-icons/fa'
-import { SRLWrapper } from 'simple-react-lightbox'
-import YouTube from 'react-youtube'
-import getVideoId from 'get-video-id'
+import { parseISO, format } from 'date-fns'
 
 export const Product = (product) => {
   const {
@@ -84,15 +85,17 @@ export const Product = (product) => {
     categories,
     traductors,
     bookFeature,
-    productFeature,
+    productFeature: { inStock, resupplyingDate, ...productFeature },
     releaseDate,
     minimumAge,
     youtubeVideos,
   } = product
-  const inStock = productFeature.inStock
 
   const thumbs = product.images.images.map((i) => i.asset.fluid)
   const image = thumbs.shift()
+
+  const resupplying = resupplyingDate ? true : false
+  const resupplyingDateFormatted = resupplyingDate && format(parseISO(resupplyingDate), 'dd/MM/yyyy')
 
   const productPath = `/${language}/${collection.slug.current}/${slug.current}`
 
@@ -203,12 +206,14 @@ export const Product = (product) => {
           <Box sx={{ variant: 'boxes.important' }}>
             <Grid gap={2} columns={['1fr 2fr', 1]} sx={{ alignItems: 'center', justifyContent: 'center' }}>
               <Box>
-                {inStock && <div sx={{ mb: 1, fontSize: 3 }}>{productFeature.price.formatted}</div>}
-                <div sx={{ mb: [0, 3], fontSize: 1, color: inStock ? 'secondary' : 'tomato' }}>
-                  {inStock ? t('shop:in_stock') : t('shop:out_of_stock')}
+                {(inStock || resupplying) && <div sx={{ mb: 1, fontSize: 3 }}>{productFeature.price.formatted}</div>}
+                <div sx={{ mb: [0, 3], fontSize: 1, color: inStock ? 'secondary' : resupplying ? 'orange' : 'tomato' }}>
+                  {inStock && t('shop:in_stock')}
+                  {!inStock && resupplying && t('shop:resupplying')}
+                  {!inStock && !resupplying && t('shop:out_of_stock')}
                 </div>
               </Box>
-              {inStock && (
+              {(inStock || resupplying) && (
                 <AddToCart
                   id={id}
                   title={title}
@@ -220,9 +225,17 @@ export const Product = (product) => {
               )}
             </Grid>
             <Text sx={{ fontSize: 1, mt: 2 }}>
-              <Trans i18nKey="shop:free_shipping_message">
-                <span sx={{ color: 'tomato' }}>Livraison offerte</span> à partir de 10€, en 3 jours chez vous
-              </Trans>
+              {inStock && (
+                <Trans i18nKey="shop:free_shipping_message">
+                  <span sx={{ color: 'tomato' }}>Livraison offerte</span> à partir de 10€, en 3 jours chez vous
+                </Trans>
+              )}
+              {resupplying && (
+                <Trans i18nKey="shop:delivery_on" resupplyingDateFormatted={resupplyingDateFormatted}>
+                  Livré approximativement chez vous le{' '}
+                  <span sx={{ color: 'tomato' }}>{{ resupplyingDateFormatted }}</span>.
+                </Trans>
+              )}
             </Text>
             <Divider sx={{ my: 3 }} />
             <Text sx={{ fontSize: 1, mt: 2 }}>

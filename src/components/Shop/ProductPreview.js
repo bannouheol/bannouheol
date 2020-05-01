@@ -36,9 +36,16 @@ export const ProductPreview = (product) => {
       ...productFeatureFields
     }
   `
-  const { id, title, slug, collection, images, productFeature } = translateRaw(product, language)
+  const {
+    id,
+    title,
+    slug,
+    collection,
+    images,
+    productFeature: { inStock, resupplyingDate, ...productFeature },
+  } = translateRaw(product, language)
   const productLink = `/${collection.slug.current}/${slug.current}`
-  const inStock = productFeature && productFeature.inStock
+  const resupplying = resupplyingDate ? true : false
   return (
     <Card
       sx={{
@@ -59,9 +66,10 @@ export const ProductPreview = (product) => {
           </Link>
           <Text sx={{ color: 'textMuted' }}>{collection.title}</Text>
 
-          {inStock && productFeature.price && <Text>{productFeature.price.formatted}</Text>}
+          {(inStock || resupplying) && productFeature.price && <Text>{productFeature.price.formatted}</Text>}
 
           {inStock && <Text sx={{ color: 'secondary', display: 'inline-block', mr: 2 }}>{t('shop:in_stock')}</Text>}
+          {resupplying && <Text sx={{ color: 'orange', display: 'inline-block', mr: 2 }}>{t('shop:resupplying')}</Text>}
           {inStock && (
             <AddToCart
               id={id}
