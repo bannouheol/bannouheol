@@ -337,7 +337,7 @@ exports.createPages = async ({ graphql, actions: { createPage, createRedirect },
   })
 
   createRedirect({
-    fromPath: '/Arzhig+Du',
+    fromPath: '/Arzhig%2BDu',
     toPath: '/fr/petit-ours-brun',
     isPermanent: true,
     redirectInBrowser,
@@ -372,14 +372,14 @@ exports.createPages = async ({ graphql, actions: { createPage, createRedirect },
   })
 
   createRedirect({
-    fromPath: '/Leo+ha+Popi',
+    fromPath: '/Leo%2Bha%2BPopi',
     toPath: '/fr/leo-et-popi',
     isPermanent: true,
     redirectInBrowser,
   })
 
   createRedirect({
-    fromPath: '/Boulig+&+Billig',
+    fromPath: '/Boulig%2B%26%2BBillig',
     toPath: '/fr/boule-et-bill',
     isPermanent: true,
     redirectInBrowser,
@@ -393,7 +393,7 @@ exports.createPages = async ({ graphql, actions: { createPage, createRedirect },
   })
 
   createRedirect({
-    fromPath: '/Tom-Tom+ha+Nana',
+    fromPath: '/Tom-Tom%2Bha%2BNana',
     toPath: '/fr/tom-tom-ha-nana',
     isPermanent: true,
     redirectInBrowser,
