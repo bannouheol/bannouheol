@@ -15,6 +15,7 @@ import 'video-react/dist/video-react.css'
 import YouTube from 'react-youtube'
 import getVideoId from 'get-video-id'
 import { Player } from 'video-react'
+import { Helmet } from 'react-helmet'
 
 export const Post = (nonExtensiblePost) => {
   const {
@@ -112,13 +113,18 @@ export const Post = (nonExtensiblePost) => {
         </div>
       )}
       {video_id && (
-        <YouTube
-          videoId={video_id}
-          opts={{
-            width: '100%',
-          }}
-          sx={{ mt: 3 }}
-        />
+        <React.Fragment>
+          <Helmet>
+            <meta name="introduction" content="no-reference" />
+          </Helmet>
+          <YouTube
+            videoId={video_id}
+            opts={{
+              width: '100%',
+            }}
+            sx={{ mt: 3 }}
+          />
+        </React.Fragment>
       )}
       {videoFile && videoFile.asset && videoFile.asset.url && (
         <Box mt={3}>
