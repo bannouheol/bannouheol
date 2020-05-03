@@ -206,7 +206,7 @@ module.exports = {
                     images,
                     inStock,
                     resupplyingDate,
-                    price: { formatted: price },
+                    price: { value: priceValue },
                   },
                   collection: {
                     slug: {
@@ -223,6 +223,7 @@ module.exports = {
                     ? collectionTitle.fr
                     : `${collectionTitle.fr} / ${collectionTitle.br}`
                 const description = `Titre en breton : ${title.br} - Collection : ${collection}`
+                const price = priceValue + ' EUR'
                 return {
                   id,
                   brand,
