@@ -178,6 +178,7 @@ module.exports = {
                       }
                     }
                     collection {
+                      id
                       slug {
                         fr {
                           current
@@ -209,6 +210,7 @@ module.exports = {
                     price: { value: priceValue },
                   },
                   collection: {
+                    id: { item_group_id },
                     slug: {
                       fr: { current: collectionSlug },
                     },
@@ -235,6 +237,7 @@ module.exports = {
                   inventory: 5,
                   link,
                   description,
+                  item_group_id,
                 }
               })
             },
