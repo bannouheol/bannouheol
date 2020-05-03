@@ -174,7 +174,7 @@ module.exports = {
                       inStock
                       resupplyingDate
                       price {
-                        formatted
+                        value
                       }
                     }
                     collection {
