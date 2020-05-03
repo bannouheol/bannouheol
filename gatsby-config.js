@@ -216,7 +216,7 @@ module.exports = {
                   },
                 } = edge.node
                 const image_link = images && images[0] && images[0].asset.fluid.src
-                const availability = inStock ? 'in stock' : resupplyingDate ? 'available for order' : 'discontinued'
+                const availability = inStock ? 'en stock' : resupplyingDate ? 'disponible à la vente' : 'fin de série'
                 const link = `${site.siteMetadata.siteUrl}/fr/${collectionSlug}/${slug}`
                 const collection =
                   collectionTitle.fr === collectionTitle.br
