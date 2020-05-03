@@ -3,6 +3,20 @@ require('dotenv').config({
 })
 const queries = require('./src/lib/algolia')
 
+function toPlainText(blocks) {
+  if (!blocks) {
+    return ''
+  }
+  return blocks
+    .map((block) => {
+      if (block._type !== 'block' || !block.children) {
+        return ''
+      }
+      return block.children.map((child) => child.text).join('')
+    })
+    .join('\n\n')
+}
+
 module.exports = {
   siteMetadata: {
     title: `Bannoù-heol`,
@@ -110,6 +124,124 @@ module.exports = {
             policy: [{ userAgent: '*', allow: '/' }],
           },
         },
+      },
+    },
+    {
+      resolve: 'gatsby-plugin-csv-feed',
+      options: {
+        // Query to pass to all feed serializers (optional)
+        query: `
+          {
+            site {
+              siteMetadata {
+                siteUrl
+              }
+            }
+          }
+        `,
+        // Options to pass to `json2csv` parser for all feeds (optional)
+        parserOptions: {},
+        // Feeds
+        feeds: [
+          {
+            query: `
+            {
+              allSanityProduct(sort: {order: [DESC], fields: [releaseDate]}) {
+                edges {
+                  node {
+                    id
+                    slug {
+                      fr {
+                        current
+                      }
+                    }
+                    title {
+                      fr
+                      br
+                    }
+                    _rawBody
+                    vendor {
+                      title
+                    }
+                    defaultProductVariant {
+                      images {
+                        asset {
+                          fluid {
+                            src
+                          }
+                        }
+                      }
+                      inStock
+                      resupplyingDate
+                      price {
+                        formatted
+                      }
+                    }
+                    collection {
+                      slug {
+                        fr {
+                          current
+                        }
+                      }
+                      title {
+                        br
+                        fr
+                      }
+                    }
+                  }
+                }
+              }
+            }                                   
+            `,
+            serialize: ({ query: { site, allSanityProduct } }) => {
+              return allSanityProduct.edges.map((edge) => {
+                const {
+                  id,
+                  slug: {
+                    fr: { current: slug },
+                  },
+                  vendor: { title: brand },
+                  title,
+                  defaultProductVariant: {
+                    images,
+                    inStock,
+                    resupplyingDate,
+                    price: { formatted: price },
+                  },
+                  collection: {
+                    slug: {
+                      fr: { current: collectionSlug },
+                    },
+                    title: collectionTitle,
+                  },
+                } = edge.node
+                const image_link = images && images[0] && images[0].asset.fluid.src
+                const availability = inStock ? 'in stock' : resupplyingDate ? 'available for order' : 'discontinued'
+                const link = `${site.siteMetadata.siteUrl}/fr/${collectionSlug}/${slug}`
+                const collection =
+                  collectionTitle.fr === collectionTitle.br
+                    ? collectionTitle.fr
+                    : `${collectionTitle.fr} / ${collectionTitle.br}`
+                const description = `Titre en breton : ${title.br} - Collection : ${collection}`
+                return {
+                  id,
+                  brand,
+                  title: title.fr,
+                  image_link,
+                  price,
+                  condition: 'new',
+                  availability,
+                  inventory: 5,
+                  link,
+                  description,
+                }
+              })
+            },
+            output: '/facebook-product-feed.csv',
+            // Options to pass to `json2csv` parser for this feed (optional)
+            parserOptions: {},
+          },
+        ],
       },
     },
   ],
