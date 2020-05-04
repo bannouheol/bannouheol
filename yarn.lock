@@ -12284,10 +12284,10 @@ react-fast-compare@^3.0.0:
   resolved "https://registry.yarnpkg.com/react-fast-compare/-/react-fast-compare-3.0.1.tgz#884d339ce1341aad22392e7a88664c71da48600e"
   integrity sha512-C5vP0J644ofZGd54P8++O7AvrqMEbrGf8Ue0eAUJLJyw168dAX2aiYyX/zcY/eSNwO0IDjsKUaLE6n83D+TnEg==
 
-react-h5-audio-player@^3.0.5:
-  version "3.0.5"
-  resolved "https://registry.yarnpkg.com/react-h5-audio-player/-/react-h5-audio-player-3.0.5.tgz#907e17b15853abe46d3f2c22b7803facd5caeec9"
-  integrity sha512-RCP74012g0ClJheDA5lQMjkz/EY036wjx5UJnHxTkNxEbxfyQZ2WrYlwaEHD3XabuJodXd9/KYBa91IJmYPPvw==
+react-h5-audio-player@^3.0.6:
+  version "3.0.6"
+  resolved "https://registry.yarnpkg.com/react-h5-audio-player/-/react-h5-audio-player-3.0.6.tgz#8c996b1d9e43ee7259fa379ca994581dd6ea42fa"
+  integrity sha512-SxtxYoxsiLS/lriv5uu3aA1LF2xKEicPpGU0BzP+x+MPS5RLS+gCfVoo4z9KgYN1h94+mVOTcfoccsqsKWEQ1w==
   dependencies:
     "@babel/runtime" "^7.8.4"
     "@iconify/icons-mdi" "^1.0.46"

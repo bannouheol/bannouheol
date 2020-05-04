@@ -48,7 +48,7 @@
     "react": "^16.13.1",
     "react-burger-menu": "^2.6.13",
     "react-dom": "^16.13.1",
-    "react-h5-audio-player": "^3.0.5",
+    "react-h5-audio-player": "^3.0.6",
     "react-helmet": "^6.0.0",
     "react-i18next": "^11.4.0",
     "react-icons": "^3.10.0",
