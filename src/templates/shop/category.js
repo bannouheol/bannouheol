@@ -44,6 +44,7 @@ const CategoryPage = ({ data, errors, ...props }) => {
               sx={{
                 p: 3,
                 mr: 3,
+                mt: 1,
                 bg: 'secondary',
                 color: 'white',
                 fontWeight: 'bold',
