@@ -40,6 +40,7 @@ export const Product = (product) => {
     fragment productFields on SanityProduct {
       id
       _rawTitle
+      _rawSeoTitle
       _rawSlug
       reference: ref
       collection {

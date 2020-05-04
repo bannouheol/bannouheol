@@ -13,6 +13,20 @@ import { JsonLd } from 'react-schemaorg'
 import { add, format } from 'date-fns'
 import { XInBreton } from '../../components/XInBreton'
 
+const makeSeoTitle = (seoReadyTitle, title, collection) => {
+  if (seoReadyTitle) return seoReadyTitle
+  if (title) {
+    const titles = []
+    if (title.toLowerCase().includes(collection.toLowerCase())) {
+      titles.push(XInBreton({ x: title }))
+    } else {
+      titles.push(title)
+      titles.push(XInBreton({ x: collection }))
+    }
+    return titles.join(`, `)
+  }
+}
+
 const ProductPage = ({ data, errors, ...props }) => {
   const {
     t,
@@ -27,17 +41,23 @@ const ProductPage = ({ data, errors, ...props }) => {
       siteMetadata: { siteUrl },
     },
   } = translateRaw(data, language)
-  const { title, images, body, collection, slug, categories, productFeature, releaseDate, reference } = product
+  const {
+    title,
+    seoTitle,
+    images,
+    body,
+    collection,
+    slug,
+    categories,
+    productFeature,
+    releaseDate,
+    reference,
+  } = product
   const sameCollectionProductNodes = mapEdgesToNodes(sameCollectionProducts)
   const blogPostsNodes = mapEdgesToNodes(blogPosts)
-  const titleArray = []
-  if (title.includes(collection.title)) {
-    titleArray.push(XInBreton({ x: title }))
-  } else {
-    titleArray.push(title)
-    titleArray.push(XInBreton({ x: collection.title }))
-  }
-  const fullTitle = titleArray.join(`, `)
+
+  const fullTitle = makeSeoTitle(seoTitle, title, collection.title)
+
   const image = images.images && images.images[0] && images.images[0].asset.fluid.src
   const excerpt = body && toPlainText(body)
   const productPath = `/${language}/${collection.slug.current}/${slug.current}`
