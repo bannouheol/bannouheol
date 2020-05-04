@@ -107,7 +107,7 @@ export const Post = (nonExtensiblePost) => {
       </Flex>
       <Styled.h1>{title}</Styled.h1>
       {excerpt && <div sx={{ fontSize: 3 }}>{excerpt}</div>}
-      {!video_id && image && image.asset && (
+      {!video_id && !videoFile && image && image.asset && (
         <div>
           <Img fluid={image.asset.fluid} />
         </div>
