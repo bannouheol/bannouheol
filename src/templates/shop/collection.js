@@ -1,23 +1,23 @@
 /** @jsx jsx */
-import { jsx, Styled } from "theme-ui"
-import { Layout } from "../../components/Layout"
-import SEO from "../../components/SEO"
-import { graphql } from "gatsby"
-import { GraphQLErrorList } from "../../components/GraphQLErrorList"
-import { toPlainText, translateRaw } from "../../lib/helpers"
-import PortableText from "../../components/PortableText"
-import { useTranslation } from "react-i18next"
-import { Products } from "../../components/Shop/Products"
-import { mapEdgesToNodes } from "../../lib/helpers"
+import { jsx, Styled } from 'theme-ui'
+import { Layout } from '../../components/Layout'
+import SEO from '../../components/SEO'
+import { graphql } from 'gatsby'
+import { GraphQLErrorList } from '../../components/GraphQLErrorList'
+import { toPlainText, translateRaw } from '../../lib/helpers'
+import PortableText from '../../components/PortableText'
+import { useTranslation } from 'react-i18next'
+import { Products } from '../../components/Shop/Products'
+import { mapEdgesToNodes } from '../../lib/helpers'
 
 const CollectionPage = ({ data, errors, ...props }) => {
   const {
     t,
     i18n: { language },
-  } = useTranslation("common")
+  } = useTranslation('common')
   const { products, collection } = translateRaw(data, language)
   const productNodes = mapEdgesToNodes(products)
-  const fullTitle = t("x_in_breton", { x: collection.title })
+  const fullTitle = t('x_in_breton', { x: collection.title })
   return (
     <Layout {...props}>
       {errors && <SEO title="GraphQL Error" />}
@@ -25,7 +25,7 @@ const CollectionPage = ({ data, errors, ...props }) => {
         <SEO
           title={fullTitle}
           description={collection.description && toPlainText(collection.description)}
-          //image={product.image}
+          image={collection.image && collection.image.asset.fluid.src}
         />
       )}
       {errors && <GraphQLErrorList errors={errors} />}
@@ -43,6 +43,13 @@ export const query = graphql`
     id
     _rawTitle
     _rawDescription
+    image {
+      asset {
+        fluid {
+          ...GatsbySanityImageFluid
+        }
+      }
+    }
   }
   query Collection($collection: String) {
     collection: sanityCollection(id: { eq: $collection }) {
