@@ -1,17 +1,17 @@
 /** @jsx jsx */
-import { jsx, Box, Card, Text, Styled } from "theme-ui"
-import React from "react"
-import Img from "gatsby-image"
-import { graphql, Link } from "gatsby"
-import { useTranslation, Trans } from "react-i18next"
-import { translateRaw } from "../../lib/helpers"
-import { CategoryPreview } from "./CategoryPreview"
+import { jsx, Box, Card, Text, Styled } from 'theme-ui'
+import React from 'react'
+import Img from 'gatsby-image'
+import { graphql, Link } from 'gatsby'
+import { useTranslation, Trans } from 'react-i18next'
+import { translateRaw } from '../../lib/helpers'
+import { CategoryPreview } from './CategoryPreview'
 
 export const PostPreview = (nonExtensiblePost) => {
   const {
     t,
     i18n: { language },
-  } = useTranslation("common", "blog")
+  } = useTranslation('common', 'blog')
   graphql`
     fragment blogPostPreviewFields on SanityBlogPost {
       id
@@ -47,7 +47,7 @@ export const PostPreview = (nonExtensiblePost) => {
       {categories
         .map((c) => <CategoryPreview key={c.id} {...c} />)
         .reduce((acc, el) => {
-          return acc === null ? [el] : [...acc, ", ", el]
+          return acc === null ? [el] : [...acc, ', ', el]
         }, null)}
     </React.Fragment>
   )
@@ -62,7 +62,7 @@ export const PostPreview = (nonExtensiblePost) => {
     >
       {image && (
         <Link to={postPath}>
-          <Img fixed={image.asset.fixed} sx={{ maxWidth: "100%" }} />
+          <Img fixed={image.asset.fixed} sx={{ maxWidth: '100%' }} />
         </Link>
       )}
       <Text sx={{ px: 2 }}>
@@ -74,7 +74,7 @@ export const PostPreview = (nonExtensiblePost) => {
         {publishedAt && (
           <Box sx={{ mt: 2, fontSize: 0 }}>
             <Trans i18nKey="blog:posted_in_x_at_x">
-              Posté dans <CategoriesPreview /> le {{ date: new Date(publishedAt) }}
+              Posté dans <CategoriesPreview /> le {{ date: publishedAt }}
             </Trans>
           </Box>
         )}

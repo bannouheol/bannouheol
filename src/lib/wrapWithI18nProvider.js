@@ -2,7 +2,7 @@ import React from 'react'
 import i18next from 'i18next'
 import * as ReactI18next from 'react-i18next'
 import { Helmet } from 'react-helmet'
-import * as moment from 'moment'
+import { parseISO, format } from 'date-fns'
 
 export const AlternateLinksContext = React.createContext([])
 
@@ -13,9 +13,10 @@ export function wrapPageElement({ element, props }) {
       lng: props.pageContext.language,
       interpolation: {
         escapeValue: false,
-        format: function (value, format, _lng) {
-          if (value instanceof Date) return moment(value).format(format)
-          return value
+        format: function (value, f, _lng) {
+          //if (value instanceof Date)
+          return format(parseISO(value), f)
+          //return value
         },
       },
       initImmediate: false,

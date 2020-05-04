@@ -96,7 +96,7 @@ export const Post = (nonExtensiblePost) => {
           fontSize: 0,
         }}
       >
-        {publishedAt && <React.Fragment>{t('blog:posted_at', { date: new Date(publishedAt) })}</React.Fragment>}
+        {publishedAt && <React.Fragment>{t('blog:posted_at', { date: publishedAt })}</React.Fragment>}
         <IoIosArrowDroprightCircle />
         {` `}
         {categories

@@ -1,5 +1,5 @@
 {
-  "released_on": "Deuet er-maez d'ar {{date, DD/MM/YYYY}}",
+  "released_on": "Deuet er-maez d'ar {{date, dd/MM/yyyy}}",
   "buy": "Prenañ",
   "add_to_cart": "Ouzhpennañ er baner",
   "my_cart": "Ma fanerad",

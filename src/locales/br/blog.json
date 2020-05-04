@@ -1,8 +1,8 @@
 {
   "slug": "blog",
-  "posted_at": "Postet d'ar {{date, DD/MM/YYYY}}",
+  "posted_at": "Postet d'ar {{date, dd/MM/yyyy}}",
   "posted_in": "{{post}} postet e {{categories}}",
-  "posted_in_x_at_x": "Postet e <1 /> d'ar {{date, DD/MM/YYYY}}",
+  "posted_in_x_at_x": "Postet e <1 /> d'ar {{date, dd/MM/yyyy}}",
   "discussed_on_blog": "Komz a reer eus se er blog",
   "previous_page": "Pajenn a-raok",
   "next_page": "Pajenn da-heul",

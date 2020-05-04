@@ -1,5 +1,5 @@
 {
-  "released_on": "Paru le {{date, DD/MM/YYYY}}",
+  "released_on": "Paru le {{date, dd/MM/yyyy}}",
   "buy": "Acheter",
   "add_to_cart": "Ajouter au panier",
   "my_cart": "Mon panier",
