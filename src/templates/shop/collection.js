@@ -9,6 +9,7 @@ import PortableText from '../../components/PortableText'
 import { useTranslation } from 'react-i18next'
 import { Products } from '../../components/Shop/Products'
 import { mapEdgesToNodes } from '../../lib/helpers'
+import { XInBreton } from '../../components/XInBreton'
 
 const CollectionPage = ({ data, errors, ...props }) => {
   const {
@@ -17,7 +18,7 @@ const CollectionPage = ({ data, errors, ...props }) => {
   } = useTranslation('common')
   const { products, collection } = translateRaw(data, language)
   const productNodes = mapEdgesToNodes(products)
-  const fullTitle = t('x_in_breton', { x: collection.title })
+  const fullTitle = XInBreton({ x: collection.title })
   return (
     <Layout {...props}>
       {errors && <SEO title="GraphQL Error" />}

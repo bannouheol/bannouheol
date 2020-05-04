@@ -9,15 +9,18 @@ import PortableText from '../../components/PortableText'
 import { useTranslation } from 'react-i18next'
 import { Products } from '../../components/Shop/Products'
 import { mapEdgesToNodes } from '../../lib/helpers'
+import { XInBreton } from '../../components/XInBreton'
+import { Link } from '../../components/Link'
 
 const CategoryPage = ({ data, errors, ...props }) => {
   const {
-    t,
+    //t,
     i18n: { language },
   } = useTranslation('common')
-  const { products, category } = translateRaw(data, language)
+  const { products, children, category } = translateRaw(data, language)
   const productNodes = mapEdgesToNodes(products)
-  const fullTitle = t('x_in_breton', { x: category.title })
+  const childrenNodes = mapEdgesToNodes(children)
+  const fullTitle = XInBreton({ x: category.title })
   return (
     <Layout {...props}>
       {errors && <SEO title="GraphQL Error" />}
@@ -33,6 +36,27 @@ const CategoryPage = ({ data, errors, ...props }) => {
       {category && <Styled.h1>{fullTitle}</Styled.h1>}
       {category && category.description && <PortableText blocks={category.description} />}
 
+      {childrenNodes && (
+        <div sx={{ display: 'block' }}>
+          {childrenNodes.map((child) => (
+            <Link
+              to={`/${category.slug.current}/${child.slug.current}`}
+              sx={{
+                p: 3,
+                mr: 3,
+                bg: 'secondary',
+                color: 'white',
+                fontWeight: 'bold',
+                display: 'inline-block',
+                '&:hover': { bg: 'primary', color: 'white', textDecoration: 'none' },
+              }}
+            >
+              <XInBreton x={child.title} />
+            </Link>
+          ))}
+        </div>
+      )}
+
       {productNodes && productNodes.length > 0 && <Products nodes={productNodes} sx={{ mt: 3 }} />}
     </Layout>
   )
@@ -43,6 +67,7 @@ export const query = graphql`
     id
     _rawTitle
     _rawDescription
+    _rawSlug
     parentCategory {
       _rawTitle
       _rawSlug
@@ -58,6 +83,15 @@ export const query = graphql`
   query Category($category: String) {
     category: sanityCategory(id: { eq: $category }) {
       ...categoryFields
+    }
+    children: allSanityCategory(filter: { parentCategory: { id: { eq: $category } } }) {
+      edges {
+        node {
+          id
+          _rawTitle
+          _rawSlug
+        }
+      }
     }
     products: allSanityProduct(
       filter: { categories: { elemMatch: { id: { eq: $category } } } }

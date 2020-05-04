@@ -16,6 +16,7 @@ import { BookFeature } from './BookFeature'
 import { ProductFeature } from './ProductFeature'
 import { ProfilePreview } from './ProfilePreview'
 import { parseISO, format } from 'date-fns'
+import { XInBreton } from '../XInBreton'
 
 export const Product = (product) => {
   const {
@@ -163,7 +164,7 @@ export const Product = (product) => {
             {t('shop:collection')} :{' '}
             <h3 sx={{ display: 'inline-block', fontSize: 1, m: 0 }}>
               <Link sx={{ p: 1, bg: 'light', borderRadius: 8 }} to={`/${collection.slug.current}`}>
-                {collection.title}
+                <XInBreton x={collection.title} />
               </Link>
             </h3>{' '}
             {t('shop:categories')} :{' '}
@@ -174,7 +175,7 @@ export const Product = (product) => {
                   return (
                     <h4 sx={{ display: 'inline-block', fontSize: 1, m: 0 }}>
                       <Link key={c.id} to={c.path} sx={{ p: 1, bg: 'light', borderRadius: 8 }}>
-                        {c.title}
+                        <XInBreton x={c.title} />
                       </Link>
                     </h4>
                   )

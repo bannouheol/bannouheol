@@ -5,6 +5,7 @@ import { Link } from './Link'
 import { useTranslation } from 'react-i18next'
 import { useStaticQuery, graphql } from 'gatsby'
 import { mapEdgesToNodes, translateRaw } from '../lib/helpers'
+import { XInBreton } from './XInBreton'
 
 const FooterLink = (props) => <Link sxVariant="links.footer" {...props} />
 
@@ -54,7 +55,7 @@ export const FooterSecond = ({ siteTitle, siteUrl }) => {
       >
         {collections.map((c) => (
           <FooterLink key={c.id} to={`/${c.slug.current}`}>
-            {t('x_in_breton', { x: c.title })}
+            <XInBreton x={c.title} />
           </FooterLink>
         ))}
       </Grid>
