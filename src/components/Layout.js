@@ -9,12 +9,16 @@ import { FooterSecond } from './FooterSecond'
 import { MobileMenu } from './MobileMenu'
 import { TopMessage } from './TopMessage'
 import SimpleReactLightbox from 'simple-react-lightbox'
+import { useTranslation } from 'react-i18next'
 
 const allLanguages = ['br', 'fr']
 
 export const MenuContext = React.createContext(false)
 
-export const Layout = ({ children, pageContext: { language, alternateLinks, ...pageContext }, mainP = 3 }) => {
+export const Layout = ({ children, pageContext: { _language, alternateLinks, ...pageContext }, mainP = 3 }) => {
+  const {
+    i18n: { language },
+  } = useTranslation('common')
   const [menuOpenState, setMenuOpenState] = useState(false)
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
