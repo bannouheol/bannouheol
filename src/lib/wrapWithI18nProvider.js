@@ -7,10 +7,12 @@ import { parseISO, format } from 'date-fns'
 export const AlternateLinksContext = React.createContext([])
 
 export function wrapPageElement({ element, props }) {
+  const language = props.pageContext.language ? props.pageContext.language : 'fr'
+
   const i18n = i18next
     .createInstance({
       debug: process.env.DEBUG,
-      lng: props.pageContext.language,
+      lng: language,
       interpolation: {
         escapeValue: false,
         format: function (value, f, _lng) {

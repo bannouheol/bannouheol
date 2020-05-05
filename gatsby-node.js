@@ -518,6 +518,8 @@ const buildI18nPosts = async (inputData, pageDefinitionCallback, namespaces, cre
         } else {
           d.context.canonicalUrl = d.path
         }
+        if (!d.context.language || typeof d.context.language === 'undefined' || d.context.language == 'undefined')
+          throw new Error('Unknown context language for ' + d.path)
         createPage(d) // (5)
       })
     })

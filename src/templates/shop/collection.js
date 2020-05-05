@@ -13,7 +13,7 @@ import { XInBreton } from '../../components/XInBreton'
 
 const CollectionPage = ({ data, errors, ...props }) => {
   const {
-    t,
+    //t,
     i18n: { language },
   } = useTranslation('common')
   const { products, collection } = translateRaw(data, language)
