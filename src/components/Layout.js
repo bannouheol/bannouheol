@@ -44,6 +44,7 @@ export const Layout = ({ children, pageContext: { _language, alternateLinks, ...
       return el !== language ? { language: el, path: `/${el}/` } : acc
     }, null)
 
+  const lang = typeof language !== 'undefined' && language !== 'undefined' && language ? `${language}-FR` : 'fr-FR'
   return (
     <MenuContext.Provider
       value={{
@@ -52,7 +53,7 @@ export const Layout = ({ children, pageContext: { _language, alternateLinks, ...
         stateChangeHandler: (newState) => setMenuOpenState(newState.isOpen),
       }}
     >
-      <Helmet htmlAttributes={{ lang: `${language ? `${language}-FR` : ''}` }}>
+      <Helmet htmlAttributes={{ lang: lang }}>
         <link rel="dns-prefetch" href="//cdn.sanity.io/" />
         <link ref="dns-prefetch" href="https://www.youtube.com/" />
       </Helmet>
