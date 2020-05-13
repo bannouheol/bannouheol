@@ -1,6 +1,6 @@
 {
   "title": "Bannoù-heol",
-  "subtitle": "Ti-embann e brezhoneg abaoe 1999",
+  "subtitle": "Ti-embann brezhonek abaoe 1999",
   "br": "Brezhoneg",
   "fr": "Français",
   "language": "Yezh",
@@ -9,23 +9,23 @@
   "home": "Degemer",
   "news": "Keleier",
   "share_on": "Rannañ e",
-  "covid_message": "Kenderc'hel da gas hoc'h urzhiadoù a ra Bannoù-heol e-pad prantad ar c'henfinañ.",
+  "covid_message": "Dizoloit hol lec'hienn nevez-flamm !!",
   "error": {
     "notFound": "Pajenn varv",
-    "notFoundMessage": "N'eus ket eus ar bajenn-mañ pe n'eus ket diouti ken. Hon digarezit evit se."
+    "notFoundMessage": "N'eus ket eus ar bajenn-mañ pe n'eus ket anezhi ken. Hon digarezit evit se."
   },
   "x_in_breton": "{{x}} e brezhoneg",
-  "mailing_subscribe": "Lakait ho anv evit degemer al lizher-kelaouiñ",
+  "mailing_subscribe": "Lakait hoc'h anv evit degemer al lizher-kelaouiñ",
   "mailing_receive_offers": "ha resevit hor c'hinnigoù !",
   "your_mail": "Ho postel",
   "mailing_submit": "Lakaat a ran ma anv",
   "mailing_subscribed": "Enrollet mat oc'h en hor roll skignañ, trugarez !",
-  "follow_us": "Heulhit ac'hanomp er rouedadoù sokial",
+  "follow_us": "Heuilhit ac'hanomp er rouedadoù sokial",
   "conditions": "Divizoù gwerzhañ hollek",
   "mentions": "Menegoù lezennel",
   "powered_by": "Poulzet gant",
-  "contact_form": "Formulaire de contact",
-  "contact_form_success": "Merci de nous avoir contacté ! Nous vous répondrons dans les meilleurs délais.",
-  "your_message": "Votre message",
-  "write_us": "Ecrivez-nous"
+  "contact_form": "Furmskrid darempred",
+  "contact_form_success": "Ho trugarekaat bezañ deuet e darempred ganeomp ! Respont a raimp deoc’h hepdale.",
+  "your_message": "Ho kemenn",
+  "write_us": "Skrivit deomp"
 }
