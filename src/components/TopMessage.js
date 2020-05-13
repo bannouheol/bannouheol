@@ -11,7 +11,7 @@ export const TopMessage = () => {
 
   return (
     <Box sx={{ width: 'full', textAlign: 'center', bg: 'grey', color: 'white', fontSize: [0, 1, 1, 2], p: [1, 0] }}>
-      <span sx={{ color: 'tomato' }}>COVggID-19</span> : {t('covid_message')}
+      <span sx={{ color: 'tomato' }}>Nevez ! Nouveau !</span> : {t('covid_message')}
     </Box>
   )
 }
