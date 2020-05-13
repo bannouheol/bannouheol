@@ -1,10 +1,10 @@
 {
   "slug": "blog",
-  "posted_at": "Postet d'ar {{date, dd/MM/yyyy}}",
+  "posted_at": "Postet d'an {{date, dd/MM/yyyy}}",
   "posted_in": "{{post}} postet e {{categories}}",
-  "posted_in_x_at_x": "Postet e <1 /> d'ar {{date, dd/MM/yyyy}}",
+  "posted_in_x_at_x": "Postet e <1 /> d'an {{date, dd/MM/yyyy}}",
   "discussed_on_blog": "Komz a reer eus se er blog",
   "previous_page": "Pajenn a-raok",
   "next_page": "Pajenn da-heul",
-  "linked_products": "Reizhoù liammet gant ar post-mañ"
+  "linked_products": "Produioù liammet gant ar post-mañ"
 }
