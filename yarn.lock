@@ -13476,10 +13476,10 @@ simple-get@^3.0.3, simple-get@^3.1.0:
     once "^1.3.1"
     simple-concat "^1.0.0"
 
-simple-react-lightbox@^2.7.3:
-  version "2.7.3"
-  resolved "https://registry.yarnpkg.com/simple-react-lightbox/-/simple-react-lightbox-2.7.3.tgz#50877cda82b9aa7c2aa6a602d44f5a001873d632"
-  integrity sha512-fAbIUWKFR/30lNo6MzBORnRTkOIhRfnBXEgd8e2KPSLMhA+vK/KKXcG2A5Yr087NBAxJG6vr8aH8nlMbZStCLg==
+simple-react-lightbox@^2.8.0:
+  version "2.8.0"
+  resolved "https://registry.yarnpkg.com/simple-react-lightbox/-/simple-react-lightbox-2.8.0.tgz#c24347f8c4a3a2310ecbb2b503b43ced9a0edafe"
+  integrity sha512-jfBxVetMjgdjJnhKUsbNpohgceEbHlqHd20IpAx3PBMbDoC+eTETT/2JBIFTYtv1er54/nGWHsUaNCNL/fHY1g==
   dependencies:
     fscreen "^1.0.2"
     imagesloaded "^4.1.4"
@@ -13488,6 +13488,7 @@ simple-react-lightbox@^2.7.3:
     react-swipeable "^5.5.1"
     react-transition-group "^4.3.0"
     react-use "^14.1.1"
+    subscribe-event "^1.1.1"
     use-debounce "^3.4.1"
 
 simple-swizzle@^0.2.2:
@@ -14275,6 +14276,11 @@ stylis@3.5.0:
   version "3.5.0"
   resolved "https://registry.yarnpkg.com/stylis/-/stylis-3.5.0.tgz#016fa239663d77f868fef5b67cf201c4b7c701e1"
   integrity sha512-pP7yXN6dwMzAR29Q0mBrabPCe0/mNO1MSr93bhay+hcZondvMMTpeGyd8nbhYJdyperNT2DRxONQuUGcJr5iPw==
+
+subscribe-event@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/subscribe-event/-/subscribe-event-1.1.1.tgz#0d2f2c14c18e4de3e7d108b4dd56078b379d95c9"
+  integrity sha512-ffuMVOFvhc+HSfW/Q9xSQJikswqnT7sd39EjAXi7gneZWg7XYwq/ee9rcn66ZxZEXOLXew0rJXA1GU1gH5/nzw==
 
 subscriptions-transport-ws@^0.9.16:
   version "0.9.16"
