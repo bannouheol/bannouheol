@@ -9,7 +9,7 @@ import * as hitComps from './hitComps'
 import onClickOutside from 'react-onclickoutside'
 
 const Results = connectStateResults(({ searchState: state, searchResults: res, children }) =>
-  res && res.nbHits > 0 ? children : state.query ? `No results for '${state.query}'` : null
+  res && res.nbHits > 0 ? children : state.query ? `Pas de résultat pour '${state.query}'` : null
 )
 const Stats = connectStateResults(
   ({ searchResults: res }) => res && res.nbHits > 0 && `${res.nbHits} result${res.nbHits > 1 ? `s` : ``}`

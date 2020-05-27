@@ -3,7 +3,7 @@
   "private": true,
   "description": "Bannoù-heol Website V2",
   "version": "2.0.0",
-  "author": "Bannoù-heol <contact@b-heol.com>",
+  "author": "Bannoù-heol <contact@bannouheol.com>",
   "dependencies": {
     "@sanity/block-content-to-react": "^2.0.7",
     "@statickit/functions": "github:unstacked/statickit-functions#a04a2636-916b-4e2c-a8ae-a36dfe66006b",

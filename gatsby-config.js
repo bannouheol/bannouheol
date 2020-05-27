@@ -1,5 +1,5 @@
 require('dotenv').config({
-  path: `.env.${process.env.NODE_ENV}`,
+  path: `.env`,
 })
 const queries = require('./src/lib/algolia')
 
@@ -64,8 +64,8 @@ module.exports = {
       resolve: 'gatsby-plugin-snipcartv3',
       options: {
         apiKey: process.env.SNIPCART_APIKEY,
-        js: `/snipcart.3.0.12.js`,
-        styles: `/snipcart.3.0.12.css`,
+        js: `/snipcart.3.0.14.js`,
+        styles: `/snipcart.3.0.14.css`,
       },
     },
     `gatsby-transformer-sharp`,
