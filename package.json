@@ -51,7 +51,7 @@
     "react-helmet": "^6.0.0",
     "react-i18next": "^11.5.0",
     "react-icons": "^3.10.0",
-    "react-instantsearch-dom": "^6.4.0",
+    "react-instantsearch-dom": "^6.5.0",
     "react-onclickoutside": "^6.9.0",
     "react-schemaorg": "^1.0.1",
     "react-youtube": "^7.11.2",
