@@ -37,7 +37,7 @@
     "gatsby-plugin-zeit-now": "^0.3.0",
     "gatsby-source-filesystem": "^2.3.8",
     "gatsby-source-sanity": "^5.0.6",
-    "gatsby-transformer-sharp": "^2.5.3",
+    "gatsby-transformer-sharp": "^2.5.4",
     "get-video-id": "^3.1.4",
     "i18next": "^19.4.5",
     "i18next-node-fs-backend": "^2.1.3",
