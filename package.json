@@ -35,7 +35,7 @@
     "gatsby-plugin-statickit": "^1.1.1",
     "gatsby-plugin-theme-ui": "^0.3.0",
     "gatsby-plugin-zeit-now": "^0.3.0",
-    "gatsby-source-filesystem": "^2.3.8",
+    "gatsby-source-filesystem": "^2.3.10",
     "gatsby-source-sanity": "^5.0.6",
     "gatsby-transformer-sharp": "^2.5.3",
     "get-video-id": "^3.1.4",
