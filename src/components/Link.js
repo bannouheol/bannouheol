@@ -15,7 +15,7 @@ const Link = ({ to, language, children, onClick, sxVariant = "styles.a", i18nPre
   return (
     <IntlContextConsumer>
       {(intl) => {
-        const link = i18nPrefixed ? `/${i18n.language}${to}` : `/${to}`
+        const link = i18nPrefixed ? `/${i18n.language}${to}` : `${to}`
         const handleClick = (e) => {
           if (language) {
             localStorage.setItem("language", language)
