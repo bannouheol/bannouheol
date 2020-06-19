@@ -39,7 +39,7 @@ const IndexPage = ({ data, errors, ...props }) => {
 
 export const query = graphql`
   query IndexPageQuery {
-    homePage: sanityPage(id: { eq: "2d680e01-f5d6-5dbc-889b-fcc595cbe961" }) {
+    homePage: sanityPage(id: { eq: "-2d680e01-f5d6-5dbc-889b-fcc595cbe961" }) {
       _rawTitle
       _rawContent
     }
