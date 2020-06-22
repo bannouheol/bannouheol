@@ -14381,10 +14381,10 @@ simple-git@2.5.0:
     "@kwsites/exec-p" "^0.4.0"
     debug "^4.0.1"
 
-simple-react-lightbox@^3.1.2:
-  version "3.1.2"
-  resolved "https://registry.yarnpkg.com/simple-react-lightbox/-/simple-react-lightbox-3.1.2.tgz#18298a8dda20c868d42e0fef83d1b0d63a90ff9d"
-  integrity sha512-H4OehIBhNltRT7zLLZzY3Z+ymr33oxVgXdJp+e1K5/u2R2aq+0+IvHdHFW3dQKnU54oEQeVEP2UBTKifZa2PsQ==
+simple-react-lightbox@^3.2.3:
+  version "3.2.3"
+  resolved "https://registry.yarnpkg.com/simple-react-lightbox/-/simple-react-lightbox-3.2.3.tgz#d134527c644eadb8cee4e5c9aa715f07b5f2ae9d"
+  integrity sha512-T1gWrRqQhmeS+1gowbO8cempT1RuCODGEpEF13sRxKPLXgwxKg3TFAqVisLkbTTt+fSrL0c1CT/jxfC3n0MtoA==
   dependencies:
     fast-deep-equal "^3.1.1"
     framer-motion "^1.11.0"
