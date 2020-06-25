@@ -32,7 +32,7 @@ const ArchivePage = ({ data, errors, ...props }) => {
   const { currentPage, numPages } = props.pageContext
   const isFirst = currentPage === 1
   const isLast = currentPage === numPages
-  const basePath = `/${t('blog:slug')}/${props.pageContext.category ? `${slug}/` : ''}`
+  const basePath = `/${t('blog:slug')}${props.pageContext.category ? `/${slug}/` : '/'}`
   const prevPage = basePath + (currentPage - 1 === 1 ? '' : (currentPage - 1).toString())
   const nextPage = basePath + (currentPage + 1).toString()
   return (
@@ -65,7 +65,7 @@ const ArchivePage = ({ data, errors, ...props }) => {
               }}
             >
               <Link
-                to={`${basePath}${i === 0 ? `` : `/${i + 1}`}`}
+                to={`${basePath}${i === 0 ? `` : `${i + 1}`}`}
                 sx={{
                   textDecoration: 'none',
                   color: i + 1 === currentPage ? '#ffffff' : '',
