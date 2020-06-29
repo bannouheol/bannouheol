@@ -35,7 +35,7 @@ export const ProductFeature = ({
     <Fragment>
       {weight && (
         <Text>
-          {t('shop:weight')} : {weight}g
+          {t('shop:weight')} : {weight} g
         </Text>
       )}
       {dimensions && (
