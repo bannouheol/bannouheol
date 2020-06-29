@@ -146,7 +146,7 @@ module.exports = {
           {
             query: `
             {
-              allSanityProduct(sort: {order: [DESC], fields: [releaseDate]}) {
+              allSanityProduct(sort: {order: [DESC], fields: [releaseDate]}, filter: {slug: {fr: {current: {ne: null}}, br: {current: {ne: null}}}}) {
                 edges {
                   node {
                     id
@@ -217,7 +217,7 @@ module.exports = {
                     title: collectionTitle,
                   },
                 } = edge.node
-                const image_link = images && images[0] && images[0].asset.fluid.src
+                const image_link = images && images[0] && images[0].asset && images[0].asset.fluid.src
                 const availability = inStock ? 'in stock' : resupplyingDate ? 'available for order' : 'discontinued'
                 const link = `${site.siteMetadata.siteUrl}/fr/${collectionSlug}/${slug}`
                 const collection =
