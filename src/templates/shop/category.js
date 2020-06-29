@@ -28,7 +28,7 @@ const CategoryPage = ({ data, errors, ...props }) => {
         <SEO
           title={fullTitle}
           description={category.description && toPlainText(category.description)}
-          image={category.image && category.image.asset.fluid.src}
+          image={category.image && category.image.asset && category.image.asset.fluid.src}
         />
       )}
       {errors && <GraphQLErrorList errors={errors} />}

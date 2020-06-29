@@ -22,7 +22,7 @@ const PostPage = ({ data, errors, ...props }) => {
         <SEO
           title={post.title}
           description={post.excerpt && post.excerpt}
-          image={post.image && post.image.asset.fluid.src}
+          image={post.image && post.image.asset && post.image.asset.fluid.src}
         />
       )}
       {errors && <GraphQLErrorList errors={errors} />}

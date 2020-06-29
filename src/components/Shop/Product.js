@@ -93,7 +93,7 @@ export const Product = (product) => {
     youtubeVideos,
   } = product
 
-  const thumbs = product.images.images.map((i) => i.asset.fluid)
+  const thumbs = product.images.images.map((i) => i && i.asset && i.asset.fluid)
   const image = thumbs.shift()
 
   const resupplying = resupplyingDate ? true : false
@@ -117,7 +117,7 @@ export const Product = (product) => {
             <SRLWrapper>
               <Grid gap={3} width={[64]}>
                 {thumbs.map((i) => (
-                  <Img key={i.src} fluid={i} data-attribute="SRL" />
+                  <Img key={i && i.src} fluid={i} data-attribute="SRL" />
                 ))}
               </Grid>
             </SRLWrapper>
@@ -222,7 +222,7 @@ export const Product = (product) => {
                   price={productFeature.price.value}
                   url={productPath}
                   description={collection.title}
-                  image={product.images.images && product.images.images[0].asset.fluid.src}
+                  image={product.images.images && product.images.images[0] && product.images.images[0].asset.fluid.src}
                 />
               )}
             </Grid>

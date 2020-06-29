@@ -37,7 +37,7 @@ const ProfilePage = ({ data, errors, ...props }) => {
       <SEO
         title={profile.title || t("Titre inconnu")}
         description={profile.bio && toPlainText(profile.bio)}
-        image={profile.avatar && profile.avatar.asset.fluid.src}
+        image={profile.avatar && profile.avatar.asset && profile.avatar.asset.fluid.src}
       />
       {errors && <GraphQLErrorList errors={errors} />}
 

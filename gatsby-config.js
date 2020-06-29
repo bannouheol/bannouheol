@@ -146,7 +146,11 @@ module.exports = {
           {
             query: `
             {
-              allSanityProduct(sort: {order: [DESC], fields: [releaseDate]}, filter: {slug: {fr: {current: {ne: null}}, br: {current: {ne: null}}}}) {
+              allSanityProduct(sort: {order: [DESC], fields: [releaseDate]}, filter: {
+                slug: {fr: {current: {ne: null}}, br: {current: {ne: null}}},
+                title: {fr: {ne: null}, br: {ne: null}},
+                vendor: {title: {ne: null}}
+              }) {
                 edges {
                   node {
                     id
@@ -217,7 +221,7 @@ module.exports = {
                     title: collectionTitle,
                   },
                 } = edge.node
-                const image_link = images && images[0] && images[0].asset && images[0].asset.fluid.src
+                const image_link = images.length > 0 ? images && images[0] && images[0].asset && images[0].asset.fluid && images[0].asset.fluid.src : null
                 const availability = inStock ? 'in stock' : resupplyingDate ? 'available for order' : 'discontinued'
                 const link = `${site.siteMetadata.siteUrl}/fr/${collectionSlug}/${slug}`
                 const collection =
@@ -229,7 +233,7 @@ module.exports = {
                 return {
                   id,
                   brand,
-                  title: title.fr,
+                  title: title && title.fr,
                   image_link,
                   price,
                   condition: 'new',

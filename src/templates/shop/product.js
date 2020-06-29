@@ -58,7 +58,7 @@ const ProductPage = ({ data, errors, ...props }) => {
 
   const fullTitle = makeSeoTitle(seoTitle, title, collection.title)
 
-  const image = images.images && images.images[0] && images.images[0].asset.fluid.src
+  const image = images.images && images.images[0] && images.images[0].asset && images.images[0].asset.fluid.src
   const excerpt = body && toPlainText(body)
   const productPath = `/${language}/${collection.slug.current}/${slug.current}`
   const categoriesReduced =

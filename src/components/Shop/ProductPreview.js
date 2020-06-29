@@ -77,7 +77,7 @@ export const ProductPreview = (product) => {
               price={productFeature.price.value}
               url={`/${language}/${collection.slug.current}/${slug.current}`}
               description={collection.title}
-              image={product.images.images && product.images.images[0].asset.fluid.src}
+              image={product.images.images && product.images.images[0] && product.images.images[0].asset && product.images.images[0].asset.fluid.src}
               discrete="true"
             />
           )}

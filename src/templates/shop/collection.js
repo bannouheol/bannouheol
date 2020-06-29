@@ -26,7 +26,7 @@ const CollectionPage = ({ data, errors, ...props }) => {
         <SEO
           title={fullTitle}
           description={collection.description && toPlainText(collection.description)}
-          image={collection.image && collection.image.asset.fluid.src}
+          image={collection.image && collection.image.asset && collection.image.asset.fluid.src}
         />
       )}
       {errors && <GraphQLErrorList errors={errors} />}
