@@ -56,6 +56,13 @@ export const query = graphql`
     }
     products: allSanityProduct(
       sort: { order: [DESC, DESC], fields: [defaultProductVariant___inStock, releaseDate] }
+      filter: {
+        slug: {
+          fr: {current: {ne: null}},
+          br: {current: {ne: null}}
+        },
+        _id: {regex: "/^(?!draft)/"} 
+      }
       limit: 6
     ) {
       edges {

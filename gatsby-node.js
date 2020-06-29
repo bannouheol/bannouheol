@@ -74,7 +74,13 @@ exports.createPages = async ({ graphql, actions: { createPage, createRedirect },
             }
           }
         }
-        products: allSanityProduct(filter: {slug: {fr: {current: {ne: null}}, br: {current: {ne: null}}}}) {
+        products: allSanityProduct(filter: {
+          slug: {
+            fr: {current: {ne: null}},
+            br: {current: {ne: null}}
+          },
+          _id: {regex: "/^(?!draft)/"} 
+        }) {
           edges {
             node {
               id

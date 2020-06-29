@@ -129,7 +129,15 @@ export const query = graphql`
       ...productFields
     }
     sameCollectionProducts: allSanityProduct(
-      filter: { id: { ne: $product }, collection: { id: { eq: $collection } } }
+      filter: {
+        id: { ne: $product },
+        collection: { id: { eq: $collection } }
+        slug: {
+          fr: {current: {ne: null}},
+          br: {current: {ne: null}}
+        },
+        _id: {regex: "/^(?!draft)/"} 
+      }
       sort: { order: [DESC, DESC], fields: [defaultProductVariant___inStock, releaseDate] }
       limit: 6
     ) {

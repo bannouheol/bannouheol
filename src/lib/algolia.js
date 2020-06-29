@@ -1,6 +1,12 @@
 const productQuery = `
 {
-    products: allSanityProduct {
+    products: allSanityProduct(filter: {
+      slug: {
+        fr: {current: {ne: null}},
+        br: {current: {ne: null}}
+      },
+      _id: {regex: "/^(?!draft)/"} 
+    }) {
       edges {
         node {
           objectID: id

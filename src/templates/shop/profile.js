@@ -64,7 +64,14 @@ export const query = graphql`
       ...profileFields
     }
     asTraductor: allSanityProduct(
-      filter: { traductors: { elemMatch: { id: { eq: $profile } } } }
+      filter: {
+        traductors: { elemMatch: { id: { eq: $profile } } }
+        slug: {
+          fr: {current: {ne: null}},
+          br: {current: {ne: null}}
+        },
+        _id: {regex: "/^(?!draft)/"} 
+      }
       sort: { order: DESC, fields: releaseDate }
     ) {
       edges {
@@ -74,7 +81,14 @@ export const query = graphql`
       }
     }
     asAuthor: allSanityProduct(
-      filter: { bookFeature: { authors: { elemMatch: { id: { eq: $profile } } } } }
+      filter: {
+        bookFeature: { authors: { elemMatch: { id: { eq: $profile } } } }
+        slug: {
+          fr: {current: {ne: null}},
+          br: {current: {ne: null}}
+        },
+        _id: {regex: "/^(?!draft)/"} 
+      }
       sort: { order: DESC, fields: releaseDate }
     ) {
       edges {
@@ -84,7 +98,14 @@ export const query = graphql`
       }
     }
     asIllustrator: allSanityProduct(
-      filter: { bookFeature: { illustrators: { elemMatch: { id: { eq: $profile } } } } }
+      filter: {
+        bookFeature: { illustrators: { elemMatch: { id: { eq: $profile } } } }
+        slug: {
+          fr: {current: {ne: null}},
+          br: {current: {ne: null}}
+        },
+        _id: {regex: "/^(?!draft)/"} 
+      }
       sort: { order: DESC, fields: releaseDate }
     ) {
       edges {
@@ -94,7 +115,14 @@ export const query = graphql`
       }
     }
     asScriptwriter: allSanityProduct(
-      filter: { bookFeature: { scriptwriters: { elemMatch: { id: { eq: $profile } } } } }
+      filter: {
+        bookFeature: { scriptwriters: { elemMatch: { id: { eq: $profile } } } }
+        slug: {
+          fr: {current: {ne: null}},
+          br: {current: {ne: null}}
+        },
+        _id: {regex: "/^(?!draft)/"} 
+      }
       sort: { order: DESC, fields: releaseDate }
     ) {
       edges {

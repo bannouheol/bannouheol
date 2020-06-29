@@ -95,7 +95,14 @@ export const query = graphql`
       }
     }
     products: allSanityProduct(
-      filter: { categories: { elemMatch: { id: { eq: $category } } } }
+      filter: {
+        categories: { elemMatch: { id: { eq: $category } }
+        slug: {
+          fr: {current: {ne: null}},
+          br: {current: {ne: null}}
+        },
+        _id: {regex: "/^(?!draft)/"}
+      }
       sort: { order: [DESC, DESC], fields: [defaultProductVariant___inStock, releaseDate] }
     ) {
       edges {

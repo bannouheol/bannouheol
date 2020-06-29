@@ -149,7 +149,8 @@ module.exports = {
               allSanityProduct(sort: {order: [DESC], fields: [releaseDate]}, filter: {
                 slug: {fr: {current: {ne: null}}, br: {current: {ne: null}}},
                 title: {fr: {ne: null}, br: {ne: null}},
-                vendor: {title: {ne: null}}
+                vendor: {title: {ne: null}},
+                _id: {regex: "/^(?!draft)/"} 
               }) {
                 edges {
                   node {
