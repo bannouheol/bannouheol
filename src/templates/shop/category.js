@@ -96,11 +96,11 @@ export const query = graphql`
     }
     products: allSanityProduct(
       filter: {
-        categories: { elemMatch: { id: { eq: $category } } },
         slug: {
           fr: {current: {ne: null}},
           br: {current: {ne: null}}
         },
+        categories: { elemMatch: { id: { eq: $category } } },
         _id: {regex: "/^(?!draft)/"}
       }
       sort: { order: [DESC, DESC], fields: [defaultProductVariant___inStock, releaseDate] }
