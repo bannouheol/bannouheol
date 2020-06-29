@@ -200,7 +200,7 @@ export const Product = (product) => {
               </Box>
             )}
 
-            {releaseDate && <p>{t('shop:released_on', { date: releaseDate })}</p>}
+            {/*releaseDate && <p>{t('shop:released_on', { date: releaseDate })}</p>*/}
             {minimumAge && <p>{t('shop:minimum_age', { minimum_age: minimumAge })}</p>}
           </Box>
         </Box>
