@@ -96,7 +96,7 @@ export const query = graphql`
     }
     products: allSanityProduct(
       filter: {
-        categories: { elemMatch: { id: { eq: $category } }
+        categories: { elemMatch: { id: { eq: $category } },
         slug: {
           fr: {current: {ne: null}},
           br: {current: {ne: null}}
