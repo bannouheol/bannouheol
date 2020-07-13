@@ -60,7 +60,7 @@
     "video-react": "^0.14.1"
   },
   "devDependencies": {
-    "@types/react": "^16.9.41",
+    "@types/react": "^16.9.43",
     "prettier": "^2.0.5"
   },
   "keywords": [
