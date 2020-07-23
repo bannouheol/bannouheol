@@ -1,19 +1,19 @@
 /** @jsx jsx */
-import { jsx, Styled } from 'theme-ui'
-import { graphql } from 'gatsby'
-import { Layout } from '../components/Layout'
-import { useTranslation } from 'react-i18next'
-import { mapEdgesToNodes, translateRaw } from '../lib/helpers'
-import { GraphQLErrorList } from '../components/GraphQLErrorList'
-import { Posts } from '../components/Blog/Posts'
-import { Products } from '../components/Shop/Products'
+import {jsx, Styled} from 'theme-ui'
+import {graphql} from 'gatsby'
+import {Layout} from '../components/Layout'
+import {useTranslation} from 'react-i18next'
+import {mapEdgesToNodes, translateRaw} from '../lib/helpers'
+import {GraphQLErrorList} from '../components/GraphQLErrorList'
+import {Posts} from '../components/Blog/Posts'
+import {Products} from '../components/Shop/Products'
 import SEO from '../components/SEO'
 import PortableText from '../components/PortableText'
 
-const IndexPage = ({ data, errors, ...props }) => {
+const IndexPage = ({data, errors, ...props}) => {
   const {
     t,
-    i18n: { language },
+    i18n: {language},
   } = useTranslation('common')
   if (errors) {
     return (
@@ -22,7 +22,7 @@ const IndexPage = ({ data, errors, ...props }) => {
       </Layout>
     )
   }
-  const { homePage, posts, products } = translateRaw(data, language)
+  const {homePage, posts, products} = translateRaw(data, language)
   const postNodes = posts && mapEdgesToNodes(data.posts)
   const productNodes = products && mapEdgesToNodes(products)
   return (
@@ -30,7 +30,7 @@ const IndexPage = ({ data, errors, ...props }) => {
       <SEO title={homePage.title} />
       {homePage.content && <PortableText blocks={homePage.content} />}
       <Styled.h2>{t(`shop:latest_products`)}</Styled.h2>
-      {productNodes && productNodes.length > 0 && <Products nodes={productNodes} sx={{ mt: 3 }} />}
+      {productNodes && productNodes.length > 0 && <Products nodes={productNodes} sx={{mt: 3}} />}
       <Styled.h2>{t(`news`)}</Styled.h2>
       {postNodes && postNodes.length > 0 && <Posts nodes={postNodes} />}
     </Layout>
@@ -63,7 +63,7 @@ export const query = graphql`
         },
         _id: {regex: "/^(?!draft)/"} 
       }
-      limit: 6
+      limit: 12
     ) {
       edges {
         node {
