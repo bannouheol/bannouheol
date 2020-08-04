@@ -1,12 +1,12 @@
 /** @jsx jsx */
-import { useContext } from 'react'
-import { jsx, Box, Flex, Heading, MenuButton } from 'theme-ui'
+import {useContext} from 'react'
+import {jsx, Box, Flex, Heading, MenuButton} from 'theme-ui'
 import PropTypes from 'prop-types'
-import { useTranslation } from 'react-i18next'
-import { Link } from '../Link'
-import { MenuContext } from '../Layout'
+import {useTranslation} from 'react-i18next'
+import {Link} from '../Link'
+import {MenuContext} from '../Layout'
 
-const HeaderLogo = ({ siteTitle, canonicalUrl }) => {
+const HeaderLogo = ({siteTitle, canonicalUrl}) => {
   const ctx = useContext(MenuContext)
   const isHome = (canonicalUrl === '/fr' && true) || (canonicalUrl === '/br' && true)
   const {
@@ -39,7 +39,7 @@ const HeaderLogo = ({ siteTitle, canonicalUrl }) => {
           mt: [2, 0],
         }}
       >
-        <Heading as={isHome && 'h1'} sx={{ fontFamily: 'logo', mb: 3, fontSize: 5 }}>
+        <Heading as={isHome && 'h1'} sx={{fontFamily: 'logo', mb: 3, fontSize: 5}}>
           <Link
             to="/"
             sx={{
@@ -57,12 +57,12 @@ const HeaderLogo = ({ siteTitle, canonicalUrl }) => {
             {siteTitle}
           </Link>
         </Heading>
-        <Heading as={isHome && 'h2'} sx={{ color: 'white', fontFamily: 'body', fontSize: 0 }}>
+        <Heading as={isHome && 'h2'} sx={{color: 'white', fontFamily: 'body', fontSize: 0}}>
           {t('subtitle')}
         </Heading>
       </Flex>
-      <div sx={{ display: ['flex', 'none'], justifyContent: 'center', alignItems: 'center' }}>
-        <MenuButton onClick={ctx.toggleMenu} sx={{ height: '3rem' }} />
+      <div sx={{display: ['flex', 'none'], justifyContent: 'center', alignItems: 'center'}}>
+        <MenuButton onClick={ctx.toggleMenu} sx={{height: '3rem'}} />
       </div>
     </Box>
   )
@@ -76,4 +76,4 @@ HeaderLogo.defaultProps = {
   siteTitle: ``,
 }
 
-export { HeaderLogo }
+export {HeaderLogo}
