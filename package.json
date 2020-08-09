@@ -14,11 +14,7 @@
     "currency.js": "^2.0.3",
     "date-fns": "^2.15.0",
     "dotenv": "^8.2.0",
-<<<<<<< refs/remotes/origin/master
-    "gatsby": "^2.24.33",
-=======
     "gatsby": "^2.24.37",
->>>>>>> Auto stash before merge of "master" and "origin/master"
     "gatsby-image": "^2.4.14",
     "gatsby-plugin-algolia": "^0.11.2",
     "gatsby-plugin-catch-links": "^2.3.11",
@@ -64,11 +60,7 @@
     "video-react": "^0.14.1"
   },
   "devDependencies": {
-<<<<<<< refs/remotes/origin/master
-    "@types/react": "^16.9.44",
-=======
     "@types/react": "^16.9.45",
->>>>>>> Auto stash before merge of "master" and "origin/master"
     "prettier": "^2.0.5"
   },
   "keywords": [
