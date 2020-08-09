@@ -64,8 +64,8 @@ module.exports = {
       resolve: 'gatsby-plugin-snipcartv3',
       options: {
         apiKey: process.env.SNIPCART_APIKEY,
-        js: `/snipcart.3.0.15.js`,
-        styles: `/snipcart.3.0.15.css`,
+        js: `/snipcart.3.0.19.js`,
+        styles: `/snipcart.3.0.19.css`,
       },
     },
     `gatsby-transformer-sharp`,
@@ -222,7 +222,10 @@ module.exports = {
                     title: collectionTitle,
                   },
                 } = edge.node
-                const image_link = images.length > 0 ? images && images[0] && images[0].asset && images[0].asset.fluid && images[0].asset.fluid.src : null
+                const image_link =
+                  images.length > 0
+                    ? images && images[0] && images[0].asset && images[0].asset.fluid && images[0].asset.fluid.src
+                    : null
                 const availability = inStock ? 'in stock' : resupplyingDate ? 'available for order' : 'discontinued'
                 const link = `${site.siteMetadata.siteUrl}/fr/${collectionSlug}/${slug}`
                 const collection =
