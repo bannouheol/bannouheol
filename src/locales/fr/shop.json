@@ -20,10 +20,12 @@
   "authors": "Auteur(s)",
   "scriptwriters": "Scénariste(s)",
   "in_collection": "Dans la collection {{collection_title}}",
-  "minimum_age": "Dès l'âge de {{minimum_age}} ans",
+  "minimum_age_vloaz": "Dès l'âge de {{minimum_age}} ans",
+  "minimum_age_bloaz": "Dès l'âge de {{minimum_age}} ans",
   "free_shipping_message": "<0>Livraison offerte</0> à partir de 10 €, en 3 jours chez vous",
   "order_form_message": "Vous ne souhaitez pas commander en ligne ? Pas de problème, remplissez ce <1>bon de commande</3> et renvoyez-le nous !",
   "latest_products": "Nouveautés",
   "resupplying": "En cours de réapprovisionnement",
-  "delivery_on": "Livré approximativement chez vous le <2>{{resupplyingDateFormatted}}</2>."
+  "delivery_on": "Livré approximativement chez vous le <2>{{resupplyingDateFormatted}}</2>.",
+  "to_complete_your_order": "Pour compléter votre commande"
 }

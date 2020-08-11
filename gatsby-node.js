@@ -250,7 +250,11 @@ exports.createPages = async ({ graphql, actions: { createPage, createRedirect },
         path: productPath,
         previousPath: node.previousPath && `/${node.previousPath}`,
         component: path.resolve(path.join(templates.baseDir, templates.shop.product)),
-        context: { product: node.id, collection: node.collection.id },
+        context: {
+          product: node.id,
+          /* Si ce n'est pas un autocollant */
+          collection: node.collection.id !== '-09ca6cfc-f539-5a29-9c12-9cdb3fe0476d' ? node.collection.id : '',
+        },
       }
     },
     namespaces,

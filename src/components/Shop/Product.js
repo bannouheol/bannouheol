@@ -91,7 +91,6 @@ export const Product = product => {
     traductors,
     bookFeature,
     productFeature: {inStock, resupplyingDate, ...productFeature},
-    //releaseDate,
     minimumAge,
     youtubeVideos,
     vendor: {title: vendor},
@@ -104,6 +103,9 @@ export const Product = product => {
   const resupplyingDateFormatted = resupplyingDate && format(parseISO(resupplyingDate), 'dd/MM/yyyy')
 
   const productPath = `/${language}/${collection.slug.current}/${slug.current}`
+
+  const bloaz = [3, 4, 5, 9]
+  const minimumAgeTranslateKey = bloaz.includes(minimumAge) ? 'shop:minimum_age_bloaz' : 'shop:minimum_age_vloaz'
 
   return (
     <article>
@@ -172,8 +174,9 @@ export const Product = product => {
                 <XInBreton x={collection.title} />
               </Link>
             </h3>{' '}
-            {t('shop:categories')} :{' '}
+            {categories && categories.length > 0 && t('shop:categories') + ' : '}
             {categories &&
+              categories.length > 0 &&
               categories
                 .map(c => {
                   c['path'] = path.join('/', c.parent === null ? `` : c.parent.slug.current, c.slug.current)
@@ -206,7 +209,7 @@ export const Product = product => {
             )}
 
             {/*releaseDate && <p>{t('shop:released_on', { date: releaseDate })}</p>*/}
-            {minimumAge && <p>{t('shop:minimum_age', {minimum_age: minimumAge})}</p>}
+            {minimumAge && <p>{t(minimumAgeTranslateKey, { minimum_age: minimumAge })}</p>}
           </Box>
         </Box>
         <Box sx={{order: [2, 1, 2], mb: [4, 0]}}>
