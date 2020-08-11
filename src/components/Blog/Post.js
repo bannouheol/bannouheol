@@ -142,7 +142,8 @@ export const Post = (nonExtensiblePost) => {
       )}
       {featuredProfiles.length > 0 && (
         <Box>
-          Avec la participation de :{` `}
+          {t('blog:linked_profiles')}
+          {` : `}
           {featuredProfiles
             .map((t) => t && <ProfilePreview key={t.id} {...t} showAvatar={false} />)
             .reduce((acc, el) => {
