@@ -1,17 +1,17 @@
 /** @jsx jsx */
-import { jsx, Styled, Box } from "theme-ui"
-import React from "react"
-import { Layout } from "../../components/Layout"
-import SEO from "../../components/SEO"
-import { graphql } from "gatsby"
-import { GraphQLErrorList } from "../../components/GraphQLErrorList"
-import { useTranslation } from "react-i18next"
-import { Profile } from "../../components/Shop/Profile"
-import { mapEdgesToNodes, toPlainText, translateRaw } from "../../lib/helpers"
-import { Posts } from "../../components/Blog/Posts"
-import { Products } from "../../components/Shop/Products"
+import { jsx, Styled, Box } from 'theme-ui'
+import React from 'react'
+import { Layout } from '../../components/Layout'
+import SEO from '../../components/SEO'
+import { graphql } from 'gatsby'
+import { GraphQLErrorList } from '../../components/GraphQLErrorList'
+import { useTranslation } from 'react-i18next'
+import { Profile } from '../../components/Shop/Profile'
+import { mapEdgesToNodes, toPlainText, translateRaw } from '../../lib/helpers'
+import { Posts } from '../../components/Blog/Posts'
+import { Products } from '../../components/Shop/Products'
 
-import uniqBy from "lodash/uniqBy"
+import uniqBy from 'lodash/uniqBy'
 
 const ProfilePage = ({ data, errors, ...props }) => {
   const {
@@ -27,7 +27,7 @@ const ProfilePage = ({ data, errors, ...props }) => {
   const asScriptwriterProductNodes = mapEdgesToNodes(asScriptwriter)
   const products = uniqBy(
     [...asTraductorProductNodes, ...asAuthorProductNodes, ...asIllustratorProductNodes, ...asScriptwriterProductNodes],
-    "id"
+    'id'
   )
   const blogPosts = mapEdgesToNodes(asBlogFeatured)
 
@@ -35,7 +35,7 @@ const ProfilePage = ({ data, errors, ...props }) => {
     <Layout {...props}>
       {errors && <SEO title="GraphQL Error" />}
       <SEO
-        title={profile.title || t("Titre inconnu")}
+        title={profile.title || t('Titre inconnu')}
         description={profile.bio && toPlainText(profile.bio)}
         image={profile.avatar && profile.avatar.asset && profile.avatar.asset.fluid.src}
       />
@@ -44,7 +44,7 @@ const ProfilePage = ({ data, errors, ...props }) => {
       <Profile {...profile} />
       {products && products.length > 0 && (
         <React.Fragment>
-          <Styled.h2>{t("shop:involvement")}</Styled.h2>
+          <Styled.h2>{t('shop:involvement')}</Styled.h2>
           <Products nodes={products} />
         </React.Fragment>
       )}
@@ -66,11 +66,8 @@ export const query = graphql`
     asTraductor: allSanityProduct(
       filter: {
         traductors: { elemMatch: { id: { eq: $profile } } }
-        slug: {
-          fr: {current: {ne: null}},
-          br: {current: {ne: null}}
-        },
-        _id: {regex: "/^(?!draft)/"} 
+        slug: { fr: { current: { ne: null } }, br: { current: { ne: null } } }
+        _id: { regex: "/^(?!draft)/" }
       }
       sort: { order: DESC, fields: releaseDate }
     ) {
@@ -83,11 +80,8 @@ export const query = graphql`
     asAuthor: allSanityProduct(
       filter: {
         bookFeature: { authors: { elemMatch: { id: { eq: $profile } } } }
-        slug: {
-          fr: {current: {ne: null}},
-          br: {current: {ne: null}}
-        },
-        _id: {regex: "/^(?!draft)/"} 
+        slug: { fr: { current: { ne: null } }, br: { current: { ne: null } } }
+        _id: { regex: "/^(?!draft)/" }
       }
       sort: { order: DESC, fields: releaseDate }
     ) {
@@ -100,11 +94,8 @@ export const query = graphql`
     asIllustrator: allSanityProduct(
       filter: {
         bookFeature: { illustrators: { elemMatch: { id: { eq: $profile } } } }
-        slug: {
-          fr: {current: {ne: null}},
-          br: {current: {ne: null}}
-        },
-        _id: {regex: "/^(?!draft)/"} 
+        slug: { fr: { current: { ne: null } }, br: { current: { ne: null } } }
+        _id: { regex: "/^(?!draft)/" }
       }
       sort: { order: DESC, fields: releaseDate }
     ) {
@@ -117,11 +108,8 @@ export const query = graphql`
     asScriptwriter: allSanityProduct(
       filter: {
         bookFeature: { scriptwriters: { elemMatch: { id: { eq: $profile } } } }
-        slug: {
-          fr: {current: {ne: null}},
-          br: {current: {ne: null}}
-        },
-        _id: {regex: "/^(?!draft)/"} 
+        slug: { fr: { current: { ne: null } }, br: { current: { ne: null } } }
+        _id: { regex: "/^(?!draft)/" }
       }
       sort: { order: DESC, fields: releaseDate }
     ) {
