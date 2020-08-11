@@ -20,10 +20,12 @@
   "authors": "Oberour(ien)",
   "scriptwriters": "Senarier(ien)",
   "in_collection": "E dastumad {{collection_title}}",
-  "minimum_age": "Adalek {{minimum_age}} vloaz",
+  "minimum_age_vloaz": "Adalek {{minimum_age}} vloaz",
+  "minimum_age_bloaz": "Adalek {{minimum_age}} bloaz",
   "free_shipping_message": "<0>Degasadenn profet</0> adalek 10 €, dindan 3 devezh du-se",
   "order_form_message": "N'ho peus ket c'hoant da urzhiadiñ enlinenn ? Kudenn ebet, leugnit ar <1>baperenn urzhiadiñ-mañ</3> ha kasit anezhi deomp !",
   "latest_products": "Nevezentioù",
   "resupplying": "War adpourvezañ",
-  "delivery_on": "Degaset deoc'h war-dro an <2>{{resupplyingDateFormatted}}</2>."
+  "delivery_on": "Degaset deoc'h war-dro an <2>{{resupplyingDateFormatted}}</2>.",
+  "to_complete_your_order": "Evit klokaat hoc'h urzhiad"
 }

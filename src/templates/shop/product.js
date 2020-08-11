@@ -36,6 +36,7 @@ const ProductPage = ({ data, errors, ...props }) => {
   const {
     product,
     sameCollectionProducts,
+    goodies,
     blogPosts,
     site: {
       siteMetadata: { siteUrl },
@@ -54,6 +55,7 @@ const ProductPage = ({ data, errors, ...props }) => {
     reference,
   } = product
   const sameCollectionProductNodes = mapEdgesToNodes(sameCollectionProducts)
+  const goodiesNodes = mapEdgesToNodes(goodies)
   const blogPostsNodes = mapEdgesToNodes(blogPosts)
 
   const fullTitle = makeSeoTitle(seoTitle, title, collection.title)
@@ -108,9 +110,18 @@ const ProductPage = ({ data, errors, ...props }) => {
 
       {product && <Product {...product} />}
       {sameCollectionProductNodes && sameCollectionProductNodes.length > 0 && (
-        <Box mt={3}>
+        <Box mt={[3, 5]}>
           <Styled.h4>{t('shop:in_collection', { collection_title: product.collection.title })}</Styled.h4>
           <Products nodes={sameCollectionProductNodes} />
+        </Box>
+      )}
+      {goodiesNodes && goodiesNodes.length > 0 && (
+        <Box mt={1}>
+          <Styled.h4>
+            {t('shop:to_complete_your_order')}
+            {` :`}
+          </Styled.h4>
+          <Products nodes={goodiesNodes} />
         </Box>
       )}
       {blogPostsNodes && blogPostsNodes.length > 0 && (
@@ -130,16 +141,29 @@ export const query = graphql`
     }
     sameCollectionProducts: allSanityProduct(
       filter: {
-        id: { ne: $product },
+        id: { ne: $product }
         collection: { id: { eq: $collection } }
-        slug: {
-          fr: {current: {ne: null}},
-          br: {current: {ne: null}}
-        },
-        _id: {regex: "/^(?!draft)/"} 
+        slug: { fr: { current: { ne: null } }, br: { current: { ne: null } } }
+        _id: { regex: "/^(?!draft)/" }
       }
       sort: { order: [DESC, DESC], fields: [defaultProductVariant___inStock, releaseDate] }
       limit: 6
+    ) {
+      edges {
+        node {
+          ...productPreviewFields
+        }
+      }
+    }
+    goodies: allSanityProduct(
+      filter: {
+        id: { ne: $product }
+        collection: { id: { eq: "-09ca6cfc-f539-5a29-9c12-9cdb3fe0476d" } }
+        slug: { fr: { current: { ne: null } }, br: { current: { ne: null } } }
+        _id: { regex: "/^(?!draft)/" }
+        defaultProductVariant: { inStock: { eq: true } }
+      }
+      sort: { order: [DESC], fields: [releaseDate] }
     ) {
       edges {
         node {
