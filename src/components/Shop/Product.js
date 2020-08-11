@@ -76,6 +76,9 @@ export const Product = product => {
       youtubeVideos {
         url
       }
+      vendor {
+        title
+      }
     }
   `
   const {
@@ -91,6 +94,7 @@ export const Product = product => {
     //releaseDate,
     minimumAge,
     youtubeVideos,
+    vendor: {title: vendor},
   } = product
 
   const thumbs = product.images.images.map(i => i && i.asset && i.asset.fluid)
@@ -184,6 +188,7 @@ export const Product = product => {
                 .reduce((acc, el) => {
                   return acc === null ? [el] : [...acc, ' - ', el]
                 }, null)}
+            {vendor && <p>Maison d'édition : {vendor}</p>}
           </Box>
           {body && <PortableText blocks={body} />}
           <Box mt={2}>
