@@ -36,7 +36,7 @@
     "gatsby-plugin-theme-ui": "^0.3.0",
     "gatsby-plugin-zeit-now": "^0.3.0",
     "gatsby-source-filesystem": "^2.3.24",
-    "gatsby-source-sanity": "^6.0.3",
+    "gatsby-source-sanity": "^6.0.4",
     "gatsby-transformer-sharp": "^2.5.12",
     "get-video-id": "^3.1.4",
     "i18next": "^19.6.3",
