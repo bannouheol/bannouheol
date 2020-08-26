@@ -13178,10 +13178,10 @@ react-focus-lock@^2.3.1:
     use-callback-ref "^1.2.1"
     use-sidecar "^1.0.1"
 
-react-h5-audio-player@^3.2.0:
-  version "3.2.0"
-  resolved "https://registry.yarnpkg.com/react-h5-audio-player/-/react-h5-audio-player-3.2.0.tgz#bce677d0b3ee44373f2e5d9baf0d7cba263cf4be"
-  integrity sha512-u2nBMwo+5SpRjfDUEH79LmzbbVPJRBZNRLqpWZ/i6vanCQow+UaEZmSoKiwXamAejSXLXJa8+DFgnOskllJgHw==
+react-h5-audio-player@^3.3.2:
+  version "3.3.2"
+  resolved "https://registry.yarnpkg.com/react-h5-audio-player/-/react-h5-audio-player-3.3.2.tgz#747c1591785ef08952a015f6f77a5787479fec45"
+  integrity sha512-1zvbQ8AcNYI+w14DlK+Mzm2NQi/eOeYEUsq65iglybPBgo3yZ7ZTaGp4DEXFPdxbdSPUWUWZOwKmpP2maLT7dQ==
   dependencies:
     "@babel/runtime" "^7.10.2"
     "@iconify/icons-mdi" "^1.0.46"
