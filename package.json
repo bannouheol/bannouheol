@@ -24,7 +24,7 @@
     "gatsby-plugin-mailchimp": "^5.2.2",
     "gatsby-plugin-manifest": "^2.4.24",
     "gatsby-plugin-nprogress": "^2.3.10",
-    "gatsby-plugin-offline": "^3.2.23",
+    "gatsby-plugin-offline": "^3.2.26",
     "gatsby-plugin-preact": "^4.0.9",
     "gatsby-plugin-react-helmet": "^3.3.10",
     "gatsby-plugin-react-svg": "^3.0.0",
