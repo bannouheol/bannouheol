@@ -8,11 +8,11 @@ function toPlainText(blocks) {
     return ''
   }
   return blocks
-    .map((block) => {
+    .map(block => {
       if (block._type !== 'block' || !block.children) {
         return ''
       }
-      return block.children.map((child) => child.text).join('')
+      return block.children.map(child => child.text).join('')
     })
     .join('\n\n')
 }
@@ -64,8 +64,8 @@ module.exports = {
       resolve: 'gatsby-plugin-snipcartv3',
       options: {
         apiKey: process.env.SNIPCART_APIKEY,
-        js: `/snipcart.3.0.19.js`,
-        styles: `/snipcart.3.0.19.css`,
+        js: `/snipcart.3.0.20.js`,
+        styles: `/snipcart.3.0.20.css`,
       },
     },
     `gatsby-transformer-sharp`,
@@ -115,13 +115,13 @@ module.exports = {
         sitemap: 'https://bannouheol.com/sitemap.xml',
         env: {
           development: {
-            policy: [{ userAgent: '*', disallow: ['/'] }],
+            policy: [{userAgent: '*', disallow: ['/']}],
           },
           preview: {
-            policy: [{ userAgent: '*', disallow: ['/'] }],
+            policy: [{userAgent: '*', disallow: ['/']}],
           },
           production: {
-            policy: [{ userAgent: '*', allow: '/' }],
+            policy: [{userAgent: '*', allow: '/'}],
           },
         },
       },
@@ -199,25 +199,25 @@ module.exports = {
               }
             }                                   
             `,
-            serialize: ({ query: { site, allSanityProduct } }) => {
-              return allSanityProduct.edges.map((edge) => {
+            serialize: ({query: {site, allSanityProduct}}) => {
+              return allSanityProduct.edges.map(edge => {
                 const {
                   id,
                   slug: {
-                    fr: { current: slug },
+                    fr: {current: slug},
                   },
-                  vendor: { title: brand },
+                  vendor: {title: brand},
                   title,
                   defaultProductVariant: {
                     images,
                     inStock,
                     resupplyingDate,
-                    price: { value: priceValue },
+                    price: {value: priceValue},
                   },
                   collection: {
-                    id: { item_group_id },
+                    id: {item_group_id},
                     slug: {
-                      fr: { current: collectionSlug },
+                      fr: {current: collectionSlug},
                     },
                     title: collectionTitle,
                   },
