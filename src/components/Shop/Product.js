@@ -107,6 +107,32 @@ export const Product = product => {
   const bloaz = [3, 4, 5, 9]
   const minimumAgeTranslateKey = bloaz.includes(minimumAge) ? 'shop:minimum_age_bloaz' : 'shop:minimum_age_vloaz'
 
+  const options = {
+    buttons: {
+      backgroundColor: 'rgba(140, 94, 88, 0.8)',
+      iconColor: 'rgba(241, 191, 152, 0.7)',
+    },
+    settings: {
+      overlayColor: 'rgba(255, 237, 225, 1)',
+      showThumbnails: false,
+      transitionSpeed: 1000,
+      transitionTimingFunction: 'linear',
+    },
+    thumbnails: {
+      thumbnailsSize: ['120px', '150px'],
+      thumbnailsPosition: 'left',
+      thumbnailsGap: '0 0 10px 0',
+      thumbnailsOpacity: 0.2,
+      thumbnailsContainerBackgroundColor: '#AF9AB2',
+      thumbnailsContainerPadding: '0 5px',
+    },
+    progressBar: {
+      size: '4px',
+      backgroundColor: 'rgba(255, 237, 225, 1)',
+      fillColor: '#AF9AB2',
+    },
+  }
+
   return (
     <article>
       <Grid gap={2} columns={[1, 2, '4fr 6fr 4fr', '4fr 6fr 3fr']} className="boundary-element">
@@ -120,10 +146,10 @@ export const Product = product => {
             />
           )}
           {thumbs && (
-            <SRLWrapper>
+            <SRLWrapper options={options}>
               <Grid gap={3} columns={2} sx={{mt: 3}}>
                 {thumbs.map(i => (
-                  <Img key={i && i.src} fluid={i} data-attribute="SRL" />
+                  <Img key={i && i.src} fluid={i} />
                 ))}
               </Grid>
             </SRLWrapper>
@@ -209,7 +235,7 @@ export const Product = product => {
             )}
 
             {/*releaseDate && <p>{t('shop:released_on', { date: releaseDate })}</p>*/}
-            {minimumAge && <p>{t(minimumAgeTranslateKey, { minimum_age: minimumAge })}</p>}
+            {minimumAge && <p>{t(minimumAgeTranslateKey, {minimum_age: minimumAge})}</p>}
           </Box>
         </Box>
         <Box sx={{order: [2, 1, 2], mb: [4, 0]}}>
