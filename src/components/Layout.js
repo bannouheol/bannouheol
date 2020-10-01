@@ -1,23 +1,23 @@
 /** @jsx jsx */
-import { jsx } from 'theme-ui'
-import React, { useState } from 'react'
-import { useStaticQuery, graphql } from 'gatsby'
-import { Helmet } from 'react-helmet'
-import { Header } from './Header/Header'
-import { FooterFirst } from './FooterFirst'
-import { FooterSecond } from './FooterSecond'
-import { MobileMenu } from './MobileMenu'
-import { TopMessage } from './TopMessage'
+import {jsx} from 'theme-ui'
+import React, {useState} from 'react'
+import {useStaticQuery, graphql} from 'gatsby'
+import {Helmet} from 'react-helmet'
+import {Header} from './Header/Header'
+import {FooterFirst} from './FooterFirst'
+import {FooterSecond} from './FooterSecond'
+import {MobileMenu} from './MobileMenu'
+//import { TopMessage } from './TopMessage'
 import SimpleReactLightbox from 'simple-react-lightbox'
-import { useTranslation } from 'react-i18next'
+import {useTranslation} from 'react-i18next'
 
 const allLanguages = ['br', 'fr']
 
 export const MenuContext = React.createContext(false)
 
-export const Layout = ({ children, pageContext: { _language, alternateLinks, ...pageContext }, mainP = 3 }) => {
+export const Layout = ({children, pageContext: {_language, alternateLinks, ...pageContext}, mainP = 3}) => {
   const {
-    i18n: { language },
+    i18n: {language},
   } = useTranslation('common')
   const [menuOpenState, setMenuOpenState] = useState(false)
   const data = useStaticQuery(graphql`
@@ -31,7 +31,7 @@ export const Layout = ({ children, pageContext: { _language, alternateLinks, ...
     }
   `)
   const {
-    site: { siteMetadata },
+    site: {siteMetadata},
   } = data
   let alternateLink =
     alternateLinks &&
@@ -41,7 +41,7 @@ export const Layout = ({ children, pageContext: { _language, alternateLinks, ...
     }, null)
   if (alternateLink === null)
     alternateLink = allLanguages.reduce((acc, el) => {
-      return el !== language ? { language: el, path: `/${el}/` } : acc
+      return el !== language ? {language: el, path: `/${el}/`} : acc
     }, null)
 
   const lang = typeof language !== 'undefined' && language !== 'undefined' && language ? `${language}-FR` : 'fr-FR'
@@ -50,10 +50,10 @@ export const Layout = ({ children, pageContext: { _language, alternateLinks, ...
       value={{
         isMenuOpen: menuOpenState,
         toggleMenu: () => setMenuOpenState(!menuOpenState),
-        stateChangeHandler: (newState) => setMenuOpenState(newState.isOpen),
+        stateChangeHandler: newState => setMenuOpenState(newState.isOpen),
       }}
     >
-      <Helmet htmlAttributes={{ lang: lang }}>
+      <Helmet htmlAttributes={{lang: lang}}>
         <link rel="dns-prefetch" href="//cdn.sanity.io/" />
         <link ref="dns-prefetch" href="https://www.youtube.com/" />
       </Helmet>
@@ -69,7 +69,7 @@ export const Layout = ({ children, pageContext: { _language, alternateLinks, ...
         }}
       >
         <SimpleReactLightbox>
-          <TopMessage />
+          {/*<TopMessage />*/}
           <Header {...siteMetadata} {...pageContext} language={language} alternateLink={alternateLink} />
 
           <main
