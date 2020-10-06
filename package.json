@@ -55,7 +55,7 @@
     "react-onclickoutside": "^6.9.0",
     "react-schemaorg": "^1.2.0",
     "react-youtube": "^7.12.0",
-    "simple-react-lightbox": "3.2.3-3",
+    "simple-react-lightbox": "3.3.4",
     "theme-ui": "0.4.0-rc.1",
     "video-react": "^0.14.1"
   },
