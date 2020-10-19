@@ -29,7 +29,7 @@
     "gatsby-plugin-react-helmet": "^3.3.14",
     "gatsby-plugin-react-svg": "^3.0.0",
     "gatsby-plugin-robots-txt": "^1.5.3",
-    "gatsby-plugin-sharp": "^2.6.40",
+    "gatsby-plugin-sharp": "^2.6.43",
     "gatsby-plugin-sitemap": "^2.4.15",
     "gatsby-plugin-snipcartv3": "^2.3.3",
     "gatsby-plugin-statickit": "^1.1.1",
