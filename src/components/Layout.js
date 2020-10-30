@@ -7,7 +7,7 @@ import {Header} from './Header/Header'
 import {FooterFirst} from './FooterFirst'
 import {FooterSecond} from './FooterSecond'
 import {MobileMenu} from './MobileMenu'
-//import { TopMessage } from './TopMessage'
+import {TopMessage} from './TopMessage'
 import SimpleReactLightbox from 'simple-react-lightbox'
 import {useTranslation} from 'react-i18next'
 
@@ -69,7 +69,7 @@ export const Layout = ({children, pageContext: {_language, alternateLinks, ...pa
         }}
       >
         <SimpleReactLightbox>
-          {/*<TopMessage />*/}
+          <TopMessage />
           <Header {...siteMetadata} {...pageContext} language={language} alternateLink={alternateLink} />
 
           <main
