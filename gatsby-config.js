@@ -64,8 +64,8 @@ module.exports = {
       resolve: 'gatsby-plugin-snipcartv3',
       options: {
         apiKey: process.env.SNIPCART_APIKEY,
-        js: `/snipcart.3.0.20.js`,
-        styles: `/snipcart.3.0.20.css`,
+        js: `/snipcart.3.0.24.js`,
+        styles: `/snipcart.3.0.24.css`,
       },
     },
     `gatsby-transformer-sharp`,
