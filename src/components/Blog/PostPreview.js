@@ -4,8 +4,9 @@ import React from 'react'
 import Img from 'gatsby-image'
 import { graphql, Link } from 'gatsby'
 import { useTranslation, Trans } from 'react-i18next'
-import { translateRaw } from '../../lib/helpers'
+import { translateRaw, truncateString } from '../../lib/helpers'
 import { CategoryPreview } from './CategoryPreview'
+import TextTruncate from 'react-text-truncate'
 
 export const PostPreview = (nonExtensiblePost) => {
   const {
@@ -70,7 +71,12 @@ export const PostPreview = (nonExtensiblePost) => {
           {postLanguage !== language && `[${t(postLanguage)}] `}
           <Link to={postPath}>{title}</Link>
         </Styled.h3>
-        <Box>{excerpt}</Box>
+        <Box><TextTruncate
+    line={7}
+    element="span"
+    truncateText="…"
+    text={excerpt}
+/></Box>
         {publishedAt && (
           <Box sx={{ mt: 2, fontSize: 0 }}>
             <Trans i18nKey="blog:posted_in_x_at_x">
