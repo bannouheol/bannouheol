@@ -94,7 +94,7 @@ module.exports = {
     `gatsby-plugin-catch-links`,
     `gatsby-plugin-nprogress`,
     `gatsby-plugin-offline`,
-    `gatsby-plugin-zeit-now`,
+    //`gatsby-plugin-zeit-now`,
     `gatsby-plugin-sitemap`,
     {
       resolve: `gatsby-plugin-google-analytics`,
