@@ -70,7 +70,7 @@ export const ProductPreview = (product) => {
 
           {inStock && <Text sx={{ color: 'secondary', display: 'inline-block', mr: 2 }}>{t('shop:in_stock')}</Text>}
           {resupplying && <Text sx={{ color: 'orange', display: 'inline-block', mr: 2 }}>{t('shop:resupplying')}</Text>}
-          {inStock && (
+          {(inStock || resupplying) && (
             <AddToCart
               id={id}
               title={title}
