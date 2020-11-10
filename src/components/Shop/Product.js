@@ -149,7 +149,7 @@ export const Product = product => {
             <SRLWrapper options={options}>
               <Grid gap={3} columns={2} sx={{mt: 3}}>
                 {thumbs.map(i => (
-                  <Img key={i && i.src} fluid={i} />
+                  <Img key={i && i.src} fluid={i} sx={{':hover': {cursor: 'pointer'}}} />
                 ))}
               </Grid>
             </SRLWrapper>
@@ -266,7 +266,7 @@ export const Product = product => {
                   <span sx={{color: 'tomato'}}>Livraison offerte</span> à partir de 10€, en 3 jours chez vous
                 </Trans>
               )}
-              {resupplying && (
+              {resupplying && resupplyingDateFormatted && (
                 <Trans i18nKey="shop:delivery_on" resupplyingDateFormatted={resupplyingDateFormatted}>
                   Livré approximativement chez vous le <span sx={{color: 'tomato'}}>{{resupplyingDateFormatted}}</span>.
                 </Trans>

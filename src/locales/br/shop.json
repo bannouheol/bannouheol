@@ -26,6 +26,6 @@
   "order_form_message": "N'ho peus ket c'hoant da urzhiadiñ enlinenn ? Kudenn ebet, leugnit ar <1>baperenn urzhiadiñ-mañ</3> ha kasit anezhi deomp !",
   "latest_products": "Nevezentioù",
   "resupplying": "War adpourvezañ",
-  "delivery_on": "Degaset deoc'h war-dro an <2>{{resupplyingDateFormatted}}</2>.",
+  "delivery_on": "Degaset deoc'h war-dro an <1>{{resupplyingDateFormatted}}</1>.",
   "to_complete_your_order": "Evit klokaat hoc'h urzhiad"
 }
