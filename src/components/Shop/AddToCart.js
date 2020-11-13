@@ -15,11 +15,13 @@ export const AddToCart = ({ id, title, price, url, description, image, discrete 
       data-item-description={description}
       data-item-image={image}
       variant={discrete ? "discrete" : "primary"}
-      //sx={{ bg: "secondary", "&:hover": { bg: "tomato" } }}
+      sx={{  }}
       {...props}
     >
       {!discrete && <IoIosCart />}
+      <span sx={{pl: !discrete ? 2 : 0}}>
       {discrete ? t("shop:buy") : t("shop:add_to_cart")}
+      </span>
     </Button>
   )
 }

@@ -108,7 +108,6 @@ const ProductPage = ({data, errors, ...props}) => {
         <Box mt={1}>
           <Styled.h4>
             {t('shop:to_complete_your_order')}
-            {` :`}
           </Styled.h4>
           <Products nodes={goodiesNodes} />
         </Box>
