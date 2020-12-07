@@ -56,7 +56,7 @@
     "react-text-truncate": "^0.16.0",
     "react-youtube": "^7.13.0",
     "simple-react-lightbox": "3.3.4-2",
-    "theme-ui": "0.4.0-rc.12",
+    "theme-ui": "0.4.0-rc.14",
     "video-react": "^0.14.1"
   },
   "devDependencies": {
