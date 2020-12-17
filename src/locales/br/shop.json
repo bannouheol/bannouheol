@@ -24,6 +24,7 @@
   "minimum_age_bloaz": "Adalek {{minimum_age}} bloaz",
   "free_shipping_message": "<0>Degasadenn profet</0> adalek 10 €, dindan 3 devezh du-se",
   "order_form_message": "N'ho peus ket c'hoant da urzhiadiñ enlinenn ? Kudenn ebet, leugnit ar <1>baperenn urzhiadiñ-mañ</3> ha kasit anezhi deomp !",
+  "selected_products": "Dibab Nedeleg",
   "latest_products": "Nevezentioù",
   "resupplying": "War adpourvezañ",
   "delivery_on": "Degaset deoc'h war-dro an <1>{{resupplyingDateFormatted}}</1>.",

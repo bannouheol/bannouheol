@@ -22,15 +22,18 @@ const IndexPage = ({data, errors, ...props}) => {
       </Layout>
     )
   }
-  const {homePage, posts, products} = translateRaw(data, language)
+  const {homePage, posts, selectedProducts, latestProducts} = translateRaw(data, language)
   const postNodes = posts && mapEdgesToNodes(data.posts)
-  const productNodes = products && mapEdgesToNodes(products)
+  const latestProductNodes = latestProducts && mapEdgesToNodes(latestProducts)
+  const selectedProductsNodes = selectedProducts && mapEdgesToNodes(selectedProducts)
   return (
     <Layout {...props}>
       <SEO title={homePage.title} />
       {homePage.content && <PortableText blocks={homePage.content} />}
+      <Styled.h2>{t(`shop:selected_products`)}</Styled.h2>
+      {selectedProductsNodes && selectedProductsNodes.length > 0 && <Products nodes={selectedProductsNodes} sx={{mt: 3}} />}
       <Styled.h2>{t(`shop:latest_products`)}</Styled.h2>
-      {productNodes && productNodes.length > 0 && <Products nodes={productNodes} sx={{mt: 3}} />}
+      {latestProductNodes && latestProductNodes.length > 0 && <Products nodes={latestProductNodes} sx={{mt: 3}} />}
       <Styled.h2>{t(`news`)}</Styled.h2>
       {postNodes && postNodes.length > 0 && <Posts nodes={postNodes} />}
     </Layout>
@@ -52,11 +55,21 @@ export const query = graphql`
         }
       }
     }
-    products: allSanityProduct(
+    latestProducts: allSanityProduct(
       sort: {order: [DESC, DESC], fields: [releaseDate]}
       filter: {slug: {fr: {current: {ne: null}}, br: {current: {ne: null}}}, _id: {regex: "/^(?!draft)/"}}
       limit: 12
     ) {
+      edges {
+        node {
+          ...productPreviewFields
+        }
+      }
+    }
+    selectedProducts: allSanityProduct(
+      filter: {title: {fr: {in: ["Kan ar Bed - Livre-CD", "Kan ar Bed - CD", "Le Sens de la vie", "A Mouse called Julian", "L'Enfant des étoiles", "L'imagier breton-anglais de Petit Ours Brun"]}}}
+      sort: {order: [DESC, DESC], fields: [releaseDate]}
+      ) {
       edges {
         node {
           ...productPreviewFields
