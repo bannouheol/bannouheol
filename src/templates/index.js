@@ -67,7 +67,7 @@ export const query = graphql`
       }
     }
     selectedProducts: allSanityProduct(
-      filter: {title: {fr: {in: ["Kan ar Bed - Livre-CD", "Kan ar Bed - CD", "Le Sens de la vie", "A Mouse called Julian", "L'Enfant des étoiles", "L'imagier breton-anglais de Petit Ours Brun"]}}}
+      filter: {title: {fr: {in: ["Kan ar Bed - Livre-CD", "Kan ar Bed - CD", "Le Sens de la vie", "Míp", "L'Enfant des étoiles", "L'imagier breton-anglais de Petit Ours Brun"]}}}
       sort: {order: [DESC, DESC], fields: [releaseDate]}
       ) {
       edges {
