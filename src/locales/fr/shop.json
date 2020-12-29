@@ -24,7 +24,7 @@
   "minimum_age_bloaz": "Dès l'âge de {{minimum_age}} ans",
   "free_shipping_message": "<0>Livraison offerte</0> à partir de 10 €, en 3 jours chez vous",
   "order_form_message": "Vous ne souhaitez pas commander en ligne ? Pas de problème, remplissez ce <1>bon de commande</3> et renvoyez-le nous !",
-  "selected_products": "Sélection de Noël",
+  "selected_products": "Sélection du moment",
   "latest_products": "Nouveautés",
   "resupplying": "En réapprovisionnement",
   "delivery_on": "Livré approximativement chez vous le <1>{{resupplyingDateFormatted}}</1>.",
