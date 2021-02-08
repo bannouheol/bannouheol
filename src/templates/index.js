@@ -67,7 +67,7 @@ export const query = graphql`
       }
     }
     selectedProducts: allSanityProduct(
-      filter: {title: {fr: {in: ["Kan ar Bed - Livre-CD", "Kan ar Bed - CD", "Le Sens de la vie", "L'imagier breton-anglais de Petit Ours Brun", "L'Enfant des étoiles", "Lili, au lit !"]}}}
+      filter: {title: {fr: {in: ["Kan ar Bed - Livre-CD", "Bwouf ! Allo Bill ?", "The Hobbit (relié)", "L'imagier breton-anglais de Petit Ours Brun", "Les 12 travaux d'Astérix & Astérix et Cléopâtre", "Lili, au lit !"]}}}
       sort: {order: [DESC, DESC], fields: [releaseDate]}
       ) {
       edges {
