@@ -13852,10 +13852,10 @@ simple-get@^4.0.0:
     once "^1.3.1"
     simple-concat "^1.0.0"
 
-simple-react-lightbox@3.6.3:
-  version "3.6.3"
-  resolved "https://registry.yarnpkg.com/simple-react-lightbox/-/simple-react-lightbox-3.6.3.tgz#94b2e7057c1dfdac1fa63e133f63da6f493c91ce"
-  integrity sha512-P64kED3pR77Ck380g1qqv5OZfWkZDgjcjG/1JPNnf8Iv6qVrfdNuuCSwGhv2RO4sMsk6Jldljjk/7gPk+Z2L4g==
+simple-react-lightbox@3.6.1:
+  version "3.6.1"
+  resolved "https://registry.yarnpkg.com/simple-react-lightbox/-/simple-react-lightbox-3.6.1.tgz#f62f2ad1c45336161e7adae2d09c5ea27dc55f10"
+  integrity sha512-WfbEdSJHvexjPdBQ5UgaH8/dNKaSF+S99EfbPWkSMz6pwQHu4cj3VHEPu1Iz/s3QwRljnEd9vqK1xXkuRSUd0A==
   dependencies:
     body-scroll-lock "^3.1.5"
     fast-deep-equal "^3.1.3"
