@@ -28,5 +28,6 @@
   "latest_products": "Nevezentioù",
   "resupplying": "War adpourvezañ",
   "delivery_on": "Degaset deoc'h war-dro an <1>{{resupplyingDateFormatted}}</1>.",
-  "to_complete_your_order": "Evit klokaat hoc'h urzhiad"
+  "to_complete_your_order": "Evit klokaat hoc'h urzhiad",
+  "publishing_house": "Ti-embann"
 }

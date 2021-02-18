@@ -28,5 +28,6 @@
   "latest_products": "Nouveautés",
   "resupplying": "En réapprovisionnement",
   "delivery_on": "Livré approximativement chez vous le <1>{{resupplyingDateFormatted}}</1>.",
-  "to_complete_your_order": "Pour compléter votre commande"
+  "to_complete_your_order": "Pour compléter votre commande",
+  "publishing_house": "Maison d'édition"
 }

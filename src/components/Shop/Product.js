@@ -217,7 +217,11 @@ export const Product = product => {
                 .reduce((acc, el) => {
                   return acc === null ? [el] : [...acc, ' - ', el]
                 }, null)}
-            {vendor && <p>Maison d'édition : {vendor}</p>}
+            {vendor && (
+              <p>
+                {t('shop:publishing_house')} : {vendor}
+              </p>
+            )}
           </Box>
           {body && <PortableText blocks={body} />}
           <Box mt={2}>
