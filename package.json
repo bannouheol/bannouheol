@@ -19,7 +19,7 @@
     "gatsby-plugin-algolia": "^0.16.3",
     "gatsby-plugin-catch-links": "^2.10.0",
     "gatsby-plugin-csv-feed": "^2.0.0",
-    "gatsby-plugin-feed": "^2.13.0",
+    "gatsby-plugin-feed": "^2.13.1",
     "gatsby-plugin-google-analytics": "2.11.0",
     "gatsby-plugin-mailchimp": "^5.2.2",
     "gatsby-plugin-manifest": "^2.12.0",
