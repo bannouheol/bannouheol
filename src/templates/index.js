@@ -67,7 +67,7 @@ export const query = graphql`
       }
     }
     selectedProducts: allSanityProduct(
-      filter: {title: {fr: {in: ["Kan ar Bed - Livre-CD", "Bwouf ! Allo Bill ?", "Le secret du chat", "L'imagier breton-anglais de Petit Ours Brun", "Les 12 travaux d'Astérix & Astérix et Cléopâtre", "Fililoup chevalier"]}}}
+      filter: {title: {fr: {in: ["Kan ar Bed - Livre-CD", "Piccolophilo, c’est à moi !", "Le secret du chat", "L'imagier breton-anglais de Petit Ours Brun", "Les 12 travaux d'Astérix & Astérix et Cléopâtre", "Fililoup chevalier"]}}}
       sort: {order: [DESC, DESC], fields: [releaseDate]}
       ) {
       edges {
